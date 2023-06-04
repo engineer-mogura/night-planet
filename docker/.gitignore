@@ -1,0 +1,5 @@
+/minio/config/*
+/minio/data/*
+/minio/export/*
+
+/db/old_dump/*

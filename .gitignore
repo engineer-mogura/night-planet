@@ -1,0 +1,70 @@
+# developer dir #
+##########################
+/developer/work/*
+# backup dir #
+##########################
+!/np_backup/empty
+/np_backup/*
+# nginx dir #
+##########################
+/nginx/logs/*
+# 重要ファイル #
+##########################
+/service-account-credentials.json
+/.env**
+##########################
+# CakePHP specific files #
+##########################
+/config/app_local.php
+/config/.env
+/config/googles/*
+/tmp/*
+/vendor/*
+/webroot/tmp/**/
+# CakePHP logs #
+##########################
+!/logs/*
+/logs/*
+!/logs/.gitkeep
+!/logs/batch_ar/
+/logs/batch_ar/*
+!/logs/batch_ar/.gitkeep
+!/logs/batch_bk/
+/logs/batch_bk/*
+!/logs/batch_bk/.gitkeep
+!/logs/batch_snpr/
+/logs/batch_snpr/*
+!/logs/batch_snpr/.gitkeep
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+.directory
+
+# Tool specific files #
+#######################
+# vim
+*~
+*.swp
+*.swo
+# sublime text & textmate
+*.sublime-*
+*.stTheme.cache
+*.tmlanguage.cache
+*.tmPreferences.cache
+# Eclipse
+.settings/*
+# JetBrains, aka PHPStorm, IntelliJ IDEA
+.idea/*
+# NetBeans
+nbproject/*
+# Visual Studio Code
+#.vscode
+# Sass preprocessor
+.sass-cache/

@@ -1,0 +1,27 @@
+/** オプション メニュー色 START **/
+#menu-section.option-menu-color-white .linkbox {
+  background-color: #ffffff !important;
+}
+#menu-section.option-menu-color-pink .linkbox {
+  background-color: #f8bbd0 !important;
+}
+#menu-section.option-menu-color-yellow .linkbox {
+  background-color: #fffe00 !important;
+}
+#menu-section.option-menu-color-perple .linkbox {
+  background-color: #df47ff !important;
+}
+#menu-section.option-menu-color-green .linkbox {
+  background-color: #8eff9f !important;
+}
+#menu-section.option-menu-color-blue .linkbox {
+  background-color: #388bff !important;
+}
+#menu-section.option-menu-color-red .linkbox {
+  background-color: #ff4372 !important;
+}
+#menu-section .grey.linkbox {
+  background-color: #9F9F9F !important;
+}
+
+/** オプション メニュー色 END **/

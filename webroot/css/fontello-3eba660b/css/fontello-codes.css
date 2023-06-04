@@ -1,0 +1,9 @@
+
+.icon-instagram:before { content: '\e800'; } /* '' */
+.icon-twitter:before { content: '\e801'; } /* '' */
+.icon-comment-alt:before { content: '\e802'; } /* '' */
+.icon-facebook-rect:before { content: '\f301'; } /* '' */
+.icon-twitter-bird:before { content: '\f303'; } /* '' */
+.icon-googleplus-rect:before { content: '\f309'; } /* '' */
+.icon-tumblr-rect:before { content: '\f310'; } /* '' */
+.icon-linkedin-rect:before { content: '\f312'; } /* '' */

@@ -1,0 +1,2858 @@
+html {
+  /* font-family: GillSans, Calibri, Trebuchet, sans-serif; */
+  font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+
+  color: #595958;
+}
+html,
+body {
+  -webkit-overflow-scrolling: touch;
+}
+.container {
+  width: 94.5%;
+}
+.side-nav__user-view {
+  /*font-family: fantasy;*/
+}
+.side-nav__user-view__img {
+  object-fit: cover;
+}
+.entry.container {
+  padding: initial;
+}
+
+.other.container {
+  padding: initial;
+}
+
+body.fixed {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+.nav-wrapper,
+.container,
+footer {
+  padding-left: 300px;
+}
+footer.page-footer .footer-item,
+footer.page-footer .footer-description {
+  /* background-image: url(http://127.0.0.1:9090/night-planet/others/obi3.jpg); */
+  background-color: #333333;
+  color: white;
+}
+footer.page-footer .footer-item span {
+  vertical-align: middle;
+  display: inline-flex;
+}
+footer.page-footer .footer-item span i {
+  margin-right: 10px;
+}
+nav.nav-breadcrumb {
+  margin: 10px 0;
+  display: table;
+}
+.nav-wrapper.nav-wrapper-oki {
+  padding-left: initial;
+}
+.nav-wrapper.nav-wrapper-oki div {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/obi3.jpg);
+  height: 100%;
+  width: 100%;
+}
+li > a.sideNav-active {
+  color: initial;
+  color: #fff;
+  background-color: #26a69a;
+}
+span.logo-head-color {
+  color: #f9a500;
+  font-size: larger;
+}
+.brand-logo.oki-brand-logo {
+  /*font-family: fantasy;*/
+}
+span.area-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+span.area-logo-tail {
+  font-size: 1.4rem;
+  font-weight: initial;
+}
+.breadcrumbs-tail {
+  pointer-events: none;
+}
+.page-footer {
+  padding-top: 20px;
+  color: initial;
+  background-image: url(http://127.0.0.1:9090/night-planet/others/obi3.jpg);
+  background-color: #3e3e3e;
+}
+.page-footer .card-panel {
+  padding: 10px;
+}
+.footer-copyright.oki-footer-copyright {
+  display: block;
+  text-align: -webkit-center;
+}
+a.grey-text.link-box.text-lighten-3.collection-item {
+  background-color: initial;
+  border: 1px solid #e0e0e0;
+}
+.collection a.collection-item:not(.active):hover {
+  background-color: #ddd;
+}
+
+li.search.col.s12 > a,
+li.search.col.s3 > a {
+  width: 100%;
+}
+/* 検索モーダル START */
+.modal-search__input-field {
+  margin: initial;
+}
+.modal-search__input-field .dropdown-content li {
+  height: 35px;
+  min-height: 35px;
+}
+.modal-search__form__div {
+  font-size: xx-small;
+}
+/* 検索モーダル END */
+span.notice {
+  vertical-align: super;
+}
+
+/* お知らせバー START */
+#info-marquee > .col {
+  padding: 0;
+}
+
+#info-marquee ul {
+  display: block;
+  margin: 0;
+  border: none;
+  list-style: none;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  width: 100%;
+  height: 50px;
+  -webkit-box-sizing: border-box;
+  background-color: initial;
+  box-sizing: border-box;
+}
+#info-marquee ul li {
+  /* required styles */
+  position: absolute;
+  top: -999em;
+  left: 0;
+  display: table;
+  width: 100%;
+  white-space: nowrap; /* keep all text on a single line */
+  /* optional styles for appearance */
+  padding: 10px 0;
+  margin: 0;
+  height: 48px;
+  vertical-align: middle;
+}
+
+#info-marquee a {
+  vertical-align: -webkit-baseline-middle;
+}
+
+/* お知らせバー END */
+
+/* ヘッダー固定 START */
+nav#nav-header-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  transition: 0.3s;
+  background-image: url(http://127.0.0.1:9090/night-planet/others/obi3.jpg);
+}
+div.nav-header-cron-dummy {
+  height: 64px;
+  width: 100%;
+}
+nav.nav-opacity {
+  opacity: 0.8; /* 透過度を適宜指定してください */
+  /* background-color: rgba(0, 0, 0, 0.55); */
+}
+nav {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/obi3.jpg);
+  color: #fff;
+  background-color: #3e3e3e;
+}
+ul.right.nav-right {
+  position: absolute;
+  right: 0;
+  height: 100%;
+}
+ul.right.nav-right li {
+  margin-right: 0.5em;
+  width: 4em;
+  text-align: center;
+  height: 100%;
+}
+ul.right.nav-right li:nth-child(2) {
+  width: 4.3em;
+  height: 100%;
+}
+ul.right.nav-right li span {
+  display: block;
+  position: absolute;
+  font-size: xx-small;
+  top: 2em;
+  height: 50%;
+}
+.nav-search__label,
+.nav-account-login__label {
+  position: relative;
+  font-size: xx-small;
+  bottom: 4em;
+  height: 10px;
+}
+ul.right.nav-right li.nav-search a {
+  color: #ffa8e4;
+}
+ul.right.nav-right li.nav-account-login span {
+
+}
+ul.right.nav-right li.nav-account-login.unlock a {
+  color: #89d9ff;
+}
+/* ヘッダー固定 END */
+/* ボトムナビゲーション START */
+/* スマホ以外は非表示 */
+.bottom-sticky-nav {
+  display: none;
+}
+/* ボトムナビゲーション END */
+
+/* トップへスクロールボタン START */
+#return_top {
+  display: none;
+  position: fixed;
+  bottom: 95px;
+  right: 25px;
+  z-index: 990;
+}
+#return_top a {
+  display: block;
+  width: 55px;
+  height: 55px;
+  text-decoration: none;
+  background: #b69e84;
+  border-radius: 50%;
+  opacity: 0.3;
+}
+/* トップへスクロールボタン END */
+
+/* ローディング START */
+
+.preloader-wrapper {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  margin: auto;
+  z-index: 1999;
+}
+
+.pace-running .wrap {
+  display: none;
+}
+
+/* ローディング END */
+
+/* アニメーション START */
+
+/* プルプル */
+.purupuru {
+  animation: purupuru 0.8s linear infinite alternate;
+}
+
+@keyframes purupuru {
+  0%   { transform: scale(1.0, 1.0) translate(0%, 0%); }
+  20%  { transform: scale(1.0, 1.06) translate(-5%, -4%) skew(6deg, 0deg); }
+  50%  { transform: scale(1.0, 0.94) translate(5%, 4%) skew(-6deg, 0deg); }
+  65%  { transform: scale(1.0, 1.03) translate(2%, -2%) skew(-3deg, 0deg); }
+  80%  { transform: scale(1.0, 0.97) translate(-2%, 2%) skew(3deg, 0deg); }
+  100% { transform: scale(1.0, 1.0) translate(0%, 0%); }
+}
+
+/* プヨン */
+.puyon {
+  animation: puyon 2.0s linear infinite alternate;
+}
+
+@keyframes puyon {
+  0% {
+      transform: scale(1, 1) translate(0%, 0%);
+  }
+  40% {
+      transform: scale(0.95, 1.2) translate(0%, -10%);
+  }
+  50% {
+      transform: scale(1.1, 0.9) translate(0%, 5%);
+  }
+  60% {
+      transform: scale(0.95, 1.05) translate(0%, -3%);
+  }
+  70% {
+      transform: scale(1.05, 0.95) translate(0%, 3%);
+  }
+  80% {
+      transform: scale(1, 1) translate(0%, 0%);
+  }
+  100% {
+      transform: scale(1, 1) translate(0%, 0%);
+  }
+}
+
+.bound {
+  animation: bound 0.3s ease infinite alternate;
+}
+
+/* バウンド */
+@keyframes bound {
+  0% {
+      transform: translateY(0px);
+  }
+  100% {
+      transform: translateY(-10px);
+  }
+}
+/* アニメーション END */
+
+.linkbox {
+  position: relative;
+}
+
+.linkbox a {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.linkbox .li-linkbox__a-favorite {
+  right: 0.5em;
+  top: 0.3em;
+  left: initial;
+  width: 3em;
+  height: 3em;
+  z-index: 10;
+}
+.modal-footer__a-favorite {
+  position: absolute;
+  top: 0em;
+  left: 0.5em;
+}
+.linkbox .li-linkbox__a-favorite > i {
+  position: relative;
+  bottom: -0.1em;
+}
+.li-linkbox__a__h6 {
+  position: relative;
+}
+.linkbox .li-linkbox__a-image {
+  position: absolute;
+  top: -1em;
+  left: 10em;
+  width: 2.5em;
+  height: 2.5em;
+  z-index: 10;
+}
+.linkbox .li-linkbox__a-image > i {
+  position: relative;
+  bottom: 0.1em;
+}
+
+/* フラッシュメッセージ系 START */
+
+.checks {
+  padding: 30px;
+  color: #626262;
+  background-color: #b7e3ec;
+  border-radius: 3px;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.24);
+  margin-bottom: 2em;
+}
+
+.checks h4 {
+  margin-bottom: 1.5rem;
+}
+
+.checks hr {
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.checks .success,
+.checks .problem {
+  margin-left: 10px;
+}
+.checks .success:before,
+.checks .problem:before {
+  line-height: 0px;
+  font-size: 28px;
+  height: 12px;
+  width: 12px;
+  border-radius: 15px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+  left: -11px;
+}
+
+.checks .success:before {
+  content: "✓";
+  color: green;
+  margin-right: 9px;
+}
+
+div.message.hidden {
+  height: 0;
+}
+div.message {
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  font-weight: normal;
+  padding: 0 1.5rem 0 1.5rem;
+  transition: height 300ms ease-out 0s;
+  background-color: #a0d3e8;
+  color: #626262;
+  top: 15px;
+  right: 15px;
+  z-index: 999;
+  overflow: hidden;
+  /* height: 50px; */
+  line-height: 2.5em;
+}
+
+div.message:before {
+  line-height: 0px;
+  font-size: 20px;
+  height: 12px;
+  width: 12px;
+  border-radius: 15px;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+  position: relative;
+  left: -11px;
+  background-color: #fff;
+  padding: 12px 14px 12px 10px;
+  content: "i";
+  color: #a0d3e8;
+}
+
+div.message.error {
+  background-color: #c3232d;
+  color: #fff;
+}
+
+div.message.error:before {
+  padding: 11px 16px 14px 7px;
+  color: #c3232d;
+  content: "x";
+}
+div.message.hidden {
+  height: 0;
+}
+
+form .error-message {
+  display: block;
+  padding: 0.375rem 0.5625rem 0.5625rem;
+  margin-top: -1px;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  font-weight: normal;
+  font-style: italic;
+  color: #c3232d;
+}
+
+div.message.warning {
+  background-color: #e88b00;
+  color: #fff;
+}
+
+div.message.warning:before {
+  padding: 11px 16px 14px 7px;
+  color: #e88b00;
+  content: "x";
+}
+div.message.hidden {
+  height: 0;
+}
+
+form .warning-message {
+  display: block;
+  padding: 0.375rem 0.5625rem 0.5625rem;
+  margin-top: -1px;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  font-weight: normal;
+  font-style: italic;
+  color: #e88b00;
+}
+
+/* フラッシュメッセージ系 END */
+
+/* PhotoSwipe START */
+.my-gallery > figure {
+  margin: initial;
+}
+/* 1列画像 */
+.grid1.my-gallery > figure {
+  float: left;
+  width: initial;
+  margin: 0;
+  margin: 0;
+}
+/* 2列画像 */
+.grid2.my-gallery > figure {
+  float: left;
+  margin: 0;
+  width: 50%;
+  margin: 0;
+}
+/* 3列画像 */
+.grid3 figure {
+  float: left;
+  margin: 0;
+  width: 33.333333333333%;
+  width: initial;
+  margin: 0;
+}
+/* 3列画像 */
+.my-gallery figure {
+  float: left;
+  margin: 0;
+  width: 33.333333333333%;
+  margin: 0;
+}
+.my-gallery figure.col {
+  padding: initial;
+}
+.my-gallery figure img {
+  display: list-item;
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-b;
+  border: solid #fff 1px;
+}
+/* PhotoSwipe END */
+
+/* ランキング START */
+.my-ranking > figure {
+  margin: initial;
+}
+.my-ranking figure {
+  float: left;
+  margin: 0;
+  width: 25%;
+  margin: 0;
+}
+.my-ranking figure.col {
+  padding: initial;
+}
+.my-ranking figure img {
+  display: list-item;
+  height: 135px;
+  width: 100%;
+  object-fit: cover;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-b;
+  border: solid #fff 1px;
+}
+.my-ranking figure > span.rank {
+  display: block;
+  text-align: center;
+  margin-left: 1px;
+  margin-right: 1px;
+  padding-left: 2px;
+  padding-right: 2px;
+  font-size: 10px;
+  color: #fff;
+  background-color: #307dff;
+  border-radius: 2px;
+}
+.my-ranking figure > span.rank.rank-header {
+  margin-top: 5px;
+}
+/* ランキング END */
+
+/* トップページ画面 START */
+.area-section {
+  /*font-family: fantasy;*/
+}
+.area-section li i {
+  color: mediumslateblue;
+}
+.area-section .secondary-content i {
+  color: crimson;
+}
+.genre-section {
+  /*font-family: fantasy;*/
+}
+.genre-section li i {
+  color: gold;
+}
+
+#top .section.tabs-section {
+  height: 600px;
+}
+#top .count-section .card-panel {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/obi2.png);
+}
+#area .count-section .card-panel {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/obi2.png);
+}
+#top .cast-count span:before,
+#area .cast-count span:before {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-repeat: no-repeat;
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+
+#top .shop-count span:before,
+#area .shop-count span:before {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/shop-icon.png);
+  background-repeat: no-repeat;
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+ul.tabs > li.tab-original.tab {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+ul.tabs > li.tab-original.tab > a {
+  color: #595958;
+  background-color: #b9b7b7;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+ul.tabs > li.tab-original.tab > .active {
+  background-color: #ffbe26;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.tabs-new-info__ul_li__favorite__count {
+  position: absolute;
+  right: 50px;
+  top: 0px;
+}
+.li-linkbox__a-image__count {
+  position: relative;
+  top: -1em;
+  left: 1em;
+}
+
+.area-section__list {
+  position: relative;
+}
+.area-section__list_img_circle__label_left {
+  position: absolute;
+  left: 5px;
+  top: 0;
+}
+.area-section__list_img_circle__label_left > i {
+  font-size: large;
+}
+.area-section__list_img_circle__label_bottom > i {
+  font-size: small;
+}
+.area-section__list_img_circle__label_bottom {
+  position: absolute;
+  right: 5px;
+  top: 6.5em;
+}
+.area-section__list_img_circle.circle {
+  height: 9em;
+  width:  9em;
+}
+/* トップページ画面 END */
+
+/* unknow画面 START */
+#unknow .unknow-image {
+  text-align: center;
+}
+#unknow .unknow-message {
+  font-weight: bold;
+}
+/* unknow画面 END */
+
+/* サブスライダー セクション START */
+.swiper-container.sub-swiper .swiper-wrapper {
+  height: 150px;
+}
+/* サブスライダー セクション END */
+
+/* 新規・ログイン画面 START */
+.or-form-wrap {
+  margin: 0 auto;
+  width: 90%;
+  display: grid;
+}
+.card.or-card {
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.or-button {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+/* 新規・ログイン画面 END */
+
+/* ユーザー START */
+#modal-login {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/507054.png),url(http://127.0.0.1:9090/night-planet/others/obi2.png);
+  background-position-x: right;
+  background-size: 20em 31em, 20% auto;
+  background-repeat: no-repeat, repeat;
+  z-index: 9999;
+}
+.modal-login__modal-content__catch {
+  position: relative;
+  padding: 0.6em;
+  background: -webkit-repeating-linear-gradient(-45deg, #fff5df, #fff5df 4px,#ffe4b1 3px, #ffe4b1 8px);
+  background: repeating-linear-gradient(-45deg, #fff5df, #fff5df 4px,#ffe4b1 3px, #ffe4b1 8px);
+  border-radius: 7px;
+  opacity: 0.7;
+  font-weight: 700;
+  color: firebrick;
+}
+.modal-login__modal-box input::placeholder {
+  color: firebrick;
+  font-size: x-small;
+}
+.modal-login__modal-box .checkbox > label {
+  color: firebrick;
+  font-size: x-small;
+}
+#modal-login .modal-login__modal-footer {
+  background-color: initial;
+}
+.modal-login__modal-box .input-field {
+  width: 80%;
+}
+.modal-login__modal-box__li-remember_me label {
+  font-size: xx-small;
+}
+.modal-login__modal-box__li {
+  margin-top:10px;
+  margin-right: 17px;
+  float: left;
+}
+.modal-login__modal-box__li {
+  margin-top:10px;
+  margin-right: 17px;
+  float: left;
+}
+.modal-login__modal-box__li__input {
+  color: #ff0000;
+  font-weight: bold;
+}
+.modal-login__modal-box__li > button {
+  letter-spacing: initial;
+  padding: 0 1rem;
+}
+.modal-login__modal-box__li > a {
+  letter-spacing: initial;
+  padding: 0 1rem;
+}
+.modal-login__modal-box a,
+.modal-login__modal-box button {
+  font-size: xx-small;
+}
+
+.modal-login__modal-box__li_btn-login {
+  background-color: #ff8d00;
+}
+.modal-login__modal-box__li_btn-forget {
+  background-color: #389aff;
+}
+.modal-login__modal-box__li_btn-signup {
+  background-color: #ff0000;
+}
+/* .modal-login__modal-box__li.signup {
+  width: 100%;
+} */
+/* 検索画面 START */
+.linkbox__card-content {
+  position: relative;
+}
+#search-result {
+  /*font-family: fantasy;*/
+}
+#search-result .linkbox.search-result-card {
+  width: 100%;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.search-result-card:hover {
+  background-color: #fbe9e7;
+  cursor: pointer;
+}
+
+.search-result-card .card-content p {
+  margin-top: 7px;
+}
+.search-word {
+  /*font-family: fantasy;*/
+  border-radius: 15px;
+  padding: 3px 8px;
+  margin: 5px;
+}
+.card-tag {
+  border-radius: 15px;
+  padding: 3px 8px;
+  font-size: xx-small;
+}
+.card-tag.text-size {
+  font-size: medium;
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+}
+
+/* 検索画面 END */
+
+/* ユーザー END */
+
+/* 店舗ページ START */
+
+#shop-main,
+#cast-main,
+#user-main {
+  margin-top: 0.5rem;
+}
+
+div.description {
+  display: -webkit-box;
+  margin: 2em 0 2.5em;
+  padding: 1em 1.5em;
+  line-height: 2;
+  border: 1px dashed #cdcdcd;
+  background: #fcfcfc;
+  box-shadow: 0 1px 3px 0 rgba(195, 195, 195, 0.3);
+}
+/** SHOP HEAD START */
+.shop-head-section {
+  margin-bottom: initial;
+}
+.shop-head {
+  height: 70px;
+}
+.shop-head-line1 {
+  height: 50px;
+}
+.shop-head-line1__ul {
+  margin: initial;
+}
+.shop-head-line1__ul_li {
+  float: left;
+}
+.favorite-add {
+  position: relative;
+  top: 20px;
+  right: 7px;
+}
+.voice-add {
+  position: relative;
+  top: 20px;
+  right: 7px;
+}
+.shop-head-line1__ul_li__voice__count {
+  /*font-family: fantasy;*/
+  position: relative;
+  right: 25px;
+  bottom: 10px;
+}
+.shop-head-line1__ul_li__favorite__count {
+  /*font-family: fantasy;*/
+  position: relative;
+  right: 25px;
+  bottom: 10px;
+}
+.shop-head-line1__ul_li__image__count {
+  /*font-family: fantasy;*/
+  position: relative;
+  bottom: 10px;
+}
+.shop-head-line2 {
+  height: 30px;
+  font-weight: bold;
+  font-size: large;
+}
+/** SHOP HEAD END */
+
+/** SHOP MENU START */
+nav ul a {
+  padding: 0 5px;
+}
+.new-info {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 40px;
+  height: 40px;
+  background-image: url(http://127.0.0.1:9090/night-planet/others/new-icon.png);
+  background-size: contain;
+  vertical-align: middle;
+}
+.menu-section {
+  font-size: x-small;
+}
+.shop-menu .menu-section.coupon:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/coupon-icon.png);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.casts:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.work-schedule:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/girl-working-icon.png);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.event:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/event-icon.jpg);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.cast:before,
+.shop-menu .menu-section.profile:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/user-icon.png);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.instagram:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/instagram-icon.jpg);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.facebook:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/facebook-icon.jpg);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.twitter:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/twitter-icon.svg);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.line:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/line-icon.png);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.diary:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/diary-icon.jpg);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.shop-gallery:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.comment:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/comment-icon.png);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.map:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/map-marker.png);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.recruit:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/recruit-icon.png);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.system:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/system-icon.jpg);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.shop:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/shop-icon.png);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.menu:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/menu-icon.png);
+  background-size: contain;
+  vertical-align: middle;
+}
+.shop-menu .menu-section.shop-gallery:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-size: contain;
+  vertical-align: middle;
+}
+/** SHOP MENU END */
+
+/** SECTION LABEL START */
+#instagram-section {
+  margin-bottom: initial;
+}
+#menu-section .shop-menu-section span:before,
+#menu-section .shop-menu-section span:after,
+#menu-section .staff-menu-section span:before,
+#menu-section .staff-menu-section span:after,
+#menu-section .user-menu-section span:before,
+#menu-section .user-menu-section span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/menu-icon.png);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#menu-section .favorite-label span:before,
+#menu-section .favorite-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/favorite-icon.png);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#p-casts-section .casts-label span:before,
+#p-casts-section .casts-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-repeat: no-repeat;
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#p-casts-section h6,
+#today-member-modal h6 {
+  padding-top: 7px;
+  color: white;
+  height: 30px;
+  border-radius: 32px;
+}
+#p-casts-section h6 span,
+#today-member-modal h6 span {
+  padding-top: 7px;
+  color: slategrey;
+  height: 30px;
+  border-radius: 32px;
+}
+div.row.section > .card-panel {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/obi2.png);
+  background-size: 102%;
+}
+.p-casts-section__list {
+position: relative;
+}
+.p-casts-section__list_img {
+position: absolute;
+right: 0;
+width: 50px;
+}
+.p-casts-section__list img.circle {
+  height: 7em;
+  width:  7em;
+}
+.p-casts-section__p-casts-section__list__icons {
+position: relative;
+bottom: 20px;
+}
+
+.p-casts-section__p-casts-section__list__icons .material-icons {
+  border-radius: 15px;
+  padding-top: 2px;
+  color: white;
+  font-size: large;
+}
+.p-casts-section__list__favorite {
+  position: absolute;
+  right: 0;
+}
+.p-casts-section__p-casts-section__list__name {
+  position: relative;
+  bottom: 1.3em;
+  font-weight: 700;
+  background-color: white;
+  opacity: 0.6;
+}
+.icons__new-icon {
+background-color: red;
+}
+.icons__update-icon {
+background-color: red;
+}
+
+#diary-section .diary-label span:before,
+#diary-section .diary-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/diary-icon.jpg);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#work-section .work-label span:before,
+#work-section .work-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/girl-working-icon.png);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#event-section .event-label span:before,
+#event-section .event-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/event-icon.jpg);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#shop-info-section .shop-info-label span:before,
+#shop-info-section .shop-info-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/system-icon.jpg);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#instagram-section .instagram-label span:before,
+#instagram-section .instagram-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/instagram-icon.jpg);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#facebook-section .facebook-label span:before,
+#facebook-section .facebook-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/facebook-icon.jpg);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#twitter-section .twitter-label span:before,
+#twitter-section .twitter-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/twitter-icon.png);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+/* メイン表示部のスクロール設定 */
+#twitter-section .twitter-box {
+  width: 100%;
+  height: 350px;
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#shop-gallery-section .shop-gallery-label span:before,
+#shop-gallery-section .shop-gallery-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-repeat: no-repeat;
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#cast-gallery-section .cast-gallery-label span:before,
+#cast-gallery-section .cast-gallery-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-repeat: no-repeat;
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#cast-section .cast-profile-label span:before,
+#cast-section .cast-profile-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/user-icon.png);
+  background-repeat: no-repeat;
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#comment-section .comment-label span:before,
+#comment-section .comment-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/comment-icon.png);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#map-section .map-label span:before,
+#map-section .map-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/map-marker.png);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+#recruit-section .recruit-label span:before,
+#recruit-section .recruit-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/recruit-icon.png);
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+.tabs-section2 .trending_up-label span:before,
+.tabs-section2 .trending_up-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/trending_up-icon.png);
+  content: "";
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  vertical-align: middle;
+}
+
+.tabs-section2 .trending_up-label {
+  position: relative;
+  line-height: 2em;
+  text-indent: 2em;
+}
+/* facebook プラグインの最低限の幅 */
+.fb-container {
+  width: 100%;
+  max-width: 500px;
+}
+/** キャラクター設定 START **/
+.tabs-section2 .trending_up-label:after {
+  left: 11.5em;
+  position: absolute;
+  bottom: -15px;
+  content: "";
+  display: inline-block;
+  width: 8em;
+  height: 10em;
+  background-size: contain;
+  background-image: url(http://127.0.0.1:9090/night-planet/others/507054.png);
+  background-repeat: no-repeat;
+}
+#instagram-section .instagram-label:after {
+  left: 11em;
+  position: absolute;
+  bottom: -35px;
+  content: "";
+  display: inline-block;
+  width: 8em;
+  height: 10em;
+  background-size: contain;
+  background-image: url(http://127.0.0.1:9090/night-planet/others/1534417.png);
+  background-repeat: no-repeat;
+}
+/** キャラクター設定 END **/
+
+#instagram-section .instagram-label {
+  position: relative;
+  line-height: 2em;
+  text-indent: 2em;
+}
+
+p.section-label {
+  font-family:;
+  right: 5%;
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  background-size: contain;
+  vertical-align: middle;
+}
+/** SECTION LABEL END */
+
+span.or-header {
+  color: aliceblue;
+}
+.or-header-wrap {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.material-icons.or-material-icons {
+  width: inherit;
+}
+.shop-image {
+  margin-top: 5px;
+}
+.share.right-align {
+  margin-right: 10px;
+}
+.gallery-box {
+  margin: 0 10px;
+}
+.card.diary-card,
+.card.notice-card,
+.card.gallery-card {
+  margin: 0 10px;
+}
+div.card.diary-card .col,
+div.card.notice-card .col {
+  padding: initial;
+}
+.sharer-modal .row .col {
+  margin-top: 10px;
+}
+.sharer-modal .sharer-btn {
+  padding: 0 0.7rem;
+  width: 100%;
+  background-color: initial;
+}
+.sharer-modal .facebook.sharer-btn {
+  background-color: #0077f3;
+}
+.sharer-modal .twitter.sharer-btn {
+  background-color: #5ac2ff;
+}
+.sharer-modal .b_hatena.sharer-btn {
+  background-color: #0f8ace;
+}
+.sharer-modal .line.sharer-btn {
+  background-color: #08ca08;
+}
+span.icon-vertical-align {
+  display: inline-flex;
+}
+.event-section__content {
+  word-wrap: break-word;
+}
+
+/* 店舗ページ END */
+/* スタッフページ START */
+/** STAFF HEAD START */
+.cast-head-section {
+  margin-bottom: initial;
+}
+.cast-head {
+  height: 70px;
+}
+.cast-head-line1 {
+  height: 50px;
+}
+.cast-head-line1__ul {
+  margin: initial;
+}
+.cast-head-line1__ul_li {
+  float: left;
+}
+.favorite-add {
+  position: relative;
+  top: 20px;
+  right: 7px;
+}
+.voice-add {
+  position: relative;
+  top: 20px;
+  right: 7px;
+}
+.cast-head-line1__ul {
+  position: absolute;
+}
+.cast-head-line1__ul_li.cast-icon {
+  position: absolute;
+  bottom: 1.6em;
+}
+.cast-head-line1__ul_li.favorite {
+  margin-left: 1em;
+}
+.cast-head-line1__ul_li__voice__count {
+  /*font-family: fantasy;*/
+  position: relative;
+  right: 45px;
+  bottom: 7px;
+}
+.cast-head-line1__ul_li__favorite__count {
+  /*font-family: fantasy;*/
+  position: relative;
+  right: 65px;
+  bottom: 7px;
+}
+.cast-head-line1__ul_li__image__count {
+  /*font-family: fantasy;*/
+  position: relative;
+  bottom: 7px;
+}
+
+.cast-head-line2 {
+  height: 30px;
+  font-weight: bold;
+  font-size: large;
+}
+.cast-head-line2__ul {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.cast-head-line2__ul_li__day-work__status {
+  display: block;
+  font-size: small;
+  font-weight: bolder;
+  color: coral;
+  float: right;
+}
+/** STAFF HEAD END */
+
+.cast-header .cast-name-box {
+  color: slategrey;
+}
+.cast-header .count-box {
+  padding-top: 6px;
+  /* color: white;
+background-color: #fb8c00; */
+  height: 30px;
+  border-radius: 32px;
+}
+.cast-header span.header-diary:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 20px; /*画像の幅*/
+  height: 20px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/diary-icon.jpg);
+  background-size: contain;
+  vertical-align: middle;
+}
+.casts-header span.header-casts:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 20px; /*画像の幅*/
+  height: 20px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+
+.cast-header span.header-gallery:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 20px; /*画像の幅*/
+  height: 20px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+#p-casts-section .casts-label span:before,
+#p-casts-section .casts-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-repeat: no-repeat;
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+.cast-header span.header-working {
+  font-weight: bolder;
+  color: crimson;
+}
+
+/* スタッフページ END */
+
+/* 日記ページ START */
+.diary-card .my-gallery .col {
+  padding: initial;
+}
+
+.like-field .like-field-span {
+  margin-left: 0.5rem;
+}
+
+/* 日記ページ END */
+
+/* ユーザーページ START */
+.user-head-section {
+  position: relative;
+  margin-bottom: initial;
+}
+.user-head-section__content {
+  display: grid;
+}
+.user-head {
+  height: 70px;
+  position: relative;
+}
+.user-head-line1__ul_li {
+  float: left;
+  margin-left: 2em;
+  /*font-family: fantasy;*/
+}
+.user-head-line2 {
+  height: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: -4.5em;
+}
+.user-head-line2__ul {
+  margin: initial;
+}
+.user-head-line2__ul_li {
+  float: left;
+}
+.favorite-num {
+  position: relative;
+  top: 20px;
+  right: 10px;
+}
+.voice-num {
+  position: relative;
+  top: 20px;
+  right: 10px;
+}
+.user-head-line2__ul {
+  position: absolute;
+  left: 1.5em;
+  /*font-family: fantasy;*/
+}
+.user-head-line2__ul_li.user-icon {
+  position: absolute;
+  bottom: 2.4em;
+}
+.user-head-line2__ul_li.favorite {
+  margin-left: 1em;
+}
+.user-head-line2__ul_li__voice__count {
+  position: relative;
+  bottom: 10px;
+}
+.user-head-line2__ul_li__favorite__count {
+  position: relative;
+  bottom: 10px;
+}
+.user-head-line2__ul_li__image__count {
+  position: relative;
+  bottom: 10px;
+}
+.user-head-line2__ul_li.day-work {
+  margin-left: 3em;
+}
+.user-head-line2__ul_li__day-work__status {
+  font-weight: bolder;
+  color: coral;
+}
+.user-head-line2 {
+  height: 30px;
+  font-weight: bold;
+  font-size: large;
+}
+
+.user-header .user-name-box {
+  color: slategrey;
+}
+.user-header .count-box {
+  padding-top: 6px;
+  /* color: white;
+background-color: #fb8c00; */
+  height: 30px;
+  border-radius: 32px;
+}
+.user-header span.header-diary:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 20px; /*画像の幅*/
+  height: 20px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/diary-icon.jpg);
+  background-size: contain;
+  vertical-align: middle;
+}
+.users-header span.header-users:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 20px; /*画像の幅*/
+  height: 20px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+
+.user-header span.header-gallery:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 20px; /*画像の幅*/
+  height: 20px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+#p-users-section .users-label span:before,
+#p-users-section .users-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-repeat: no-repeat;
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+.user-header span.header-working {
+  font-weight: bolder;
+  color: crimson;
+}
+.user-header .user-name-box {
+  color: slategrey;
+}
+.user-header .count-box {
+  padding-top: 6px;
+  /* color: white;
+background-color: #fb8c00; */
+  height: 30px;
+  border-radius: 32px;
+}
+.user-header span.header-diary:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 20px; /*画像の幅*/
+  height: 20px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/diary-icon.jpg);
+  background-size: contain;
+  vertical-align: middle;
+}
+.users-header span.header-users:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 20px; /*画像の幅*/
+  height: 20px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+
+.user-header span.header-gallery:before {
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 20px; /*画像の幅*/
+  height: 20px; /*画像の高さ*/
+  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  vertical-align: middle;
+}
+#p-users-section .users-label span:before,
+#p-users-section .users-label span:after {
+  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-repeat: no-repeat;
+  content: ""; /*何も入れない*/
+  display: inline-block; /*忘れずに！*/
+  width: 30px; /*画像の幅*/
+  height: 30px; /*画像の高さ*/
+  background-size: contain;
+  vertical-align: middle;
+}
+.user-header span.header-working {
+  font-weight: bolder;
+  color: crimson;
+}
+.favo-list-section__ul__li__favorite {
+  position: absolute;
+  right: 5px;
+  bottom: 10px;
+}
+.favo-list-section__ul__li__favorite-count {
+  position: absolute;
+  right: 45px;
+  bottom: 10px;
+}
+.avatar img {
+  object-fit: cover;
+}
+/* ユーザーページ END */
+
+/* テーブル系共通 START */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table tr {
+  border-bottom: solid 2px white;
+}
+
+table tr:last-child {
+  border-bottom: none;
+}
+
+table th {
+  position: relative;
+  text-align: left;
+  width: 30%;
+  background-color: #00b0ff;
+  color: white;
+  text-align: center;
+  /* padding: 10px 0 ; */
+  font-weight: initial;
+}
+
+table td {
+  text-align: left;
+  width: 70%;
+  /*text-align: center;*/
+  /*background-color: #eee;*/
+  padding: 10px 5px;
+}
+/* テーブル系共通 END */
+
+/* リンク系共通 START */
+.side-nav li > a.btn-disabled {
+  color: #c3c3c3;
+  pointer-events: none; /* aタグのリンクを無効にする */
+  cursor: default; /* マウスオーバー時のカーソルをdefaultに固定 */
+  text-decoration: none; /* 下線等を消す。 */
+}
+/* テーブル系共通 END */
+
+/* 店舗編集ページ START */
+.edit-menu {
+  margin-top: 10px;
+}
+a.modal-trigger.edit-help {
+  vertical-align: middle;
+}
+body,
+#wrapper {
+  display: block;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+}
+
+#show-top-image img {
+  background-color: gray;
+  object-fit: cover;
+}
+
+tbody.tbody-coupon-group:before,
+tbody.tbody-cast-group:before {
+  content: "";
+  height: 1px;
+  width: 100%;
+  padding: 2px 0;
+  display: block;
+}
+
+.chip-dummy {
+  pointer-events: auto;
+  display: inline-block;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  background-color: #e4e4e4;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+.chip-dummy > img {
+  float: left;
+  margin: 0 8px 0 -12px;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+}
+.chip-dummy:hover:hover {
+  background-color: #26a69a;
+  color: white;
+  cursor: pointer;
+}
+.chip-dummy.back-color.back-color {
+  background-color: #26a69a;
+  color: white;
+}
+li.daylist,
+li.eventlist {
+  float: left;
+  margin-left: 60px;
+}
+.materialboxed.materialboxed-gallery {
+  display: list-item;
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-b;
+  border: solid #fff 1px;
+}
+
+/* 店舗編集ページ END */
+/* スタッフ編集ページ START */
+
+.oki-new {
+  margin-left: auto;
+  z-index: 999;
+  position: absolute;
+}
+/* スタッフ編集ページ END */
+
+/* モーダル日記 お知らせ START */
+#modal-diary,
+#modal-notice,
+#modal-news {
+  word-break: break-all;
+}
+#view-diary .my-gallery,
+#view-notice .my-gallery,
+#view-news .my-gallery {
+    margin-top: 1rem;
+}
+.diary-list p.content,
+#modal-diary p.content,
+.notice-list p.content,
+#modal-notice p.content,
+.news-list p.content,
+#modal-news p.content {
+    margin-top: 10px;
+}
+#modal-diary .fixed-action-btn.modal-more-horiz,
+#modal-notice .fixed-action-btn.modal-more-horiz,
+#modal-news .fixed-action-btn.modal-more-horiz {
+    position: relative;
+}
+#modal-diary .fixed-action-btn.modal-more-horiz > a,
+#modal-notice .fixed-action-btn.modal-more-horiz > a,
+#modal-news .fixed-action-btn.modal-more-horiz > a {
+    top: 15px;
+}
+.modal-footer__a-favorite__count {
+  position: absolute;
+  left: 50px;
+}
+/* モーダル日記 お知らせ END */
+
+/* カラー共通 START */
+.color-blue {
+  color: cornflowerblue;
+}
+/* カラー共通 END */
+
+/* フォーム共通 START */
+textarea {
+  overflow-y: auto;
+}
+textarea::-webkit-scrollbar {
+  display: none;
+}
+
+form .message-label {
+  display: block;
+  padding: 0.375rem 0.5625rem 0.5625rem;
+  margin-top: -1px;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* フォーム共通 END */
+
+/* 画像共通 START */
+.shop-box .card .card-image img {
+  object-fit: cover;
+}
+#shop-main img {
+  object-fit: cover;
+}
+#cast-main img {
+  object-fit: cover;
+}
+#user-main img {
+  object-fit: cover;
+}
+/* 画像共通 END */
+
+/* 共通 START */
+.casts-section__list__favorite__count {
+  position: absolute;
+  right: 3px;
+  top: -17px;
+}
+.search-result__like-count {
+  position: relative;
+  bottom: 20px;
+}
+
+/* 共通 END */
+
+/** 出勤管理テーブル START */
+#work-schedule-management .table-wrap {
+  overflow-y: scroll;
+  height: 600px;
+}
+#work-schedule-management table tr.tr-header th {
+  /* tbody内のセルより手前に表示する */
+  z-index: 1;
+  width: initial;
+}
+#work-schedule-management table tbody tr th {
+  /* 横スクロール時に固定する */
+  position: -webkit-sticky;
+  position: sticky;
+  left: 0;
+}
+/** 出勤管理テーブル END */
+
+/** オプション画面 START */
+#option .menu-colors-section li {
+  margin-left: 20px;
+  float: left;
+}
+#option .menu-colors-section li.color-white:after {
+  content: "　";
+  border-radius: 20px;
+  background-color: white;
+}
+#option .menu-colors-section li.color-pink:after {
+  content: "　";
+  border-radius: 20px;
+  background-color: #f8bbd0;
+}
+#option .menu-colors-section li.color-yellow:after {
+  content: "　";
+  border-radius: 20px;
+  background-color: #fffe00;
+}
+#option .menu-colors-section li.color-perple:after {
+  content: "　";
+  border-radius: 20px;
+  background-color: #df47ff;
+}
+#option .menu-colors-section li.color-green:after {
+  content: "　";
+  border-radius: 20px;
+  background-color: #8eff9f;
+}
+#option .menu-colors-section li.color-blue:after {
+  content: "　";
+  border-radius: 20px;
+  background-color: #388bff;
+}
+#option .menu-colors-section li.color-red:after {
+  content: "　";
+  border-radius: 20px;
+  background-color: #ff4372;
+}
+/** オプション画面 END */
+
+/** プラン変更画面 START */
+#change-plan div.card.plan-card button {
+  font-size: smaller;
+}
+#change-plan div.card.plan-card li {
+  list-style-type: decimal;
+}
+/** プラン変更画面 END */
+
+/** スタッフ管理画面 START */
+.dashboard__cast__card-content__p {
+  font-size: x-large;
+  font-weight: bold;
+}
+/** スタッフ管理画面 END */
+
+@media only screen and (max-width: 992px) {
+  .button-collapse {
+      display: block;
+  }
+  .nav-wrapper,
+  .container,
+  footer {
+      padding-left: initial;
+  }
+
+  /* Text inputs */
+  input:not([type]),
+  input[type="text"]:not(.browser-default),
+  input[type="password"]:not(.browser-default),
+  input[type="email"]:not(.browser-default),
+  input[type="url"]:not(.browser-default),
+  input[type="time"]:not(.browser-default),
+  input[type="date"]:not(.browser-default),
+  input[type="datetime"]:not(.browser-default),
+  input[type="datetime-local"]:not(.browser-default),
+  input[type="tel"]:not(.browser-default),
+  input[type="number"]:not(.browser-default),
+  input[type="search"]:not(.browser-default),
+  textarea.materialize-textarea {
+      font-size: 17px;
+  }
+  .slider {
+      margin-left: initial;
+  }
+  .header-area {
+      display: none;
+  }
+  .bottom-sticky-nav {
+      height: 50px;
+      position: fixed;
+      display: block;
+      background-color: rgba(255, 255, 255, 0.55);
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+  }
+  .bottom-sticky-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: space-evenly;
+  }
+  .bottom-sticky-nav ul li {
+      flex: 1;
+  }
+  .bottom-sticky-nav ul li a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      height: 50px;
+      color: #00587a;
+  }
+  .bottom-sticky-nav ul li a:hover,
+  .bottom-sticky-nav ul li a:focus {
+      text-decoration: none;
+  }
+  .bottom-sticky-nav ul li a i {
+      font-size: 18px;
+  }
+  .bottom-sticky-nav ul li a span {
+      font-size: 12px;
+      line-height: 1.2;
+  }
+  #user-default .wrap {
+      padding-bottom: 50px;
+  }
+  #user-default > footer {
+      margin-bottom: 50px;
+  }
+  /** 出勤管理テーブル */
+  #work-schedule-management table thead {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+  }
+  #work-schedule-management .table-wrap {
+      height: 370px;
+  }
+  #work-schedule-management table tr.tr-header {
+      background-color: #52c2d0;
+      color: white;
+      padding: 0 10px;
+  }
+  #work-schedule-management table tr.tr-header th:first-of-type {
+      text-align: center;
+  }
+  #work-schedule-management table tr th span {
+      display: block;
+      font-size: x-small;
+      font-weight: bold;
+  }
+}
+
+@media only screen and (min-width: 601px) {
+  table.other-table {
+      margin-top: 0px;
+  }
+  table.tel-table {
+      margin-top: 0px;
+  }
+
+  .sidebar {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 10px;
+  }
+  .search-result-card .card-image img.card-image-img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+  }
+  .linkbox__card-content > .p-casts-section__list__favorite {
+      position: absolute;
+      left: -1.5em;
+      width: 3em;
+      height: 3em;
+  }
+
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+  #user-main img {
+      height: 12em;
+      width: 12em;
+  }
+  .shop-menu .menu-section {
+      font-size: initial;
+  }
+  .my-gallery figure img {
+      height: 160px;
+      object-fit: cover;
+  }
+  .p-casts-section__list__favorite {
+      width: 3em;
+      height: 3em;
+  }
+  .p-casts-section__list__favorite .p-casts-section__list__favorite__icon {
+      position: relative;
+      bottom: -0.1em;
+  }
+
+  .area-section__list_img_circle.circle {
+    height: 10em;
+    width:  10em;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .brand-logo.oki-brand-logo {
+      margin-left: 50px;
+  }
+  .fixed-action-btn.share {
+      display: none;
+  }
+  table.tel-table {
+      margin-top: 10px;
+  }
+  /** SECTION TWITTER START */
+  /* TWITTERメイン表示部の高さ設定 */
+  #twitter-section .twitter-box {
+      height: 500px;
+  }
+  /** SECTION TWITTER START */
+}
+
+@media only screen and (min-width: 993px) {
+}
+
+@media only screen and (min-width: 860px) and (max-width: 992px) {
+  .p-casts-section__list img.circle {
+      height: 13.5em;
+      width:  13.5em;
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 859px) {
+  .p-casts-section__list img.circle {
+      height: 9em;
+      width:  9em;
+  }
+}
+
+@media only screen and (max-width: 601px) {
+
+  /* UESR */
+  .favorite-num {
+      font-size: x-small;
+  }
+  .voice-num {
+      font-size: x-small;
+  }
+  .p-casts-section__list img.circle {
+    height: 7em;
+    width: 7em;
+  }
+  .p-casts-section__list__favorite {
+      width: 2em;
+      height: 2em;
+  }
+  .p-casts-section__list__favorite .p-casts-section__list__favorite__icon {
+      font-size: 1.5em;
+      position: relative;
+      bottom: 0.25em;
+  }
+  .linkbox__card-content > .p-casts-section__list__favorite {
+      position: absolute;
+      top: -1.5em;
+      left: 2em;
+      width: 3em;
+      height: 3em;
+  }
+  .linkbox__card-content .p-casts-section__list__favorite__icon {
+      font-size: 1.7em;
+      position: relative;
+      top: 0.1em;
+  }
+  .search-result__like-count {
+      position: relative;
+      bottom: 20px;
+      left: 50px;
+  }
+  .favo-list-section__ul__li__favorite {
+      width: 2em;
+      height: 2em;
+  }
+  .favo-list-section__ul__li__favorite .favo-list-section__ul__li__favorite__icon {
+      font-size: 1.5em;
+      position: relative;
+      bottom: 0.25em;
+  }
+  .favo-list-section__ul__li__favorite-count {
+      position: absolute;
+      right: 35px;
+      bottom: 10px;
+  }
+
+}
+
+@media only screen and (min-width: 768px) {
+
+  /* facebook プラグインの最低限の幅 */
+  .fb-container {
+      width: 500px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+}
+
+@media only screen and (max-width: 992px) {
+}
+
+@media only screen and (min-width: 993px) {
+}
+
+@media only screen and (min-width: 993px) {
+}
+
+@media only screen and (min-width: 1201px) {
+}
+
+@media only screen and (min-width: 993px) {
+}
+
+@media only screen and (max-width: 992px) {
+}
+
+@media only screen and (min-width: 0) {
+}
+
+@media only screen and (min-width: 992px) {
+}
+
+@media only screen and (min-width: 1200px) {
+}
+
+@media only screen and (min-width: 360px) {
+}
+
+@media only screen and (min-width: 390px) {
+}
+
+@media only screen and (min-width: 420px) {
+}
+
+@media only screen and (max-width: 450px) {
+  .brand-logo.oki-brand-logo {
+      margin-left: -25px;
+  }
+  .brand-logo.oki-brand-logo {
+      font-size: 1.2rem;
+  }
+  span.area-logo {
+      font-size: 1.1rem;
+      font-weight: bold;
+  }
+  span.area-logo-tail {
+      font-size: 1.1rem;
+      font-weight: initial;
+  }
+  div.nav-header-cron-dummy {
+      height: 56px;
+  }
+  nav.nav-breadcrumb > .nav-wrapper.nav-wrapper-oki i {
+      font-size: small;
+  }
+  nav.nav-breadcrumb > .nav-wrapper.nav-wrapper-oki a {
+      font-size: xx-small;
+  }
+  .area-section__list_img_circle.circle {
+    height: 8em;
+    width:  8em;
+}
+
+  #p-casts-section h6 span,
+  #today-member-modal h6 span,
+  #cast-main .cast-header-icon * {
+      font-size: x-small;
+  }
+  .favo-list-section__ul__li__address {
+      font-size: smaller;
+  }
+  .p-casts-section__list img.circle {
+      height: 5em;
+      width:  5em;
+  }
+
+  .swiper-container.swiper-container-coverflow {
+      height: 260px;
+  }
+  /* 日記ページ START */
+
+  /* 日記ページ END */
+
+  /* ユーザー START */
+
+  /* 検索画面 START */
+  .search-result-card .card-image img.card-image-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+  }
+  /* .linkbox__card-content {
+      position: relative;
+  } */
+
+  /* 検索画面 END */
+
+  /* ユーザー END */
+  .my-gallery figure img {
+      height: 120px;
+      object-fit: cover;
+  }
+
+  #p-casts-section .add-cast-icon {
+      height: 20px;
+      width: 20px;
+      font-size: inherit;
+  }
+  #p-casts-section .update-cast-icon {
+      right: 10px;
+      height: 20px;
+      width: 20px;
+      font-size: inherit;
+  }
+}
+@media only screen and (min-width: 450px) {
+
+}
+
+@media only screen and (min-width: 450px) and (max-width: 602px) {
+  .brand-logo.oki-brand-logo {
+      margin-left: initial;
+      font-size: 1.7em;
+  }
+  .search-result-card .card-image img.card-image-img {
+      object-fit: cover;
+  }
+  .p-casts-section__list__favorite {
+      width: 2em;
+      height: 2em;
+  }
+  .p-casts-section__list__favorite .p-casts-section__list__favorite__icon {
+      font-size: 1em;
+      position: relative;
+      bottom: 0.3em;
+  }
+
+  .linkbox__card-content .p-casts-section__list__favorite__icon {
+      font-size: 1.7em;
+      position: relative;
+      top: 0.1em;
+  }
+}
+@media only screen and (min-width: 480px) {
+}
+
+@media only screen and (min-width: 510px) {
+}
+
+@media only screen and (min-width: 540px) {
+}
+
+@media only screen and (min-width: 570px) {
+}
+
+@media only screen and (min-width: 600px) {
+
+}
+
+@media only screen and (min-width: 630px) {
+}
+
+@media only screen and (min-width: 660px) {
+}
+
+@media only screen and (min-width: 690px) {
+}
+
+@media only screen and (min-width: 720px) {
+}
+
+@media only screen and (min-width: 750px) {
+}
+
+@media only screen and (min-width: 780px) {
+}
+
+@media only screen and (min-width: 810px) {
+}
+
+@media only screen and (min-width: 840px) {
+}
+
+@media only screen and (min-width: 870px) {
+}
+
+@media only screen and (min-width: 900px) {
+}
+
+@media only screen and (min-width: 930px) {
+}
+
+@media only screen and (min-width: 960px) {
+}
+
+@media only screen and (max-width: 360px) {
+}
+
+@media only screen and (max-width: 600px) {
+  table.tel-table {
+      margin-top: 10px;
+  }
+  .card.or-card {
+      width: 100%;
+  }
+  #info-marquee > .col {
+      padding: 0;
+  }
+
+  #info-marquee ul {
+      display: block;
+      margin: 0;
+      border: none;
+      list-style: none;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      width: 100%;
+      height: 50px;
+      -webkit-box-sizing: border-box;
+      background-color: initial;
+      box-sizing: border-box;
+  }
+  #info-marquee ul li {
+      /* required styles */
+      position: absolute;
+      top: -999em;
+      left: 0;
+      display: table;
+      width: 100%;
+      white-space: nowrap; /* keep all text on a single line */
+      /* optional styles for appearance */
+      padding: 10px 0;
+      margin: 0;
+      height: 48px;
+      vertical-align: middle;
+  }
+  /* トップランキング */
+  .my-ranking figure img {
+      height: 100px;
+  }
+  #modal-calendar {
+      width: 100%;
+  }
+  #modal-cast-list {
+      width: 100%;
+  }
+  #coupons-modal {
+      width: 100%;
+  }
+  #modal-diary {
+      width: 100%;
+  }
+  #modal-help {
+      width: 100%;
+  }
+  #modal-job {
+      width: 100%;
+  }
+  #modal-login {
+      width: 100%;
+  }
+  #modal-notice {
+    width: 100%;
+  }
+  #modal-news {
+    width: 100%;
+  }
+#modal-search {
+      width: 100%;
+      height: 90%;
+      height: 90%;
+      max-height: 90%;
+  }
+  #modal-review {
+      width: 100%;
+      height: 90%;
+      height: 90%;
+      max-height: 90%;
+  }
+  #sharer-modal {
+      width: 100%;
+  }
+  #shop-sharer-modal {
+      width: 100%;
+  }
+  #today-member-modal {
+      width: 100%;
+  }
+
+}
+
+@media only screen and (min-width: 601px) and (max-width: 992px) {
+}
+
+@media only screen and (min-width: 993px) {
+}
+
+@media only screen and (max-width: 992px) {
+}
+
+@media only screen and (max-width: 992px) {
+}
+
+@media only screen and (max-width: 992px) {
+}
+
+@media only screen and (max-width: 992px) {
+}
+
+@media (min-height: 28.875em) {
+}
+
+@media (min-height: 40.125em) {
+}
+
+@media (min-height: 28.875em) {
+}
+
+@media (min-height: 28.875em) {
+}
+
+@media (min-height: 35.875em) {
+}
+
+@media (min-height: 38.875em) {
+}
+
+@media (min-height: 33.875em) {
+}
+
+@media (min-height: 46.75em) {
+}
+
+@media (min-height: 40.125em) {
+}
+
+ul.marquee {
+  display: block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  line-height: 1;
+  position: relative;
+  overflow: hidden;
+
+  /* 以下はオプション */
+  width: 300px;
+  height: 20px;
+  border: 1px solid #222;
+}
+
+ul.marquee li {
+  position: absolute;
+  top: -999em;
+  left: 0;
+  display: block;
+  white-space: nowrap;
+
+  /* 以下はオプション */
+  padding: 3px 5px;
+  color: white;
+}
+
+/* スライダー設定 START */
+[class^="swiper-button-"],
+.swiper-container-horizontal
+  > .swiper-pagination-bullets
+  .swiper-pagination-bullet,
+.swiper-container-horizontal
+  > .swiper-pagination-bullets
+  .swiper-pagination-bullet::before {
+  transition: all 0.3s ease;
+}
+#top-slider *,
+#top-slider *:before,
+#top-slider *:after {
+  box-sizing: border-box;
+  margin: 0;
+  /*padding: 0;*/
+}
+.swiper-container.main-swiper {
+  width: 100%;
+  height: 28vw;
+  transition: opacity 0.6s ease;
+}
+.swiper-container.swiper-container-coverflow {
+  padding-top: 2%;
+}
+.swiper-container.loading {
+  opacity: 0;
+  visibility: hidden;
+}
+.swiper-container:hover .swiper-button-prev,
+.swiper-container:hover .swiper-button-next {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+.swiper-slide .entity-img {
+  display: none;
+}
+.swiper-slide .content {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  width: 50%;
+  padding-left: 5%;
+  color: #fff;
+}
+.swiper-slide .content .title {
+  font-size: 2.6em;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.swiper-slide .content .caption {
+  display: block;
+  font-size: 13px;
+  line-height: 1.4;
+}
+[class^="swiper-button-"] {
+  width: 44px;
+  opacity: 0;
+  visibility: hidden;
+}
+.swiper-button-prev {
+  transform: translateX(50px);
+}
+.swiper-button-next {
+  transform: translateX(-50px);
+}
+.swiper-container-horizontal
+  > .swiper-pagination-bullets
+  .swiper-pagination-bullet {
+  margin: 0 9px;
+  position: relative;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  opacity: 0.4;
+}
+.swiper-container-horizontal
+  > .swiper-pagination-bullets
+  .swiper-pagination-bullet::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  border: 0px solid #fff;
+  border-radius: 50%;
+}
+.swiper-container-horizontal
+  > .swiper-pagination-bullets
+  .swiper-pagination-bullet:hover,
+.swiper-container-horizontal
+  > .swiper-pagination-bullets
+  .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+.swiper-container-horizontal
+  > .swiper-pagination-bullets
+  .swiper-pagination-bullet.swiper-pagination-bullet-active::before {
+  border-width: 1px;
+}
+@media (max-width: 1180px) {
+  .swiper-slide .content .title {
+      font-size: 25px;
+  }
+  .swiper-slide .content .caption {
+      font-size: 12px;
+  }
+}
+@media (max-width: 1023px) {
+  .swiper-container.main-swiper {
+      height: 60vw;
+  }
+  .swiper-container.swiper-container-coverflow {
+      padding-top: 0;
+  }
+}
+
+@media only screen and (min-width: 450px) and (max-width: 700px) {
+  .swiper-container.swiper-container-coverflow {
+      height: 460px;
+  }
+}
+/* スライダー設定 END */

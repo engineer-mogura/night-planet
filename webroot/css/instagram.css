@@ -1,0 +1,426 @@
+a{
+  text-decoration     : none;
+  outline             : none;
+}
+img{
+  outline             : none;
+  border              : none;
+}
+article#SNS_Instagram{
+  display             : block;
+  margin              : 0px;
+}
+article#SNS_Instagram *{
+  text-align          : left;
+}
+article#SNS_Instagram header > section{
+  display             : block;
+  margin              : 0px;
+  padding             : 10px;
+  background-color    : #f7fff8;
+  background          : linear-gradient(135deg,#ebff3709,#46ff4b09,#0affff09);
+  border-bottom       : 1px solid #969696;
+}
+article#SNS_Instagram header > section#new-photos {
+  padding             : 2.5em;
+}
+article#SNS_Instagram header h1 {
+  margin              : 0px;
+  padding             : 0px;
+  height              : 60px;
+}
+
+/**  店舗カード、スタッフカードのインスタ表示 START ***/
+article#SNS_Instagram header h1 > a {
+  position            : relative;
+  display             : block;
+  margin              : 0px;
+  margin-left         : 40%;
+  padding-left        : 10px;
+  font-size           : 0;
+}
+li.search-result-card h1 {
+  margin              : 0px;
+  padding             : 0px;
+}
+li.search-result-card h1 > a{
+  position: relative;
+  display: block;
+  margin: 0px;
+  margin-left: 100%;
+  padding-left: 10px;
+  font-size: 0;
+}
+li.search-result-card .Instagram_logo1 {
+  content: '';/*何も入れない*/
+  display: inline-block;/*忘れずに！*/
+  width: 30px;/*画像の幅*/
+  height: 30px;/*画像の高さ*/
+  background-image: url("http://127.0.0.1:9090/night-planet/others/sns/instagram_logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: -40px;
+  top: 20px;
+}
+li.search-result-card .facebook_logo1 {
+  content: '';/*何も入れない*/
+  display: inline-block;/*忘れずに！*/
+  width: 30px;/*画像の幅*/
+  height: 30px;/*画像の高さ*/
+  background-image: url("http://127.0.0.1:9090/night-planet/others/sns/facebook_logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: -40px;
+  top: 20px;
+}
+li.search-result-card .twitter_logo1 {
+  content: '';/*何も入れない*/
+  display: inline-block;/*忘れずに！*/
+  width: 30px;/*画像の幅*/
+  height: 30px;/*画像の高さ*/
+  background-image: url("http://127.0.0.1:9090/night-planet/others/sns/twitter_logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: -40px;
+  top: 20px;
+}
+/**  店舗カード、スタッフカードのインスタ表示 END ***/
+
+article#SNS_Instagram header h1 > a > img, li.search-result-card h1 > a > img {
+  position            : absolute;
+  top                 : 50px;
+  left                : -75px;
+  content             : ' ';
+  display             : block;
+  width               : 75px;
+  height              : 75px;
+  /* Instagramのロゴは上下左右にロゴの半分以上の空白が必要 */
+  /* Detail => https://en.instagram-brand.com/assets/icons */
+}
+article#SNS_Instagram header h1 > a > svg, li.search-result-card h1 > a > svg {
+  width               : 123.2px;
+  height              : 44px;
+}
+article#SNS_Instagram header .Instagram_logo1 {
+  content: '';/*何も入れない*/
+  display: inline-block;/*忘れずに！*/
+  width: 30px;/*画像の幅*/
+  height: 30px;/*画像の高さ*/
+  background-image: url("http://127.0.0.1:9090/night-planet/others/sns/instagram_logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: -50px;
+  top: 75px;
+}
+
+article#SNS_Instagram header h2{
+  position            : relative;
+  margin              : 0px;
+  margin-left         : 75px;
+  padding             : 0px;
+  padding-left        : 10px;
+  font-size           : 0;
+  line-height         : 25px;
+}
+article#SNS_Instagram header h2 div{
+  vertical-align      : middle;
+}
+article#SNS_Instagram header h2 *{
+  font-size           : 14px;
+  font-weight         : 400;
+  line-height         : 25px;
+}
+article#SNS_Instagram header h2 div:first-child{
+  position            : absolute;
+  top                 : 0px;
+  left                : 10px;
+  width               : 25px;
+  height              : 25px;
+  overflow            : hidden;
+  border-radius       : 25px;
+}
+article#SNS_Instagram header h2 div:first-child img{
+  width               : 100%;
+  height              : 100%;
+}
+article#SNS_Instagram header h2 div:last-child{
+  margin-left         : 30px;
+}
+article#SNS_Instagram header h2 div:last-child a{
+  display             : block;
+  width               : 100%;
+  font-size           : 14px;
+  color               : inherit;
+  white-space         : nowrap;
+  overflow            : hidden;
+  text-overflow       : ellipsis;
+}
+article#SNS_Instagram header p{
+  display             : none;
+}
+/* 表示形式の切替ボタン */
+article#SNS_Instagram header > nav{
+  display             : block;
+  font-size           : 0px;
+  text-align          : center;
+  background-color    : #EFEFEF;
+  background          : linear-gradient(0deg, rgb(197, 197, 197), rgb(245, 245, 245));
+  box-shadow          : 0px 2px 6px rgba(0,0,0,0.3);
+}
+article#SNS_Instagram header > nav > label{
+  position            : relative;
+  display             : inline-block;
+  width               : 49%;
+  height              : 44px;
+  padding             : 5px;
+  font-size           : 0px;
+  color               : transparent;
+  text-align          : center;
+  box-sizing          : border-box;
+  cursor              : pointer;
+}
+article#SNS_Instagram header > nav > label > svg{
+  position            : absolute;
+  top                 : 50%;
+  left                : 50%;
+  display             : inline-block;
+  width               : auto;
+  height              : 24px;
+  color               : #666;
+  transform           : translate(-50%, -50%);
+}
+article#SNS_Instagram header > nav > label > svg > path{
+  color               : inherit;
+}
+article#SNS_Instagram header > nav > label + label{
+  margin-left         : 1%;
+}
+article#SNS_Instagram header nav > label + label::before{
+  content             : '';
+  position            : absolute;
+  display             : block;
+  width               : 1px;
+  left                : -1px;
+  top                 : 0px;
+  bottom              : 0px;
+  background-color    : #969696;
+}
+article#SNS_Instagram input{
+  display             : none;
+}
+/* メイン表示部のスクロール設定 */
+article#SNS_Instagram main{
+  top                 : 140px; /* header : 90px + 44px = 134px / box-shadow : 6px */
+  bottom              : 2px;
+  left                : 0px;
+  right               : 2px;
+  height              : 450px;
+  display             : block;
+  overflow-x          : hidden;
+  overflow-y          : auto;
+}
+/* 本家インスタ風に3*3の格子状にサムネイルを並べる */
+article#SNS_Instagram input#show_grid:checked + main{
+  padding-top         : 2px;
+  font-size           : 0px;
+}
+article#SNS_Instagram input#show_grid:checked + main > div{
+  position            : relative;
+  display             : inline-block;
+  margin              : 0px;
+  padding             : 0px;
+  padding-top         : 33.3%;
+  width               : 33.3%;
+}
+article#SNS_Instagram input#show_grid:checked + main > div > a{
+  position            : absolute;
+  top                 : 2px;
+  bottom              : 2px;
+  left                : 2px;
+  right               : 2px;
+  display             : block;
+}
+article#SNS_Instagram input#show_grid:checked + main > div > a > div{
+  width               : 100%;
+  height              : 100%;
+  background-position : center;
+  background-size     : cover;
+  overflow            : hidden;
+}
+article#SNS_Instagram input#show_grid:checked + main > div > p{
+  display             : none;
+}
+/* サムネイルとコメントを並べる */
+article#SNS_Instagram input#show_list:checked + input + main > div{
+  display             : block;
+  margin              : 5px;
+  padding             : 5px;
+  border-radius       : 5px;
+  border              : 1px solid #999;
+}
+article#SNS_Instagram input#show_list:checked + input + main > div > a > div{
+  display             : block;
+  position            : relative;
+  padding-top         : 50%;
+  background-position : center;
+  background-size     : cover;
+  overflow            : hidden;
+}
+article#SNS_Instagram input#show_list:checked + input + main > div > time{
+  display             : block;
+  margin              : 5px;
+  font-size           : 14px;
+  color               : #A4A4A4;
+  text-align          : right;
+}
+article#SNS_Instagram input#show_list:checked + input + main > div > p{
+  display             : block;
+  margin              : 5px;
+  padding             : 0px;
+  color               : #252525;
+  text-align          : left;
+  word-break          : break-all;
+}
+article#SNS_Instagram input#show_list:checked + input + main > div > p > a{
+  color               : #3402A7;
+  cursor              : pointer;
+}
+.ig-video{ /* 必要であれば、セレクタは適宜変えて下さい */
+	position            : absolute;
+	top                 : 5px;
+	left                : 12px;
+	z-index             : 5;
+	display             : inline-block;
+	width               : 16px;
+	height              : 26px;
+	color               : rgba(255,255,255,0.8);
+	/* アイコンはSVGを使ってDataURLに変換しています */
+	background          : no-repeat left / 16px
+	                      url('data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgZGF0YS1wcmVmaXg9ImZhcyIgZGF0YS1pY29uPSJwbGF5IiBjbGFzcz0ic3ZnLWlubGluZS0tZmEgZmEtcGxheSBmYS13LTE0IiByb2xlPSJpbWciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDQ0OCA1MTIiPjxwYXRoIGZpbGw9IndoaXRlIiBkPSJNNDI0LjQgMjE0LjdMNzIuNCA2LjZDNDMuOC0xMC4zIDAgNi4xIDAgNDcuOVY0NjRjMCAzNy41IDQwLjcgNjAuMSA3Mi40IDQxLjNsMzUyLTIwOGMzMS40LTE4LjUgMzEuNS02NC4xIDAtODIuNnoiPjwvcGF0aD48L3N2Zz4=');
+	opacity             : 0.8;
+}
+.ig-comment {
+	position            : absolute;
+	top                 : 5px;
+	right               : 8px;
+	z-index             : 5;
+	padding-left        : 20px;
+	font-size           : 16px;
+	line-height         : 26px;
+  color               : white;
+  opacity             : 0.8;
+}
+.ig-like {
+	position            : absolute;
+	top                 : 26px;
+	right               : 8px;
+	z-index             : 5;
+	padding-left        : 20px;
+	font-size           : 16px;
+	line-height         : 26px;
+	color               : white;
+  opacity             : 0.8;
+}
+.ig-details {
+	position            : absolute;
+	top                 : 5px;
+	right               : 8px;
+	z-index             : 5;
+	padding-left        : 20px;
+	font-size           : 16px;
+	line-height         : 26px;
+  color               : white;
+  font-size           : smaller;color: goldenrod;
+  background-color    : darkslategray;
+  width               : 30%;
+}
+.ig-details > a {
+  color: khaki;
+}
+.ig-children{ /* 必要であれば、セレクタは適宜変えて下さい */
+	position            : absolute;
+	top                 : 46px;
+	right               : 8px;
+	z-index             : 5;
+	padding-left        : 20px;
+	font-size           : 16px;
+	line-height         : 26px;
+	color               : white;
+	/* アイコンはSVGを使ってDataURLに変換しています */
+	background          : no-repeat left / 16px
+	                      url('data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZm9jdXNhYmxlPSJmYWxzZSIgZGF0YS1wcmVmaXg9ImZhcyIgZGF0YS1pY29uPSJjbG9uZSIgY2xhc3M9InN2Zy1pbmxpbmUtLWZhIGZhLWNsb25lIGZhLXctMTYiIHJvbGU9ImltZyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgNTEyIDUxMiI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik00NjQgMGMyNi41MSAwIDQ4IDIxLjQ5IDQ4IDQ4djI4OGMwIDI2LjUxLTIxLjQ5IDQ4LTQ4IDQ4SDE3NmMtMjYuNTEgMC00OC0yMS40OS00OC00OFY0OGMwLTI2LjUxIDIxLjQ5LTQ4IDQ4LTQ4aDI4OE0xNzYgNDE2Yy00NC4xMTIgMC04MC0zNS44ODgtODAtODBWMTI4SDQ4Yy0yNi41MSAwLTQ4IDIxLjQ5LTQ4IDQ4djI4OGMwIDI2LjUxIDIxLjQ5IDQ4IDQ4IDQ4aDI4OGMyNi41MSAwIDQ4LTIxLjQ5IDQ4LTQ4di00OEgxNzZ6Ij48L3BhdGg+PC9zdmc+');
+	opacity             : 0.8;
+}
+span.badge.area-badge {
+  display: block;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: -15px;
+  /* font-weight: 300; */
+  font-size: 10px;
+  color: #fff;
+  background-color: #8193c1;
+  border-radius: 2px;
+  /* transform: scale(0.6); */
+  opacity: 0.8;
+}
+span.badge.genre-badge {  
+  text-align: center;
+  position: absolute;
+  width: 100px;
+  bottom: -3%;
+  left: 21%;
+  /* font-weight: 300; */
+  /* font-size: 0.1px; */
+  color: #fff;
+  background-color: #8193c1;
+  border-radius: 2px;
+  transform: scale(0.6);
+  opacity             : 0.8;
+}
+article#SNS_Instagram span.badge {
+  text-align: center;
+  height: 35px;
+  line-height: 1.5;
+}
+article#SNS_Instagram a{
+	position:relative;
+	line-height:2em;
+	text-indent:2em;
+}
+/** キャラクター設定 START **/
+article#SNS_Instagram a.img.night-planet-chara:after {
+  position: absolute;
+  bottom: -3.5em;
+  content: "";
+  display: inline-block;
+  width: 4em;
+  height: 4em;
+  background-size: contain;
+  background-image: url(http://127.0.0.1:9090/night-planet/others/544587.png);
+  background-repeat: no-repeat;
+}
+article#SNS_Instagram a.img.night-planet-img:after {
+  border-radius: 100%;
+  position: absolute;
+  bottom: -3.5em;
+  content: "";
+  display: inline-block;
+  width: 4em;
+  height: 4em;
+  background-size: contain;
+  background-image: url(http://127.0.0.1:9090/night-planet/others/night_planet_top_favicon.png);
+  background-repeat: no-repeat;
+}
+/** キャラクター設定 END **/
+@media only screen and (max-width: 450px) {
+  /* article#SNS_Instagram header > section {
+    padding: 1em;
+  } */
+}

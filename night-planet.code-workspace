@@ -1,0 +1,164 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "../docs"
+        },
+        {
+            "path": "../engineer-mogura-proxy"
+        },
+        {
+            "path": "../../CentOS7/night_planet/night-planet/admin"
+        },
+        {
+            "path": "../../CentOS7/night_planet/night-planet/public"
+        }
+    ],
+    "settings": {
+        "gitlens.advanced.messages": {
+            "suppressLineUncommittedWarning": true
+        },
+        // DESC: phpファイル フォーマッタ
+        "[php]": {
+            "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+        },
+        // DESC: htmlファイル フォーマッタ
+        "[html]": {
+            "editor.defaultFormatter": "vscode.html-language-features"
+        },
+        // DESC: javascriptファイル フォーマッタ
+        "[javascript]": {
+            "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "sync.gist": "53c6e4dff500bdc991319feb50d38b8d",
+
+        "window.zoomLevel": -1,
+
+        "files.associations": {
+            "*.php": "php",
+            "*.blade.php": "html"
+        },
+
+        "php.validate.enable": false, //VS Codeに組み込みのPHPコード検証機能の有効／無効を切り替える
+        "php.suggest.basic": false, //VS Codeに組み込みのIntelliSense機能による候補の提示の有効／無効を切り替える
+        "php.validate.executablePath": "C:\\Program Files\\php\\php-win.exe",
+        "php.executablePath": "C:\\Program Files\\php\\php-win.exe",
+
+        "files.autoGuessEncoding": true,
+
+        "workbench.sideBar.location": "left",
+
+        "diffEditor.ignoreTrimWhitespace": false,
+
+        "explorer.confirmDelete": false,
+
+        "todohighlight.isEnable": true,
+        "todohighlight.keywords": [
+            {
+                "text": "DESC:",
+                "backgroundColor": "darkblue"
+            }
+        ],
+
+        "codic.ACCESS_TOKEN": "OGh55pI80jLhVeLPpuBCXbI9e28IUevkQ",
+        "codic.case": "camelCase",
+
+        "php-cs-fixer.executablePathWindows": "~/.vscode/extensions/php-cs-fixer-v2.phar", //eg: php-cs-fixer.bat
+        "php-cs-fixer.onsave": false,
+        "php-cs-fixer.rules": "@PSR2",
+        "php-cs-fixer.config": ".php_cs;.php_cs.dist",
+        "php-cs-fixer.allowRisky": false,
+        "php-cs-fixer.pathMode": "override",
+        "php-cs-fixer.exclude": [],
+        "php-cs-fixer.autoFixByBracket": true,
+        "php-cs-fixer.autoFixBySemicolon": false,
+        "php-cs-fixer.formatHtml": false,
+        "php-cs-fixer.documentFormattingProvider": true,
+        "php-cs-fixer.lastDownload": 1571322747430,
+
+        "intelephense.diagnostics.undefinedTypes": false,
+        "intelephense.diagnostics.undefinedMethods": false,
+        "intelephense.diagnostics.undefinedConstants": false,
+        "intelephense.diagnostics.undefinedClassConstants": false,
+        "intelephense.diagnostics.undefinedFunctions": false,
+        "intelephense.diagnostics.undefinedProperties": false,
+        "intelephense.environment.phpVersion": "7.4.0",
+
+        "namespaceResolver.sortOnSave": true,
+        "namespaceResolver.highlightOnSave": true,
+        "editor.formatOnSave": false,
+        "blade.format.enable": false,
+        "editor.fontSize": 16
+    },
+    // 拡張プラグイン
+    "extensions": {
+        // 推奨するプラグイン
+        "recommendations": [
+            // DESC: ネーミング辞書サービス※本家
+            "stevencl.adddoccomments",
+            // DESC: ネーミング辞書サービス※本家
+            "alefragnani.bookmarks",
+            // DESC: ネーミング辞書サービス※本家
+            "alexcodercorp.comments",
+            // DESC: ネーミング辞書サービス※本家
+            "coenraads.bracket-pair-colorizer-2",
+            // DESC: ネーミング辞書サービス※本家 https://codic.jp/
+            "pizzacat83.codic",
+            // DESC: スペース文字ハイライト
+            "saikou9901.evilinspector",
+            // DESC: github pull等
+            "knisterpeter.vscode-github",
+            // DESC: github 過去のコミットとの比較が出来る
+            "eamodio.gitlens",
+            // DESC: 数字の連番等フォーマット系
+            "asuka.insertnumbers",
+            // DESC: vscodeの日本語化
+            "ms-ceintl.vscode-language-pack-ja",
+            // DESC: ファイル内の比較が出来る
+            "ryu1kn.partial-diff",
+            // DESC: ファイルパスを補完候補を表示してくれる
+            "ionutvmi.path-autocomplete",
+            // DESC: PHPソースフォーマッター
+            "junstyle.php-cs-fixer",
+            // DESC: PHPデバッカ
+            "robberphex.php-debug",
+            // DESC: Docコメントの入力を補完
+            "neilbrayfield.php-docblocker",
+            // DESC: php コード補完
+            "bmewburn.vscode-intelephense-client",
+            // DESC: php インポート未使用ハイライト
+            "marabesi.php-import-checker",
+            // DESC: namespaceのインポートを挿入補完
+            "mehedidracula.php-namespace-resolver",
+            /* DESC: 以下をフォーマットする
+             *       JavaScript · TypeScript · JSON · CSS · SCSS
+             *       Less · HTML · Vue · Angular · Markdown · YAML
+             */
+            "esbenp.prettier-vscode",
+            // DESC: CSVをステキに見やすくする
+            "mechatroner.rainbow-csv",
+            // DESC: 正規表現の動作確認を行う事ができる
+            "chrmarti.regex",
+            // DESC: TODO...etc と書いた場所にハイライトをつけるその他もあるから調べてみてね
+            "wayou.vscode-todo-highlight",
+            // DESC: 行末の不要なスペース文字をハイライトする
+            "shardulm94.trailing-spaces",
+
+            // DESC: envファイルが見やすくなります
+            "mikestead.dotenv",
+
+
+            /**
+             * マークダウン 関連
+             */
+            // DESC: Blade独自の＠記法もフォーマットする
+            "yzhang.markdown-all-in-one",
+            // DESC: Blade独自の＠記法もフォーマットする
+            "marp-team.marp-vscode",
+            // DESC: Blade独自の＠記法もフォーマットする
+            "yzane.markdown-pdf"
+        ]
+    }
+}

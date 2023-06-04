@@ -1,0 +1,113 @@
+version: "3.9"
+
+services:
+
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - .:/var/www/html
+    tty: true
+    depends_on:
+      - app_public
+      - app_admin
+
+  app-public:
+    container_name: app_public
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/html
+    expose:
+      - 9000
+    tty: true
+    depends_on:
+      - db
+
+  app-admin:
+    container_name: app_admin
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    volumes:
+      - ./:/var/www/html
+    expose:
+      - 9000
+    tty: true
+    depends_on:
+      - db
+
+  cron:
+    container_name: cron
+    build:
+      context: .
+      dockerfile: ./docker/cron/Dockerfile
+    volumes:
+      - ./:/var/www/html
+    expose:
+      - 9000
+    tty: true
+    depends_on:
+      - db
+      - minio
+
+  db:
+    container_name: db
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      TZ: 'Asia/Tokyo'
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql-volume:/var/lib/mysql
+      - ./docker/db/initdb:/docker-entrypoint-initdb.d
+
+  # メールサーバー http://localhost:8025
+  mail-hog:
+    container_name: mail_hog
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+    environment:
+      MH_STORAGE: maildir
+      MH_MAILDIR_PATH: /tmp
+    volumes:
+      - maildir:/tmp
+
+  # S3と互換性あるファイルサーバー
+  minio:
+    container_name: minio
+    image: minio/minio:RELEASE.2021-06-17T00-10-46Z
+    ports:
+      - 9090:9000
+    environment:
+      - MINIO_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
+      - MINIO_SECRET_KEY=${AWS_SECRET_ACCESS_KEY}
+    entrypoint: sh
+    command: -c "
+      mkdir -p /data/.minio.sys/buckets;
+      cp -r /policies/* /data/.minio.sys/;
+      cp -r /export/* /data/;
+      /usr/bin/minio server /data;"
+    volumes:
+      - ./docker/minio/data:/data
+      - ./docker/minio/export:/export
+      - ./docker/minio/config:/root/.minio
+      - ./docker/minio/policies:/policies
+
+volumes:
+  mysql-volume:
+  maildir: {}
+  minio:
