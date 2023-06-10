@@ -18,14 +18,17 @@ build() {
   fi
   echo "コンテナを作り直します..."
   # 環境設定ファイルをコピーする
-  echo "環境設定ファイルをコピーします..."
+  echo "環境設定ファイルをチェックします..."
   if [ ! -e './.env_'$exe_env ];then
     echo ".env_${exe_env} が存在しません。"
     exit 1
   else
     echo ".env_${exe_env} 環境でデプロイします。"
   fi
-  cp './.env_'${exe_env} ./config/.env
+  echo "ファイル名を[.env_${exe_env}] ⇒ [.env]に変更してコピーします..."
+  cp './.env_'${exe_env} ./.env
+  echo "[.env]を[./config]ディレクトリにコピーします..."
+  cp './.env' ./config/.env
 
   # Google Cloud サービスアカウント資格情報ファイルをコピーする
   echo "Google Cloud サービスアカウント資格情報ファイルをコピーします..."
