@@ -2,19 +2,49 @@ version: "3.9"
 
 services:
 
-  nginx:
-    container_name: nginx
+  web-public:
+    container_name: web_public
     build:
       context: .
       dockerfile: ./docker/web/Dockerfile
     ports:
-      - 80:80
-    volumes:
-      - .:/var/www/html
+      - 8080:80
     tty: true
     depends_on:
       - app_public
+    volumes:
+      - .:/var/www/html
+    environment:
+      - VIRTUAL_HOST=${APP_URL}
+
+  web-admin:
+    container_name: web_admin
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    ports:
+      - 8081:80
+    tty: true
+    depends_on:
       - app_admin
+    volumes:
+      - .:/var/www/html
+    environment:
+      - VIRTUAL_HOST=${APP_ADMIN_URL}
+
+  # nginx:
+  #   container_name: nginx
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/web/Dockerfile
+  #   ports:
+  #     - 80:80
+  #   volumes:
+  #     - .:/var/www/html
+  #   tty: true
+  #   depends_on:
+  #     - app_public
+  #     - app_admin
 
   app-public:
     container_name: app_public
@@ -27,7 +57,9 @@ services:
       - 9000
     tty: true
     depends_on:
-      - db
+      - db-night-planet
+    environment:
+      - VIRTUAL_HOST=${APP_URL}
 
   app-admin:
     container_name: app_admin
@@ -40,10 +72,12 @@ services:
       - 9000
     tty: true
     depends_on:
-      - db
+      - db-night-planet
+    environment:
+      - VIRTUAL_HOST=${APP_ADMIN_URL}
 
   cron:
-    container_name: cron
+    container_name: cron-night-planet
     build:
       context: .
       dockerfile: ./docker/cron/Dockerfile
@@ -53,16 +87,17 @@ services:
       - 9000
     tty: true
     depends_on:
-      - db
-      - minio
+      - db-night-planet
+      - minio-night-planet
 
-  db:
-    container_name: db
+  db-night-planet:
+    container_name: db-night-planet
     build:
       context: .
       dockerfile: ./docker/db/Dockerfile
     ports:
-      - 3306:3306
+      - 13306:3306
+      - 13060:33060
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
@@ -76,7 +111,7 @@ services:
 
   # メールサーバー http://localhost:8025
   mail-hog:
-    container_name: mail_hog
+    container_name: mail_hog-night-planet
     image: mailhog/mailhog
     ports:
       - "8025:8025"
@@ -88,7 +123,7 @@ services:
 
   # S3と互換性あるファイルサーバー
   minio:
-    container_name: minio
+    container_name: minio-night-planet
     image: minio/minio:RELEASE.2021-06-17T00-10-46Z
     ports:
       - 9090:9000
@@ -106,6 +141,11 @@ services:
       - ./docker/minio/export:/export
       - ./docker/minio/config:/root/.minio
       - ./docker/minio/policies:/policies
+
+networks:
+  default:
+    external: true
+    name: engineer-mogura-network
 
 volumes:
   mysql-volume:
