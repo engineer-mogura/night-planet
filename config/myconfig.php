@@ -3,13 +3,13 @@
     $_ = function ($s) {
         return $s;
     };
+    $http = "http://";
+    if (isset($_SERVER['HTTPS'])) {
+        $http = $_SERVER['HTTPS'];
+    }
     // 環境によるドメイン判定
     if(strpos($_SERVER['HTTP_HOST'],'local') !== false){
         // ローカル環境の場合
-        $http = "http://";
-        if (isset($_SERVER['HTTPS'])) {
-            $http = $_SERVER['HTTPS'];
-        }
         define('PUBLIC_DOMAIN', $http . env('APP_URL'));
         define('ADMIN_DOMAIN', $http . env('APP_ADMIN_URL'));
 
