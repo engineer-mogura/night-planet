@@ -3,7 +3,7 @@ version: "3.9"
 services:
 
   web-public:
-    container_name: web_public
+    container_name: web-public
     build:
       context: .
       dockerfile: ./docker/web/Dockerfile
@@ -11,14 +11,14 @@ services:
       - 8080:80
     tty: true
     depends_on:
-      - app_public
+      - app-public
     volumes:
       - .:/var/www/html
     environment:
       - VIRTUAL_HOST=${APP_URL}
 
   web-admin:
-    container_name: web_admin
+    container_name: web-admin
     build:
       context: .
       dockerfile: ./docker/web/Dockerfile
@@ -26,7 +26,7 @@ services:
       - 8081:80
     tty: true
     depends_on:
-      - app_admin
+      - app-admin
     volumes:
       - .:/var/www/html
     environment:
@@ -43,11 +43,11 @@ services:
   #     - .:/var/www/html
   #   tty: true
   #   depends_on:
-  #     - app_public
-  #     - app_admin
+  #     - app-public
+  #     - app-admin
 
   app-public:
-    container_name: app_public
+    container_name: app-public
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
@@ -62,7 +62,7 @@ services:
       - VIRTUAL_HOST=${APP_URL}
 
   app-admin:
-    container_name: app_admin
+    container_name: app-admin
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
@@ -110,8 +110,8 @@ services:
       - ./docker/db/initdb:/docker-entrypoint-initdb.d
 
   # メールサーバー http://localhost:8025
-  mail-hog:
-    container_name: mail_hog-night-planet
+  mail-hog-night-planet:
+    container_name: mail-hog-night-planet
     image: mailhog/mailhog
     ports:
       - "8025:8025"
@@ -122,7 +122,7 @@ services:
       - maildir:/tmp
 
   # S3と互換性あるファイルサーバー
-  minio:
+  minio-night-planet:
     container_name: minio-night-planet
     image: minio/minio:RELEASE.2021-06-17T00-10-46Z
     ports:
