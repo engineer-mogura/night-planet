@@ -76,7 +76,7 @@ services:
     environment:
       - VIRTUAL_HOST=${APP_ADMIN_URL}
 
-  cron:
+  cron-night-planet:
     container_name: cron-night-planet
     build:
       context: .
