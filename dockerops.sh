@@ -30,6 +30,14 @@ build() {
   echo "[.env]を[./config]ディレクトリにコピーします..."
   cp './.env' ./config/.env
 
+  # css 内部のURLを変更する
+  REPLACE_URL=`grep -w AWS_URL_HOST ./.env | sed -r 's/AWS_URL_HOST=([^ ]*).*$/\1/'`
+  BASE_URL=http://127.0.0.1:9090
+  echo "[cssファイル]内部のURL[$BASE_URL]を[${REPLACE_URL}]に置換します..."
+  sed -e "s@$BASE_URL@$REPLACE_URL@g" ./webroot/css/okiyoru.css > ./webroot/css/okiyoru_tmp.css
+  rm ./webroot/css/okiyoru.css
+  mv ./webroot/css/okiyoru_tmp.css ./webroot/css/okiyoru.css
+
   # Google Cloud サービスアカウント資格情報ファイルをコピーする
   echo "Google Cloud サービスアカウント資格情報ファイルをコピーします..."
   if [ ! -e './service-account-credentials.json' ];then
