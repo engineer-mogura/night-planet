@@ -1076,7 +1076,8 @@ class AreaController extends AppController {
         $this->set('shopInfo', $this->Util->getShopInfo($shop));
 
         // 店舗の全てのニュースを取得
-        $notices = $this->Util->getNotices($id, $this->viewVars['shopInfo']['notice_path'], $this->viewVars['userInfo']['id']);
+        $notices = $this->Util->getNotices($id, $this->viewVars['shopInfo']['notice_path']
+            , empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']);
         $top_notices = array();
         $arcive_notices = array();
         $count = 0;
