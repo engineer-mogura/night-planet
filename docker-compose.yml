@@ -109,7 +109,7 @@ services:
       - mysql-volume:/var/lib/mysql
       - ./docker/db/initdb:/docker-entrypoint-initdb.d
 
-  # メールサーバー http://localhost:8025
+  # メールサーバー http://night-planet.local:8025
   mail-hog-night-planet:
     container_name: mail-hog-night-planet
     image: mailhog/mailhog
