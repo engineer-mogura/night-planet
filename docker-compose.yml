@@ -2,8 +2,8 @@ version: "3.9"
 
 services:
 
-  web-public:
-    container_name: web-public
+  web-public-night-planet:
+    container_name: web-public-night-planet
     build:
       context: .
       dockerfile: ./docker/web/Dockerfile
@@ -13,14 +13,14 @@ services:
       - night-planet-network
     tty: true
     depends_on:
-      - app-public
+      - app-public-night-planet
     volumes:
       - .:/var/www/html
     environment:
       - VIRTUAL_HOST=${APP_URL}
 
-  web-admin:
-    container_name: web-admin
+  web-admin-night-planet:
+    container_name: web-admin-night-planet
     build:
       context: .
       dockerfile: ./docker/web/Dockerfile
@@ -30,7 +30,7 @@ services:
       - night-planet-network
     tty: true
     depends_on:
-      - app-admin
+      - app-admin-night-planet
     volumes:
       - .:/var/www/html
     environment:
@@ -47,11 +47,11 @@ services:
   #     - .:/var/www/html
   #   tty: true
   #   depends_on:
-  #     - app-public
-  #     - app-admin
+  #     - app-public-night-planet
+  #     - app-admin-night-planet
 
   nginx-proxy:
-    container_name: nginx
+    container_name: nginx-night-planet
     hostname: nginx
     image: jwilder/nginx-proxy:latest
     restart: always
@@ -62,8 +62,8 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
-  app-public:
-    container_name: app-public
+  app-public-night-planet:
+    container_name: app-public-night-planet
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
@@ -79,8 +79,8 @@ services:
     environment:
       - VIRTUAL_HOST=${APP_URL}
 
-  app-admin:
-    container_name: app-admin
+  app-admin-night-planet:
+    container_name: app-admin-night-planet
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile

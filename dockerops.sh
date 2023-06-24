@@ -1,5 +1,14 @@
 #!/bin/bash
 
+#night-planet コンテナIDを抽出する
+target () {
+  containers=$(docker ps --filter name=night-planet --format "{{.Names}}")
+  echo "night-planet コンテナを抽出します..."
+  for c in $containers; do
+    echo $c
+  done
+}
+
 up () {
   IMAGES=$(docker ps -q | wc -l)
   if [ "${IMAGES}" -ge 1 ]; then
@@ -11,10 +20,11 @@ up () {
 }
 
 build() {
+  target
   IMAGES=$(docker ps -q | wc -l)
   if [ "${IMAGES}" -ge 1 ]; then
-  echo "現在起動しているコンテナを停止します..."
-  docker kill $(docker ps -q)
+    echo "現在起動しているコンテナを停止します..."
+    docker kill $(docker ps --filter name=night-planet --format "{{.Names}}")
   fi
   echo "コンテナを作り直します..."
   # 環境設定ファイルをコピーする
@@ -45,9 +55,11 @@ build() {
     exit 1
   fi
   cp ./service-account-credentials.json ./config/googles
-  docker-compose build
+
+  docker-compose build $(docker ps --filter name=night-planet --format "{{.Names}}")
   echo "コンテナを起動します..."
-  docker-compose up -d
+  docker-compose up -d $(docker ps --filter name=night-planet --format "{{.Names}}")
+
 }
 
 clean () {
