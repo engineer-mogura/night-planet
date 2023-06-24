@@ -467,6 +467,7 @@ class UsersController extends AppController {
         foreach ($query as $row) {
             array_push($ids, $row->id);
         }
+        if (empty($ids)) $ids = 0;
 
         $favos = $this->Shops->find()
             ->contain(['ShopLikes' => function (Query $q) {
@@ -592,6 +593,8 @@ class UsersController extends AppController {
         foreach ($query as $row) {
             array_push($ids, $row->id);
         }
+        if (empty($ids)) $ids = 0;
+
         $favos = $this->Casts->find()
             ->contain(['CastLikes' => function (Query $q) {
                 return $q
