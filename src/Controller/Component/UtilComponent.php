@@ -1710,7 +1710,7 @@ class UtilComponent extends Component {
         for ($i = count($entities_rank); $i <= $limit; $i++) {
             $entity = $this->AccessMonths->newEntity();
             $entity->img_path = PATH_ROOT['NO_RANKING'];
-            $entity->castInfo = array('area'=>'', 'genre' => '');
+            $entity->castInfo = array('area' => null, 'genre' => null);
             $entity->name = 'ランキング対象なし';
             $entities_rank[$i] = $entity;
         }
