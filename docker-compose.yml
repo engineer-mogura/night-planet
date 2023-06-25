@@ -52,13 +52,17 @@ services:
 
   nginx-proxy:
     container_name: nginx-night-planet
-    hostname: nginx
+    hostname: nginx-proxy
     image: jwilder/nginx-proxy:latest
     restart: always
     ports:
       - '80:80'
     networks:
       - night-planet-network
+    tty: true
+    depends_on:
+      - web-public-night-planet
+      - web-admin-night-planet
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
