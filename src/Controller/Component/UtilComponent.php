@@ -1096,7 +1096,7 @@ class UtilComponent extends Component {
                 $files = $this->S3Client->getList($this->s3Backet, $shopInfo['top_image_path'], 1);
 
                 // ファイルが存在したら、画像をセット
-                if (count($files) > 0) {
+                if (is_countable($files) ? count($files) > 0 : 0) {
                     foreach ($files as $file) {
 
                         $adsense->set('img_path', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
