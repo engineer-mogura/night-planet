@@ -784,10 +784,10 @@ class ShopsController extends AppController
         if ($this->request->getData('crud_type') == 'insert') {
 
             $email = new Email('default');
-            $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+            $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
                 ->setSubject($cast->name."様、【".$this->viewVars['shopInfo']['name']."】様よりスタッフ登録のご案内があります。")
                 ->setTo($cast->email)
-                ->setBcc(MAIL['FROM_INFO_GMAIL'])
+                ->setBcc(MAIL['SUPPORT_MAIL'])
                 ->setTemplate("auth_send")
                 ->setLayout("simple_layout")
                 ->emailFormat("html")

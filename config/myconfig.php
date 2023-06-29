@@ -615,9 +615,10 @@ return [
     define('MAIL', array(
         'CAST_AUTH_CONFIRMATION'=>'入力したアドレスにメールを送りました。URLをクリックし、認証を完了してください。１時間以内に完了してください。',
         'OWNER_AUTH_CONFIRMATION'=>'入力したアドレスにメールを送りました。URLをクリックし、認証を完了してください。１時間以内に完了してください。',
-        'FROM_INFO_GMAIL'=>env('FROM_INFO_GMAIL'),
-        'FROM_INFO'=>env('FROM_INFO_GMAIL'),
-        'FROM_SUBSCRIPTION'=>env('FROM_SUBSCRIPTION'),
+        'INFO_MAIL'=>env('INFO_MAIL'),
+        'SUBSCRIPTION_MAIL'=>env('SUBSCRIPTION_MAIL'),
+        'CONTACT_MAIL'=>env('CONTACT_MAIL'),
+        'SUPPORT_MAIL'=>env('SUPPORT_MAIL'),
         'FROM_NAME'=>'NightPlanet事務局',
         'FROM_NAME_PASS_RESET'=>'【NightPlanet ﾅｲﾌﾟﾗ】パスワード再設定',
         'FROM_NAME_CHANGE_PLAN'=>'【NightPlanet ﾅｲﾌﾟﾗ】プラン変更完了とお支払いのご案内',

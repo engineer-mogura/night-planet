@@ -1442,10 +1442,10 @@ class CastsController extends AppController
 
             // 認証完了したら、メール送信
             $email = new Email('default');
-            $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+            $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
                 ->setSubject($cast->name."様、メールアドレスの認証が完了しました。")
                 ->setTo($cast->email)
-                ->setBcc(MAIL['FROM_INFO_GMAIL'])
+                ->setBcc(MAIL['SUPPORT_MAIL'])
                 ->setTemplate("auth_success")
                 ->setLayout("auth_success_layout")
                 ->emailFormat("html")
@@ -1493,10 +1493,10 @@ class CastsController extends AppController
                 }
 
                 $email = new Email('default');
-                $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+                $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
                     ->setSubject(MAIL['FROM_NAME_PASS_RESET'])
                     ->setTo($cast->email)
-                    ->setBcc(MAIL['FROM_INFO_GMAIL'])
+                    ->setBcc(MAIL['SUPPORT_MAIL'])
                     ->setTemplate("pass_reset_email")
                     ->setLayout("simple_layout")
                     ->emailFormat("html")
@@ -1588,10 +1588,10 @@ class CastsController extends AppController
 
                     // 変更完了したら、メール送信
                     $email = new Email('default');
-                    $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+                    $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
                         ->setSubject($cast->name."様、メールアドレスの変更が完了しました。")
                         ->setTo($cast->email)
-                        ->setBcc(MAIL['FROM_INFO_GMAIL'])
+                        ->setBcc(MAIL['SUPPORT_MAIL'])
                         ->setTemplate("pass_reset_success")
                         ->setLayout("simple_layout")
                         ->emailFormat("html")
@@ -1673,10 +1673,10 @@ class CastsController extends AppController
                     }
                     // 変更完了したら、メール送信
                     $email = new Email('default');
-                    $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+                    $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
                         ->setSubject($cast->name."様、メールアドレスの変更が完了しました。")
                         ->setTo($cast->email)
-                        ->setBcc(MAIL['FROM_INFO_GMAIL'])
+                        ->setBcc(MAIL['SUPPORT_MAIL'])
                         ->setTemplate("pass_reset_success")
                         ->setLayout("simple_layout")
                         ->emailFormat("html")

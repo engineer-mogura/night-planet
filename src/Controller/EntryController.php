@@ -118,10 +118,10 @@ class EntryController extends AppController
                 if ($this->Tmps->save($owner)) {
 
                     $email = new Email('default');
-                    $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+                    $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
                         ->setSubject($owner->name."様、メールアドレスの認証を完了してください。")
                         ->setTo($owner->email)
-                        ->setBcc(MAIL['FROM_INFO_GMAIL'])
+                        ->setBcc(MAIL['SUPPORT_MAIL'])
                         ->setTemplate("auth_send")
                         ->setLayout("simple_layout")
                         ->emailFormat("html")

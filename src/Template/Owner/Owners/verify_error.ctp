@@ -5,7 +5,7 @@ $url = PUBLIC_DOMAIN . '/entry/signup/';
 $message = MAIL['FROM_NAME'] . "です。<br>申し訳ございません。何らかの理由により認証に失敗しました。<br>
         もう一度登録し、認証を行ってください。
         <br>もしくは下記メールアドレスにて事務局へご連絡ください。<br>"
-  . MAIL['FROM_INFO_GMAIL'];
+  . MAIL['CONTACT_MAIL'];
 ?>
 <div>
   <?= $this->Flash->render(); ?>

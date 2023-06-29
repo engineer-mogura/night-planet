@@ -211,10 +211,10 @@ class OwnersController extends AppController
             $connection->commit();
             // 認証完了したら、メール送信
             $email = new Email('default');
-            $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+            $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
                 ->setSubject($owner->name."様、メールアドレスの認証が完了しました。")
                 ->setTo($owner->email)
-                ->setBcc(MAIL['FROM_INFO_GMAIL'])
+                ->setBcc(MAIL['SUPPORT_MAIL'])
                 ->setTemplate("auth_success")
                 ->setLayout("auth_success_layout")
                 ->emailFormat("html")
@@ -696,10 +696,10 @@ class OwnersController extends AppController
                 }
 
                 $email = new Email('default');
-                $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+                $email->setFrom([MAIL['SUBSCRIPTION_MAIL'] => MAIL['FROM_NAME']])
                     ->setSubject(MAIL['FROM_NAME_CHANGE_PLAN'])
                     ->setTo($owner[0]->email)
-                    ->setBcc(MAIL['FROM_SUBSCRIPTION'])
+                    ->setBcc(MAIL['SUBSCRIPTION_MAIL'])
                     ->setTemplate("change_plan_success")
                     ->setLayout("simple_layout")
                     ->emailFormat("html")
@@ -774,10 +774,10 @@ class OwnersController extends AppController
                 }
 
                 $email = new Email('default');
-                $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+                $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
                     ->setSubject(MAIL['FROM_NAME_PASS_RESET'])
                     ->setTo($owner->email)
-                    ->setBcc(MAIL['FROM_INFO_GMAIL'])
+                    ->setBcc(MAIL['SUPPORT_MAIL'])
                     ->setTemplate("pass_reset_email")
                     ->setLayout("simple_layout")
                     ->emailFormat("html")
@@ -869,10 +869,10 @@ class OwnersController extends AppController
 
                     // 変更完了したら、メール送信
                     $email = new Email('default');
-                    $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+                    $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
                         ->setSubject($owner->name."様、メールアドレスの変更が完了しました。")
                         ->setTo($owner->email)
-                        ->setBcc(MAIL['FROM_INFO_GMAIL'])
+                        ->setBcc(MAIL['SUPPORT_MAIL'])
                         ->setTemplate("pass_reset_success")
                         ->setLayout("simple_layout")
                         ->emailFormat("html")
@@ -955,10 +955,10 @@ class OwnersController extends AppController
                     }
                     // 変更完了したら、メール送信
                     $email = new Email('default');
-                    $email->setFrom([MAIL['FROM_SUBSCRIPTION'] => MAIL['FROM_NAME']])
+                    $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
                         ->setSubject($owner->name."様、メールアドレスの変更が完了しました。")
                         ->setTo($owner->email)
-                        ->setBcc(MAIL['FROM_INFO_GMAIL'])
+                        ->setBcc(MAIL['SUPPORT_MAIL'])
                         ->setTemplate("pass_reset_success")
                         ->setLayout("simple_layout")
                         ->emailFormat("html")

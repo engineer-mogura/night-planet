@@ -143,10 +143,10 @@ class BatchComponent extends Component
             // }
             foreach ($plans as $key => $plan) {
                 $email = new Email('default');
-                $email->setFrom([MAIL['FROM_INFO'] => MAIL['FROM_NAME']])
+                $email->setFrom([MAIL['SUBSCRIPTION_MAIL'] => MAIL['FROM_NAME']])
                     ->setSubject(MAIL['EXPIRED_SERVICE_PLAN'])
                     ->setTo($plan->owner->email)
-                    ->setBcc(MAIL['FROM_INFO'])
+                    ->setBcc(MAIL['SUBSCRIPTION_MAIL'])
                     ->setTemplate("expired_service_plan")
                     ->setLayout("simple_layout")
                     ->emailFormat("html")
