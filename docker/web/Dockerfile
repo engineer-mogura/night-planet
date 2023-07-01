@@ -9,6 +9,8 @@ ENV TZ Asia/Tokyo
 # copy to nginx settings
 COPY ./docker/web/default.conf /etc/nginx/conf.d/
 COPY ./docker/web/nginx.conf /etc/nginx/
+COPY ./docker/web/ssl/server.crt /etc/nginx/ssl/server.crt
+COPY ./docker/web/ssl/server.key /etc/nginx/ssl/server.key
 
 RUN apt-get update
 

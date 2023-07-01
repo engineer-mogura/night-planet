@@ -23,33 +23,71 @@ build() {
   target
   IMAGES=$(docker ps -q | wc -l)
   if [ "${IMAGES}" -ge 1 ]; then
-    echo "現在起動しているコンテナを停止します..."
+    echo -e "現在起動しているコンテナを停止します...\n"
     docker kill $(docker ps --filter name=night-planet --format "{{.Names}}")
   fi
-  echo "コンテナを作り直します..."
+  echo -e "コンテナを作り直します...\n"
+
   # 環境設定ファイルをコピーする
-  echo "環境設定ファイルをチェックします..."
-  if [ ! -e './.env_'$exe_env ];then
-    echo ".env_${exe_env} が存在しません。"
+  echo -e "環境設定ファイルをチェックします...\n"
+  if [ ! -e './.env_'$EXE_ENV ];then
+    echo ".env_${EXE_ENV} が存在しません。"
     exit 1
   else
-    echo ".env_${exe_env} 環境でデプロイします。"
+    echo ".env_${EXE_ENV} 環境でデプロイします。"
   fi
-  echo "ファイル名を[.env_${exe_env}] ⇒ [.env]に変更してコピーします..."
-  cp './.env_'${exe_env} ./.env
-  echo "[.env]を[./config]ディレクトリにコピーします..."
+  echo "ファイル名を[.env_${EXE_ENV}] ⇒ [.env]に変更してコピーします..."
+  cp './.env_'${EXE_ENV} ./.env
+  echo -e "[.env]を[./config]ディレクトリにコピーします...\n"
   cp './.env' ./config/.env
+
+  # Nginxの設定ファイルをコピーする
+  echo -e "Nginxの設定ファイルをチェックします...\n"
+  SSL_PATH=./docker/web/ssl/
+  SERVER_CRT=server.crt
+  SERVER_KEY=server.key
+  ENIGX_FILE=./docker/web/default.conf
+  enigx_file_tmp=./docker/web/default_nonssl.conf
+
+  if [[ $EXE_ENV =~ ^prod$|^work$ ]];then
+    enigx_file_tmp=./docker/web/default_ssl.conf
+    echo -e "[${SERVER_CRT}]を[${SSL_PATH}${SERVER_CRT}]にコピーします...\n"
+    if [ ! -e ${SERVER_CRT} ];then
+      echo "${SERVER_CRT} が存在しません。"
+      exit 1
+    fi
+    echo -e "[${SERVER_KEY}]を[${SSL_PATH}${SERVER_KEY}]にコピーします...\n"
+    if [ ! -e ${SERVER_KEY} ];then
+      echo "${SERVER_KEY} が存在しません。"
+      exit 1
+    fi
+    cp ./${SERVER_CRT} ${SSL_PATH}${SERVER_CRT}
+    cp ./${SERVER_KEY} ${SSL_PATH}${SERVER_KEY}
+
+  fi
+  echo -e "[$enigx_file_tmp]を[${ENIGX_FILE}]に置換します...\n"
+  if [ ! -e ${enigx_file_tmp} ];then
+    echo "${enigx_file_tmp} が存在しません。"
+    exit 1
+  fi
+  cp ${enigx_file_tmp} ${ENIGX_FILE}
 
   # css 内部のURLを変更する
   REPLACE_URL=`grep -w AWS_URL_HOST ./.env | sed -r 's/AWS_URL_HOST=([^ ]*).*$/\1/'`
   BASE_URL=http://127.0.0.1:9090
-  echo "[cssファイル]内部のURL[$BASE_URL]を[${REPLACE_URL}]に置換します..."
-  sed -e "s@$BASE_URL@$REPLACE_URL@g" ./webroot/css/okiyoru.css > ./webroot/css/okiyoru_tmp.css
-  rm ./webroot/css/okiyoru.css
-  mv ./webroot/css/okiyoru_tmp.css ./webroot/css/okiyoru.css
+  CSS_FILE=./webroot/css/okiyoru.css
+  CSS_FILE_TMP=./webroot/css/okiyoru_tmp.css
+  echo -e "[cssファイル]内部のURL[$BASE_URL]を[${REPLACE_URL}]に置換します...\n"
+  if [ ! -e ${CSS_FILE} ];then
+    echo "${CSS_FILE} が存在しません。"
+    exit 1
+  fi
+  sed -e "s@$BASE_URL@$REPLACE_URL@g" ${CSS_FILE} > ${CSS_FILE_TMP}
+  rm ${CSS_FILE}
+  mv ${CSS_FILE_TMP} ${CSS_FILE}
 
   # Google Cloud サービスアカウント資格情報ファイルをコピーする
-  echo "Google Cloud サービスアカウント資格情報ファイルをコピーします..."
+  echo -e "Google Cloud サービスアカウント資格情報ファイルをコピーします...\n"
   if [ ! -e './service-account-credentials.json' ];then
     echo "service-account-credentials.json が存在しません。"
     exit 1
@@ -101,7 +139,7 @@ exit 0
 }
 
 #実行環境
-exe_env="local"
+EXE_ENV="local"
 
 while getopts :ubcrhpwl OPT
 do
@@ -111,9 +149,9 @@ b ) build;;
 c ) clean;;
 r ) clean ; up;;
 h ) usage;;
-p ) exe_env='prod';;
-w ) exe_env='work';;
-l ) exe_env='local';;
+p ) EXE_ENV='prod';;
+w ) EXE_ENV='work';;
+l ) EXE_ENV='local';;
 :|\? ) usage;;
 esac
 done
