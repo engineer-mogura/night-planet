@@ -7,6 +7,7 @@ ENV TZ Asia/Tokyo
 ################## https://github.com/itouoti12/logrotate-in-nginx-docker #################
 
 # copy to nginx settings
+RUN mkdir -p /etc/nginx/ssl
 COPY ./docker/web/default.conf /etc/nginx/conf.d/
 COPY ./docker/web/nginx.conf /etc/nginx/
 COPY ./docker/web/ssl/server.crt /etc/nginx/ssl/server.crt
