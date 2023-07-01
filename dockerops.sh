@@ -49,7 +49,7 @@ build() {
   ENIGX_FILE=./docker/web/default.conf
   enigx_file_tmp=./docker/web/default_nonssl.conf
 
-  if [[ $EXE_ENV =~ ^prod$|^work$ ]];then
+  if [ $EXE_ENV = prod ] || [ $EXE_ENV = work ];then
     enigx_file_tmp=./docker/web/default_ssl.conf
     echo -e "[${WORK_DIR}${SERVER_CRT}]を[${SSL_PATH}${SERVER_CRT}]にコピーします...\n"
     if [ ! -e ${WORK_DIR}${SERVER_CRT} ];then
