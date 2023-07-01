@@ -30,14 +30,14 @@ build() {
 
   # 環境設定ファイルをコピーする
   echo -e "環境設定ファイルをチェックします...\n"
-  if [ ! -e './.env_'$EXE_ENV ];then
-    echo ".env_${EXE_ENV} が存在しません。"
+  if [ ! -e ${WORK_DIR}'.env_'$EXE_ENV ];then
+    echo "${WORK_DIR}'.env_${EXE_ENV} が存在しません。"
     exit 1
   else
-    echo ".env_${EXE_ENV} 環境でデプロイします。"
+    echo "${WORK_DIR}'.env_${EXE_ENV} 環境でデプロイします。"
   fi
   echo "ファイル名を[.env_${EXE_ENV}] ⇒ [.env]に変更してコピーします..."
-  cp './.env_'${EXE_ENV} ./.env
+  cp ${WORK_DIR}'.env_'${EXE_ENV} ./.env
   echo -e "[.env]を[./config]ディレクトリにコピーします...\n"
   cp './.env' ./config/.env
 
@@ -51,19 +51,18 @@ build() {
 
   if [[ $EXE_ENV =~ ^prod$|^work$ ]];then
     enigx_file_tmp=./docker/web/default_ssl.conf
-    echo -e "[${SERVER_CRT}]を[${SSL_PATH}${SERVER_CRT}]にコピーします...\n"
-    if [ ! -e ${SERVER_CRT} ];then
-      echo "${SERVER_CRT} が存在しません。"
+    echo -e "[${WORK_DIR}${SERVER_CRT}]を[${SSL_PATH}${SERVER_CRT}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}${SERVER_CRT} ];then
+      echo "${WORK_DIR}${SERVER_CRT} が存在しません。"
       exit 1
     fi
-    echo -e "[${SERVER_KEY}]を[${SSL_PATH}${SERVER_KEY}]にコピーします...\n"
-    if [ ! -e ${SERVER_KEY} ];then
-      echo "${SERVER_KEY} が存在しません。"
+    echo -e "[${WORK_DIR}${SERVER_KEY}]を[${SSL_PATH}${SERVER_KEY}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}${SERVER_KEY} ];then
+      echo "${WORK_DIR}${SERVER_KEY} が存在しません。"
       exit 1
     fi
-    cp ./${SERVER_CRT} ${SSL_PATH}${SERVER_CRT}
-    cp ./${SERVER_KEY} ${SSL_PATH}${SERVER_KEY}
-
+    cp ${WORK_DIR}${SERVER_CRT} ${SSL_PATH}${SERVER_CRT}
+    cp ${WORK_DIR}${SERVER_KEY} ${SSL_PATH}${SERVER_KEY}
   fi
   echo -e "[$enigx_file_tmp]を[${ENIGX_FILE}]に置換します...\n"
   if [ ! -e ${enigx_file_tmp} ];then
@@ -88,11 +87,11 @@ build() {
 
   # Google Cloud サービスアカウント資格情報ファイルをコピーする
   echo -e "Google Cloud サービスアカウント資格情報ファイルをコピーします...\n"
-  if [ ! -e './service-account-credentials.json' ];then
-    echo "service-account-credentials.json が存在しません。"
+  if [ ! -e ${WORK_DIR}"service-account-credentials.json" ];then
+    echo ${WORK_DIR}"service-account-credentials.json が存在しません。"
     exit 1
   fi
-  cp ./service-account-credentials.json ./config/googles
+  cp ${WORK_DIR}"service-account-credentials.json" ./config/googles
 
   docker-compose build $(docker ps --filter name=night-planet --format "{{.Names}}")
   echo "コンテナを起動します..."
@@ -140,6 +139,8 @@ exit 0
 
 #実行環境
 EXE_ENV="local"
+#作業フォルダ
+WORK_DIR="./work_dir/NightPlanet/env/"
 
 while getopts :ubcrhpwl OPT
 do
