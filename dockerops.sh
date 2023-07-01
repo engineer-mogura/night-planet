@@ -44,26 +44,28 @@ build() {
   # Nginxの設定ファイルをコピーする
   echo -e "Nginxの設定ファイルをチェックします...\n"
   SSL_PATH=./docker/web/ssl/
-  SERVER_CRT=server_${EXE_ENV}.crt
-  SERVER_KEY=server_${EXE_ENV}.key
+  SERVER_CRT_ENV=server_${EXE_ENV}.crt
+  SERVER_KEY_ENV=server_${EXE_ENV}.key
+  SERVER_CRT=server.crt
+  SERVER_KEY=server.key
   ENIGX_FILE=./docker/web/default.conf
   enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
 
   # 本番・開発環境の場合
   if [ $EXE_ENV = prod ] || [ $EXE_ENV = work ];then
     enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
-    echo -e "[${WORK_DIR}${SERVER_CRT}]を[${SSL_PATH}${SERVER_CRT}]にコピーします...\n"
-    if [ ! -e ${WORK_DIR}${SERVER_CRT} ];then
-      echo "${WORK_DIR}${SERVER_CRT} が存在しません。"
+    echo -e "[${WORK_DIR}${SERVER_CRT_ENV}]を[${SSL_PATH}${SERVER_CRT}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}${SERVER_CRT_ENV} ];then
+      echo "${WORK_DIR}${SERVER_CRT_ENV} が存在しません。"
       exit 1
     fi
-    echo -e "[${WORK_DIR}${SERVER_KEY}]を[${SSL_PATH}${SERVER_KEY}]にコピーします...\n"
-    if [ ! -e ${WORK_DIR}${SERVER_KEY} ];then
-      echo "${WORK_DIR}${SERVER_KEY} が存在しません。"
+    echo -e "[${WORK_DIR}${SERVER_KEY_ENV}]を[${SSL_PATH}${SERVER_KEY}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}${SERVER_KEY_ENV} ];then
+      echo "${WORK_DIR}${SERVER_KEY_ENV} が存在しません。"
       exit 1
     fi
-    cp ${WORK_DIR}${SERVER_CRT} ${SSL_PATH}${SERVER_CRT}
-    cp ${WORK_DIR}${SERVER_KEY} ${SSL_PATH}${SERVER_KEY}
+    cp ${WORK_DIR}${SERVER_CRT_ENV} ${SSL_PATH}${SERVER_CRT}
+    cp ${WORK_DIR}${SERVER_KEY_ENV} ${SSL_PATH}${SERVER_KEY}
   fi
 
   echo -e "[$enigx_file_tmp]を[${ENIGX_FILE}]に置換します...\n"
