@@ -12,6 +12,7 @@ COPY ./docker/web/default.conf /etc/nginx/conf.d/
 COPY ./docker/web/nginx.conf /etc/nginx/
 COPY ./docker/web/ssl/server.crt /etc/nginx/ssl/server.crt
 COPY ./docker/web/ssl/server.key /etc/nginx/ssl/server.key
+COPY ./docker/web/ssl/server.passfile /etc/nginx/ssl/server.passfile
 
 RUN apt-get update
 
