@@ -46,8 +46,10 @@ build() {
   SSL_PATH=./docker/web/ssl/
   SERVER_CRT_ENV=server_${EXE_ENV}.crt
   SERVER_KEY_ENV=server_${EXE_ENV}.key
+  SERVER_PASSFILE_ENV=server_${EXE_ENV}.passfile
   SERVER_CRT=server.crt
   SERVER_KEY=server.key
+  SERVER_PASSFILE=server.passfile
   ENIGX_FILE=./docker/web/default.conf
   enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
 
@@ -64,8 +66,14 @@ build() {
       echo "${WORK_DIR}${SERVER_KEY_ENV} が存在しません。"
       exit 1
     fi
+    echo -e "[${WORK_DIR}${SERVER_PASSFILE_ENV}]を[${SSL_PATH}${SERVER_PASSFILE}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}${SERVER_PASSFILE_ENV} ];then
+      echo "${WORK_DIR}${SERVER_PASSFILE_ENV} が存在しません。"
+      exit 1
+    fi
     cp ${WORK_DIR}${SERVER_CRT_ENV} ${SSL_PATH}${SERVER_CRT}
     cp ${WORK_DIR}${SERVER_KEY_ENV} ${SSL_PATH}${SERVER_KEY}
+    cp ${WORK_DIR}${SERVER_PASSFILE_ENV} ${SSL_PATH}${SERVER_PASSFILE}
   fi
 
   echo -e "[$enigx_file_tmp]を[${ENIGX_FILE}]に置換します...\n"
