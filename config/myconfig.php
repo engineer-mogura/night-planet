@@ -5,7 +5,7 @@
     };
     $http = "http://";
     if (isset($_SERVER['HTTPS'])) {
-        $http = $_SERVER['HTTPS'];
+        $http = "https://";
     }
     // 環境によるドメイン判定
     if(strpos($_SERVER['HTTP_HOST'],'local') !== false){
