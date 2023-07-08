@@ -8,7 +8,9 @@ services:
       context: .
       dockerfile: ./docker/web/Dockerfile
     ports:
-      - 8080:80
+    #   - 8080:443
+      - '8080:80'
+      - '443:443'
     networks:
       - night-planet-network
     tty: true
@@ -25,7 +27,9 @@ services:
       context: .
       dockerfile: ./docker/web/Dockerfile
     ports:
-      - 8081:80
+      # - 8081:80
+      - '8081:80'
+      - '1443:443'
     networks:
       - night-planet-network
     tty: true
@@ -50,22 +54,22 @@ services:
   #     - app-public-night-planet
   #     - app-admin-night-planet
 
-  nginx-proxy:
-    container_name: nginx-night-planet
-    hostname: nginx-proxy
-    image: jwilder/nginx-proxy:latest
-    restart: always
-    ports:
-      - '80:80'
-      - '443:443'
-    networks:
-      - night-planet-network
-    tty: true
-    depends_on:
-      - web-public-night-planet
-      - web-admin-night-planet
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+  # nginx-proxy:
+  #   container_name: nginx-night-planet
+  #   hostname: nginx-proxy
+  #   image: jwilder/nginx-proxy:latest
+  #   restart: always
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #   networks:
+  #     - night-planet-network
+  #   tty: true
+  #   depends_on:
+  #     - web-public-night-planet
+  #     - web-admin-night-planet
+  #   volumes:
+  #     - /var/run/docker.sock:/tmp/docker.sock:ro
 
   app-public-night-planet:
     container_name: app-public-night-planet
