@@ -173,20 +173,20 @@ return [
 
     // パス設定 path.config
     define('PATH_ROOT', array(
-        'NO_IMAGE01'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/no-img16.png',
-        'NO_IMAGE02'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/noimage.jpg',
-        'NO_IMAGE03'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/no-img150_150/no-img7.png',
-        'NO_IMAGE04'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/no-img150_150/no-img8.png',
-        'NO_IMAGE05'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/no-img150_150/no-img9.png',
-        'NO_IMAGE06'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/unknow.png',
-        'NO_RANKING'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/no-ranking.jpg',
-        'NIGHT_PLANET_IMAGE'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/night_planet_top_icon.png',
+        'NO_IMAGE01'=> $URL_S3_BUCKET . '/others/no-img16.png',
+        'NO_IMAGE02'=> $URL_S3_BUCKET . '/others/noimage.jpg',
+        'NO_IMAGE03'=> $URL_S3_BUCKET . '/others/no-img150_150/no-img7.png',
+        'NO_IMAGE04'=> $URL_S3_BUCKET . '/others/no-img150_150/no-img8.png',
+        'NO_IMAGE05'=> $URL_S3_BUCKET . '/others/no-img150_150/no-img9.png',
+        'NO_IMAGE06'=> $URL_S3_BUCKET . '/others/unknow.png',
+        'NO_RANKING'=> $URL_S3_BUCKET . '/others/no-ranking.jpg',
+        'NIGHT_PLANET_IMAGE'=> $URL_S3_BUCKET . '/others/night_planet_top_icon.png',
         'NIGHT_PLANET_CHARA'=> 'https://drive.google.com/uc?id=1VaqWsqOBUm7dnji0iHbCkSAgIlAp7dn6',
         'NIGHT_PLANET_CACHE'=> '/img/tmp/cache/',
-        'CAST_TOP_IMAGE'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/cast/top-image.jpg',
-        'SHOP_TOP_IMAGE'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/shop/top-image.png',
-        'CREDIT'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/credit/',
-        'COUPON'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET').'/others/coupon/coupon1.jpg',
+        'CAST_TOP_IMAGE'=> $URL_S3_BUCKET . '/others/cast/top-image.jpg',
+        'SHOP_TOP_IMAGE'=> $URL_S3_BUCKET . '/others/shop/top-image.png',
+        'CREDIT'=> $URL_S3_BUCKET . '/others/credit/',
+        'COUPON'=> $URL_S3_BUCKET . '/others/coupon/coupon1.jpg',
         'USER'=> 'user',
         'CAST'=> 'cast',
         'DEVELOPER'=> 'developer',
@@ -203,7 +203,7 @@ return [
         'ICON'=> 'icon',
         'CACHE'=> 'cache',
         'BACKUP'=> 'backup',
-        'URL_S3_BUCKET'=> env('AWS_URL_HOST').DS.env('AWS_BUCKET'), // minio/s3 URLとバケット名をくっつけたやつ
+        'URL_S3_BUCKET'=> $URL_S3_BUCKET, // minio/s3 URLとバケット名をくっつけたやつ
         'OTHERS'=> 'others',
         'USERS'=> 'users',
         'SHOPS'=> 'shops',
@@ -441,37 +441,37 @@ return [
         'cabacula'=> [
             'label' => "キャバクラ",
             'path' => "cabacula",
-            'image' => env('AWS_URL_HOST').DS.env('AWS_BUCKET')."/others/genre/cabacura.jpeg"
+            'image' => $URL_S3_BUCKET . "/others/genre/cabacura.jpeg"
         ],
         'snack'=> [
             'label' => "スナック",
             'path' => "snack",
-            'image' => env('AWS_URL_HOST').DS.env('AWS_BUCKET')."/others/genre/snack.jpg"
+            'image' => $URL_S3_BUCKET . "/others/genre/snack.jpg"
         ],
         'girlsbar'=> [
             'label' => "ガールズバー",
             'path' => "girlsbar",
-            'image' => env('AWS_URL_HOST').DS.env('AWS_BUCKET')."/others/genre/girsbar.jpeg"
+            'image' => $URL_S3_BUCKET . "/others/genre/girsbar.jpeg"
         ],
         'club'=> [
             'label' => "クラブ",
             'path' => "club",
-            'image' => env('AWS_URL_HOST').DS.env('AWS_BUCKET')."/others/genre/rounge.jpg"
+            'image' => $URL_S3_BUCKET . "/others/genre/rounge.jpg"
         ],
         'lounge'=> [
             'label' => "ラウンジ",
             'path' => "lounge",
-            'image' => env('AWS_URL_HOST').DS.env('AWS_BUCKET')."/others/genre/rounge.jpg"
+            'image' => $URL_S3_BUCKET . "/others/genre/rounge.jpg"
         ],
         'pub'=> [
             'label' => "パブ",
             'path' => "pub",
-            'image' => env('AWS_URL_HOST').DS.env('AWS_BUCKET')."/others/genre/cabacura.jpeg"
+            'image' => $URL_S3_BUCKET . "/others/genre/cabacura.jpeg"
         ],
         'bar'=> [
             'label' => "バー",
             'path' => "bar",
-            'image' => env('AWS_URL_HOST').DS.env('AWS_BUCKET')."/others/genre/bar.jpg"
+            'image' => $URL_S3_BUCKET . "/others/genre/bar.jpg"
         ],
     )),
     // 星座リスト
