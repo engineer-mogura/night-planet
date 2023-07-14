@@ -43,6 +43,7 @@ build() {
 
   # Nginxの設定ファイルをコピーする
   echo -e "環境毎のファイルを設定します...\n"
+  # nginx
   SSL_PATH=./docker/web/ssl/
   SERVER_CRT_ENV=server_${EXE_ENV}.crt
   SERVER_KEY_ENV=server_${EXE_ENV}.key
@@ -52,8 +53,14 @@ build() {
   SERVER_PASSFILE=server.passfile
   ENIGX_FILE=./docker/web/default.conf
   enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
-  docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
+  # docker
   DOCKER_COMPOSE_FILE=./docker-compose.yml
+  docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
+  # css
+  REPLACE_URL=`grep -w AWS_URL_HOST ./.env | sed -r 's/AWS_URL_HOST=([^ ]*).*$/\1/'`
+  CSS_FILE=./webroot/css/okiyoru.css
+  CSS_FILE_TMP=./webroot/css/okiyoru_tmp.css
+  css_base_url=http://night-planet.local:9090
 
   # 本番・開発環境の場合
   if [ $EXE_ENV = prod ] || [ $EXE_ENV = work ];then
@@ -83,6 +90,8 @@ build() {
     enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
     # docker-compose.yml を環境毎に名称変更
     docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
+    # css ファイルの変更部分を環境毎に変更
+    css_base_url=${css_base_url}/night-planet
   fi
 
   # default.conf コピー
@@ -102,16 +111,12 @@ build() {
   cp ${docker_compose_file_tmp} ${DOCKER_COMPOSE_FILE}
 
   # css 内部のURLを変更する
-  REPLACE_URL=`grep -w AWS_URL_HOST ./.env | sed -r 's/AWS_URL_HOST=([^ ]*).*$/\1/'`
-  BASE_URL=http://night-planet.local:9090
-  CSS_FILE=./webroot/css/okiyoru.css
-  CSS_FILE_TMP=./webroot/css/okiyoru_tmp.css
-  echo -e "[cssファイル]内部のURL[$BASE_URL]を[${REPLACE_URL}]に置換します...\n"
+  echo -e "[cssファイル]内部のURL[$css_base_url]を[${REPLACE_URL}]に置換します...\n"
   if [ ! -e ${CSS_FILE} ];then
     echo "${CSS_FILE} が存在しません。"
     exit 1
   fi
-  sed -e "s@$BASE_URL@$REPLACE_URL@g" ${CSS_FILE} > ${CSS_FILE_TMP}
+  sed -e "s@$css_base_url@$REPLACE_URL@g" ${CSS_FILE} > ${CSS_FILE_TMP}
   rm ${CSS_FILE}
   mv ${CSS_FILE_TMP} ${CSS_FILE}
 

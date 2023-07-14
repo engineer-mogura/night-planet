@@ -43,7 +43,7 @@ footer {
 }
 footer.page-footer .footer-item,
 footer.page-footer .footer-description {
-  /* background-image: url(http://127.0.0.1:9090/night-planet/others/obi3.jpg); */
+  /* background-image: url(http://night-planet.local:9090/night-planet/others/obi3.jpg); */
   background-color: #333333;
   color: white;
 }
@@ -62,7 +62,7 @@ nav.nav-breadcrumb {
   padding-left: initial;
 }
 .nav-wrapper.nav-wrapper-oki div {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/obi3.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/obi3.jpg);
   height: 100%;
   width: 100%;
 }
@@ -92,7 +92,7 @@ span.area-logo-tail {
 .page-footer {
   padding-top: 20px;
   color: initial;
-  background-image: url(http://127.0.0.1:9090/night-planet/others/obi3.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/obi3.jpg);
   background-color: #3e3e3e;
 }
 .page-footer .card-panel {
@@ -178,7 +178,7 @@ nav#nav-header-menu {
   z-index: 10;
   width: 100%;
   transition: 0.3s;
-  background-image: url(http://127.0.0.1:9090/night-planet/others/obi3.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/obi3.jpg);
 }
 div.nav-header-cron-dummy {
   height: 64px;
@@ -189,7 +189,7 @@ nav.nav-opacity {
   /* background-color: rgba(0, 0, 0, 0.55); */
 }
 nav {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/obi3.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/obi3.jpg);
   color: #fff;
   background-color: #3e3e3e;
 }
@@ -625,14 +625,14 @@ form .warning-message {
   height: 600px;
 }
 #top .count-section .card-panel {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/obi2.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/obi2.png);
 }
 #area .count-section .card-panel {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/obi2.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/obi2.png);
 }
 #top .cast-count span:before,
 #area .cast-count span:before {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/users-icon.png);
   background-repeat: no-repeat;
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
@@ -644,7 +644,7 @@ form .warning-message {
 
 #top .shop-count span:before,
 #area .shop-count span:before {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/shop-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/shop-icon.png);
   background-repeat: no-repeat;
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
@@ -739,7 +739,7 @@ ul.tabs > li.tab-original.tab > .active {
 
 /* ユーザー START */
 #modal-login {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/507054.png),url(http://127.0.0.1:9090/night-planet/others/obi2.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/507054.png),url(http://night-planet.local:9090/night-planet/others/obi2.png);
   background-position-x: right;
   background-size: 20em 31em, 20% auto;
   background-repeat: no-repeat, repeat;
@@ -931,7 +931,7 @@ nav ul a {
   right: 0px;
   width: 40px;
   height: 40px;
-  background-image: url(http://127.0.0.1:9090/night-planet/others/new-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/new-icon.png);
   background-size: contain;
   vertical-align: middle;
 }
@@ -943,7 +943,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/coupon-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/coupon-icon.png);
   background-size: contain;
   vertical-align: middle;
 }
@@ -952,7 +952,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/users-icon.png);
   background-repeat: no-repeat;
   background-size: contain;
   vertical-align: middle;
@@ -962,7 +962,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/girl-working-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/girl-working-icon.png);
   background-size: contain;
   vertical-align: middle;
 }
@@ -971,7 +971,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/event-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/event-icon.jpg);
   background-size: contain;
   vertical-align: middle;
 }
@@ -981,7 +981,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/user-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/user-icon.png);
   background-size: contain;
   vertical-align: middle;
 }
@@ -990,7 +990,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/instagram-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/instagram-icon.jpg);
   background-size: contain;
   vertical-align: middle;
 }
@@ -999,7 +999,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/facebook-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/facebook-icon.jpg);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1008,7 +1008,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/twitter-icon.svg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/twitter-icon.svg);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1017,7 +1017,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/line-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/line-icon.png);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1026,7 +1026,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/diary-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/diary-icon.jpg);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1035,7 +1035,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/image-gallery-icon.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   vertical-align: middle;
@@ -1045,7 +1045,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/comment-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/comment-icon.png);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1054,7 +1054,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/map-marker.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/map-marker.png);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1063,7 +1063,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/recruit-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/recruit-icon.png);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1072,7 +1072,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/system-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/system-icon.jpg);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1081,7 +1081,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/shop-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/shop-icon.png);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1090,7 +1090,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/menu-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/menu-icon.png);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1099,7 +1099,7 @@ nav ul a {
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
   height: 30px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/image-gallery-icon.jpg);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1115,7 +1115,7 @@ nav ul a {
 #menu-section .staff-menu-section span:after,
 #menu-section .user-menu-section span:before,
 #menu-section .user-menu-section span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/menu-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/menu-icon.png);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1125,7 +1125,7 @@ nav ul a {
 }
 #menu-section .favorite-label span:before,
 #menu-section .favorite-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/favorite-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/favorite-icon.png);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1135,7 +1135,7 @@ nav ul a {
 }
 #p-casts-section .casts-label span:before,
 #p-casts-section .casts-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/users-icon.png);
   background-repeat: no-repeat;
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
@@ -1159,7 +1159,7 @@ nav ul a {
   border-radius: 32px;
 }
 div.row.section > .card-panel {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/obi2.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/obi2.png);
   background-size: 102%;
 }
 .p-casts-section__list {
@@ -1205,7 +1205,7 @@ background-color: red;
 
 #diary-section .diary-label span:before,
 #diary-section .diary-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/diary-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/diary-icon.jpg);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1215,7 +1215,7 @@ background-color: red;
 }
 #work-section .work-label span:before,
 #work-section .work-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/girl-working-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/girl-working-icon.png);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1225,7 +1225,7 @@ background-color: red;
 }
 #event-section .event-label span:before,
 #event-section .event-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/event-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/event-icon.jpg);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1235,7 +1235,7 @@ background-color: red;
 }
 #shop-info-section .shop-info-label span:before,
 #shop-info-section .shop-info-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/system-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/system-icon.jpg);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1245,7 +1245,7 @@ background-color: red;
 }
 #instagram-section .instagram-label span:before,
 #instagram-section .instagram-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/instagram-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/instagram-icon.jpg);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1255,7 +1255,7 @@ background-color: red;
 }
 #facebook-section .facebook-label span:before,
 #facebook-section .facebook-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/facebook-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/facebook-icon.jpg);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1265,7 +1265,7 @@ background-color: red;
 }
 #twitter-section .twitter-label span:before,
 #twitter-section .twitter-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/twitter-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/twitter-icon.png);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1284,7 +1284,7 @@ background-color: red;
 
 #shop-gallery-section .shop-gallery-label span:before,
 #shop-gallery-section .shop-gallery-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/image-gallery-icon.jpg);
   background-repeat: no-repeat;
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
@@ -1295,7 +1295,7 @@ background-color: red;
 }
 #cast-gallery-section .cast-gallery-label span:before,
 #cast-gallery-section .cast-gallery-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/image-gallery-icon.jpg);
   background-repeat: no-repeat;
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
@@ -1306,7 +1306,7 @@ background-color: red;
 }
 #cast-section .cast-profile-label span:before,
 #cast-section .cast-profile-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/user-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/user-icon.png);
   background-repeat: no-repeat;
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
@@ -1317,7 +1317,7 @@ background-color: red;
 }
 #comment-section .comment-label span:before,
 #comment-section .comment-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/comment-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/comment-icon.png);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1327,7 +1327,7 @@ background-color: red;
 }
 #map-section .map-label span:before,
 #map-section .map-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/map-marker.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/map-marker.png);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1337,7 +1337,7 @@ background-color: red;
 }
 #recruit-section .recruit-label span:before,
 #recruit-section .recruit-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/recruit-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/recruit-icon.png);
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
   width: 30px; /*画像の幅*/
@@ -1347,7 +1347,7 @@ background-color: red;
 }
 .tabs-section2 .trending_up-label span:before,
 .tabs-section2 .trending_up-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/trending_up-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/trending_up-icon.png);
   content: "";
   display: inline-block;
   width: 30px;
@@ -1376,7 +1376,7 @@ background-color: red;
   width: 8em;
   height: 10em;
   background-size: contain;
-  background-image: url(http://127.0.0.1:9090/night-planet/others/507054.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/507054.png);
   background-repeat: no-repeat;
 }
 #instagram-section .instagram-label:after {
@@ -1388,7 +1388,7 @@ background-color: red;
   width: 8em;
   height: 10em;
   background-size: contain;
-  background-image: url(http://127.0.0.1:9090/night-planet/others/1534417.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/1534417.png);
   background-repeat: no-repeat;
 }
 /** キャラクター設定 END **/
@@ -1553,7 +1553,7 @@ background-color: #fb8c00; */
   display: inline-block; /*忘れずに！*/
   width: 20px; /*画像の幅*/
   height: 20px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/diary-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/diary-icon.jpg);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1562,7 +1562,7 @@ background-color: #fb8c00; */
   display: inline-block; /*忘れずに！*/
   width: 20px; /*画像の幅*/
   height: 20px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/users-icon.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   vertical-align: middle;
@@ -1573,14 +1573,14 @@ background-color: #fb8c00; */
   display: inline-block; /*忘れずに！*/
   width: 20px; /*画像の幅*/
   height: 20px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/image-gallery-icon.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   vertical-align: middle;
 }
 #p-casts-section .casts-label span:before,
 #p-casts-section .casts-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/users-icon.png);
   background-repeat: no-repeat;
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
@@ -1698,7 +1698,7 @@ background-color: #fb8c00; */
   display: inline-block; /*忘れずに！*/
   width: 20px; /*画像の幅*/
   height: 20px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/diary-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/diary-icon.jpg);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1707,7 +1707,7 @@ background-color: #fb8c00; */
   display: inline-block; /*忘れずに！*/
   width: 20px; /*画像の幅*/
   height: 20px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/users-icon.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   vertical-align: middle;
@@ -1718,14 +1718,14 @@ background-color: #fb8c00; */
   display: inline-block; /*忘れずに！*/
   width: 20px; /*画像の幅*/
   height: 20px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/image-gallery-icon.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   vertical-align: middle;
 }
 #p-users-section .users-label span:before,
 #p-users-section .users-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/users-icon.png);
   background-repeat: no-repeat;
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
@@ -1753,7 +1753,7 @@ background-color: #fb8c00; */
   display: inline-block; /*忘れずに！*/
   width: 20px; /*画像の幅*/
   height: 20px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/diary-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/diary-icon.jpg);
   background-size: contain;
   vertical-align: middle;
 }
@@ -1762,7 +1762,7 @@ background-color: #fb8c00; */
   display: inline-block; /*忘れずに！*/
   width: 20px; /*画像の幅*/
   height: 20px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/users-icon.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   vertical-align: middle;
@@ -1773,14 +1773,14 @@ background-color: #fb8c00; */
   display: inline-block; /*忘れずに！*/
   width: 20px; /*画像の幅*/
   height: 20px; /*画像の高さ*/
-  background-image: url(http://127.0.0.1:9090/night-planet/others/image-gallery-icon.jpg);
+  background-image: url(http://night-planet.local:9090/night-planet/others/image-gallery-icon.jpg);
   background-repeat: no-repeat;
   background-size: contain;
   vertical-align: middle;
 }
 #p-users-section .users-label span:before,
 #p-users-section .users-label span:after {
-  background-image: url(http://127.0.0.1:9090/night-planet/others/users-icon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/users-icon.png);
   background-repeat: no-repeat;
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/
