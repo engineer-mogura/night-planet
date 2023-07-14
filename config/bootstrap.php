@@ -72,8 +72,8 @@ if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
 try {
     Configure::config('default', new PhpConfig());
     Configure::load('app', 'default', false);
-    // 独自定数ファイル読み込み
-    Configure::load("myconfig");
+    // 一般定数ファイル読み込み
+    Configure::load("general_config");
     if (env("APP_ADMIN_URL") == $_SERVER['HTTP_HOST']) {
         // 管理画面側定数ファイル読み込み
         Configure::load("admin_config");

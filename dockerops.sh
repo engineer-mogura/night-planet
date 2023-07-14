@@ -42,7 +42,7 @@ build() {
   cp './.env' ./config/.env
 
   # Nginxの設定ファイルをコピーする
-  echo -e "Nginxの設定ファイルをチェックします...\n"
+  echo -e "環境毎のファイルを設定します...\n"
   SSL_PATH=./docker/web/ssl/
   SERVER_CRT_ENV=server_${EXE_ENV}.crt
   SERVER_KEY_ENV=server_${EXE_ENV}.key
@@ -52,9 +52,12 @@ build() {
   SERVER_PASSFILE=server.passfile
   ENIGX_FILE=./docker/web/default.conf
   enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
+  docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
+  DOCKER_COMPOSE_FILE=./docker-compose.yml
 
   # 本番・開発環境の場合
   if [ $EXE_ENV = prod ] || [ $EXE_ENV = work ];then
+    # SSL認証ファイルを環境毎に名称変更
     enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
     echo -e "[${WORK_DIR}${SERVER_CRT_ENV}]を[${SSL_PATH}${SERVER_CRT}]にコピーします...\n"
     if [ ! -e ${WORK_DIR}${SERVER_CRT_ENV} ];then
@@ -71,17 +74,32 @@ build() {
       echo "${WORK_DIR}${SERVER_PASSFILE_ENV} が存在しません。"
       exit 1
     fi
+    # SSL認証fileをコピー
     cp ${WORK_DIR}${SERVER_CRT_ENV} ${SSL_PATH}${SERVER_CRT}
     cp ${WORK_DIR}${SERVER_KEY_ENV} ${SSL_PATH}${SERVER_KEY}
     cp ${WORK_DIR}${SERVER_PASSFILE_ENV} ${SSL_PATH}${SERVER_PASSFILE}
+
+    # nginx  を環境毎に名称変更
+    enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
+    # docker-compose.yml を環境毎に名称変更
+    docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
   fi
 
-  echo -e "[$enigx_file_tmp]を[${ENIGX_FILE}]に置換します...\n"
+  # default.conf コピー
+  echo -e "[$enigx_file_tmp]を[${ENIGX_FILE}]にコピーします...\n"
   if [ ! -e ${enigx_file_tmp} ];then
     echo "${enigx_file_tmp} が存在しません。"
     exit 1
   fi
   cp ${enigx_file_tmp} ${ENIGX_FILE}
+
+  # docker-compose.yml コピー
+  echo -e "[${docker_compose_file_tmp}]を[${DOCKER_COMPOSE_FILE}]にコピーします...\n"
+  if [ ! -e ${docker_compose_file_tmp} ];then
+    echo "${docker_compose_file_tmp} が存在しません。"
+    exit 1
+  fi
+  cp ${docker_compose_file_tmp} ${DOCKER_COMPOSE_FILE}
 
   # css 内部のURLを変更する
   REPLACE_URL=`grep -w AWS_URL_HOST ./.env | sed -r 's/AWS_URL_HOST=([^ ]*).*$/\1/'`
