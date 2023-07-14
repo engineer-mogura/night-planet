@@ -15,6 +15,16 @@
     if(strpos($_SERVER['HTTP_HOST'],'local') !== false){
         // ローカル環境の場合
         $URL_S3_BUCKET = env('AWS_URL_HOST').DS.env('AWS_BUCKET');
+        define('AWS_S3_CONFIG', array(
+            'credentials' => [
+                'key' => env('AWS_ACCESS_KEY_ID', ''),
+                'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
+            ],
+            'region' => env('AWS_DEFAULT_REGION', ''),
+            'version' => 'latest',
+            'endpoint' => env('AWS_URL_DOCKER',''),
+            'use_path_style_endpoint' => env('AWS_PATH_STYLE_ENDPOINT', false),
+        ));
         define('PUBLIC_DOMAIN', $http . env('APP_URL'));
         define('ADMIN_DOMAIN', $http . env('APP_ADMIN_URL'));
 
@@ -43,6 +53,16 @@
     } else if(strpos($_SERVER['HTTP_HOST'],'192.168.33.10') !== false){
         // スマホのローカル環境の場合
         $URL_S3_BUCKET = env('AWS_URL_HOST').DS.env('AWS_BUCKET');
+        define('AWS_S3_CONFIG', array(
+            'credentials' => [
+                'key' => env('AWS_ACCESS_KEY_ID', ''),
+                'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
+            ],
+            'region' => env('AWS_DEFAULT_REGION', ''),
+            'version' => 'latest',
+            'endpoint' => env('AWS_URL_DOCKER',''),
+            'use_path_style_endpoint' => env('AWS_PATH_STYLE_ENDPOINT', false),
+        ));
         define("PUBLIC_DOMAIN",'192.168.33.10');
         define("ADMIN_DOMAIN",'192.168.33.10');
 
@@ -69,8 +89,18 @@
             'INSTAGRAM_CACHE_TIME'=> 360, // インスタグラムキャッシュタイム
         ));
     } else if(strpos($_SERVER['HTTP_HOST'],'work') !== false){
-        $URL_S3_BUCKET = env('AWS_URL_HOST');
         // ステージング環境の場合
+        $URL_S3_BUCKET = env('AWS_URL_HOST');
+        define('AWS_S3_CONFIG', array(
+            'credentials' => [
+                'key' => env('AWS_ACCESS_KEY_ID', ''),
+                'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
+            ],
+            'region' => env('AWS_DEFAULT_REGION', ''),
+            'version' => 'latest',
+            // 'endpoint' => env('AWS_URL_DOCKER',''),
+            // 'use_path_style_endpoint' => env('AWS_PATH_STYLE_ENDPOINT', false),
+        ));
         define('PUBLIC_DOMAIN', $http . env('APP_URL'));
         define('ADMIN_DOMAIN', $http . env('APP_ADMIN_URL'));
 
@@ -99,6 +129,16 @@
     } else {
         // 本番環境の場合
         $URL_S3_BUCKET = env('AWS_URL_HOST');
+        define('AWS_S3_CONFIG', array(
+            'credentials' => [
+                'key' => env('AWS_ACCESS_KEY_ID', ''),
+                'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
+            ],
+            'region' => env('AWS_DEFAULT_REGION', ''),
+            'version' => 'latest',
+            // 'endpoint' => env('AWS_URL_DOCKER',''),
+            // 'use_path_style_endpoint' => env('AWS_PATH_STYLE_ENDPOINT', false),
+        ));
         define('PUBLIC_DOMAIN', $http . env('APP_URL'));
         define('ADMIN_DOMAIN', $http . env('APP_ADMIN_URL'));
 

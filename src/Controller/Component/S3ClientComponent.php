@@ -26,16 +26,7 @@ class S3ClientComponent extends Component
 
     public function initialize(array $config)
     {
-        $this->s3 = S3Client::factory([
-            'credentials' => [
-                'key' => env('AWS_ACCESS_KEY_ID', ''),
-                'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
-            ],
-            'region' => env('AWS_DEFAULT_REGION', ''),
-            'version' => 'latest',
-            'endpoint' => env('AWS_URL_DOCKER',''),
-            'use_path_style_endpoint' => env('AWS_PATH_STYLE_ENDPOINT', false),
-        ]);
+        $this->s3 = S3Client::factory(AWS_S3_CONFIG);
 
         // ストリームラッパー登録
         $this->s3->registerStreamWrapper();
