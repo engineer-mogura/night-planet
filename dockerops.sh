@@ -2,8 +2,8 @@
 
 #night-planet コンテナIDを抽出する
 target () {
-  containers=$(docker ps --filter name=night-planet --format "{{.Names}}")
-  echo "night-planet コンテナを抽出します..."
+  containers=$(docker ps --filter name=${SERVICE_NAME} --format "{{.Names}}")
+  echo "${SERVICE_NAME} コンテナを抽出します..."
   for c in $containers; do
     echo $c
   done
@@ -24,7 +24,7 @@ build() {
   IMAGES=$(docker ps -q | wc -l)
   if [ "${IMAGES}" -ge 1 ]; then
     echo -e "現在起動しているコンテナを停止します...\n"
-    docker kill $(docker ps --filter name=night-planet --format "{{.Names}}")
+    docker kill $(docker ps --filter name=${SERVICE_NAME} --format "{{.Names}}")
   fi
   echo -e "コンテナを作り直します...\n"
 
@@ -91,7 +91,7 @@ build() {
     # docker-compose.yml を環境毎に名称変更
     docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
     # css ファイルの変更部分を環境毎に変更
-    css_base_url=${css_base_url}/night-planet
+    css_base_url=${css_base_url}/${SERVICE_NAME}${SERVICE_NAME}
   fi
 
   # default.conf コピー
@@ -128,9 +128,9 @@ build() {
   fi
   cp ${WORK_DIR}"service-account-credentials.json" ./config/googles
 
-  docker-compose build $(docker ps --filter name=night-planet --format "{{.Names}}")
+  docker-compose build $(docker ps --filter name=${SERVICE_NAME} --format "{{.Names}}")
   echo "コンテナを起動します..."
-  docker-compose up -d $(docker ps --filter name=night-planet --format "{{.Names}}")
+  docker-compose up -d $(docker ps --filter name=${SERVICE_NAME} --format "{{.Names}}")
 
 }
 
@@ -176,6 +176,8 @@ exit 0
 EXE_ENV="local"
 #作業フォルダ
 WORK_DIR="./work_dir/NightPlanet/env/"
+#サービスネーム
+SERVICE_NAME="night-planet"
 
 while getopts :ubcrhpwl OPT
 do
