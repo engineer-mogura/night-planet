@@ -12,6 +12,7 @@ RUN docker-php-ext-configure gd  --with-freetype --with-jpeg
 RUN docker-php-ext-install intl pdo_mysql zip bcmath
 RUN docker-php-ext-install -j$(nproc) gd
 RUN apt-get install -y curl gnupg
+RUN apt-get install -y default-mysql-client
 RUN apt-get install -y nodejs npm
 RUN apt-get install -y gnupg
 RUN apt-get install -y cron

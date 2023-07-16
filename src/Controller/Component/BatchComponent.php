@@ -59,7 +59,7 @@ class BatchComponent extends Component
         exec('chmod 700 ' . $dirpath);
 
         // コマンド
-        $command = sprintf($mysqldump_path . ' -h %s -u %s -p%s %s | gzip > %sbackup.sql.gz'
+        $command = sprintf($mysqldump_path . '--no-tablespaces -h %s -u %s -p%s %s | gzip > %sbackup.sql.gz'
             , $con->config()['host'], $con->config()['username']
             , $con->config()['password'], $con->config()['database']
             , $dirpath . DS . $date);
@@ -67,7 +67,7 @@ class BatchComponent extends Component
         // データベースバックアップ
         exec($command, $output, $result_code);
 
-        Log::info(__LINE__ . '::' . __METHOD__ . '::' . "アウトプット:".$output . "結果コード:" . $result_code, 'batch_bk');
+        Log::info(__LINE__ . '::' . __METHOD__ . '::' . "アウトプット:". print_r($output) . "結果コード:" . $result_code, 'batch_bk');
         return $result;
     }
 
