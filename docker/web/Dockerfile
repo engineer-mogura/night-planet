@@ -9,10 +9,15 @@ ENV TZ Asia/Tokyo
 # copy to nginx settings
 RUN mkdir -p /etc/nginx/ssl
 COPY ./docker/web/default.conf /etc/nginx/conf.d/
-COPY ./docker/web/nginx.conf /etc/nginx/
-COPY ./docker/web/ssl/server.crt /etc/nginx/ssl/server.crt
-COPY ./docker/web/ssl/server.key /etc/nginx/ssl/server.key
-COPY ./docker/web/ssl/server.passfile /etc/nginx/ssl/server.passfile
+COPY ./docker/web/nginx.conf   /etc/nginx/
+# public ssl
+COPY ./docker/web/ssl/server_public.crt      /etc/nginx/ssl/server_public.crt
+COPY ./docker/web/ssl/server_public.key      /etc/nginx/ssl/server_public.key
+COPY ./docker/web/ssl/server_public.passfile /etc/nginx/ssl/server_public.passfile
+# admin ssl
+COPY ./docker/web/ssl/server_admin.crt      /etc/nginx/ssl/server_admin.crt
+COPY ./docker/web/ssl/server_admin.key      /etc/nginx/ssl/server_admin.key
+COPY ./docker/web/ssl/server_admin.passfile /etc/nginx/ssl/server_admin.passfile
 
 RUN apt-get update
 

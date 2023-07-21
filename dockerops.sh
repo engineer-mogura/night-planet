@@ -2,8 +2,8 @@
 
 #night-planet コンテナIDを抽出する
 target () {
-  containers=$(docker ps --filter name=${SERVICE_NAME} --format "{{.Names}}")
-  echo "${SERVICE_NAME} コンテナを抽出します..."
+  containers=$(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
+  echo "${SERVICE_NAME}-${EXE_ENV} コンテナを抽出します..."
   for c in $containers; do
     echo $c
   done
@@ -24,20 +24,19 @@ build() {
   IMAGES=$(docker ps -q | wc -l)
   if [ "${IMAGES}" -ge 1 ]; then
     echo -e "現在起動しているコンテナを停止します...\n"
-    docker kill $(docker ps --filter name=${SERVICE_NAME} --format "{{.Names}}")
+    docker kill $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
   fi
   echo -e "コンテナを作り直します...\n"
 
   # 環境設定ファイルをコピーする
   echo -e "環境設定ファイルをチェックします...\n"
-  if [ ! -e ${WORK_DIR}'.env_'$EXE_ENV ];then
-    echo "${WORK_DIR}'.env_${EXE_ENV} が存在しません。"
+  if [ ! -e ${WORK_DIR}/${EXE_ENV}/'.env_'$EXE_ENV ];then
+    echo "${WORK_DIR}/${EXE_ENV}/'.env_${EXE_ENV} が存在しません。"
     exit 1
-  else
-    echo "${WORK_DIR}'.env_${EXE_ENV} 環境でデプロイします。"
   fi
+  echo "${WORK_DIR}/${EXE_ENV}/'.env_${EXE_ENV} 環境でデプロイします。"
   echo "ファイル名を[.env_${EXE_ENV}] ⇒ [.env]に変更してコピーします..."
-  cp ${WORK_DIR}'.env_'${EXE_ENV} ./.env
+  cp ${WORK_DIR}/${EXE_ENV}/'.env_'${EXE_ENV} ./.env
   echo -e "[.env]を[./config]ディレクトリにコピーします...\n"
   cp './.env' ./config/.env
 
@@ -45,12 +44,21 @@ build() {
   echo -e "環境毎のファイルを設定します...\n"
   # nginx
   SSL_PATH=./docker/web/ssl/
-  SERVER_CRT_ENV=server_${EXE_ENV}.crt
-  SERVER_KEY_ENV=server_${EXE_ENV}.key
-  SERVER_PASSFILE_ENV=server_${EXE_ENV}.passfile
-  SERVER_CRT=server.crt
-  SERVER_KEY=server.key
-  SERVER_PASSFILE=server.passfile
+  # public ssl
+  SERVER_PUBLIC_CRT_ENV=server_public_${EXE_ENV}.crt
+  SERVER_PUBLIC_KEY_ENV=server_public_${EXE_ENV}.key
+  SERVER_PUBLIC_PASSFILE_ENV=server_public_${EXE_ENV}.passfile
+  SERVER_PUBLIC_CRT=server_public.crt
+  SERVER_PUBLIC_KEY=server_public.key
+  SERVER_PUBLIC_PASSFILE=server_public.passfile
+  # admin ssl
+  SERVER_ADMIN_CRT_ENV=server_admin_${EXE_ENV}.crt
+  SERVER_ADMIN_KEY_ENV=server_admin_${EXE_ENV}.key
+  SERVER_ADMIN_PASSFILE_ENV=server_admin_${EXE_ENV}.passfile
+  SERVER_ADMIN_CRT=server_admin.crt
+  SERVER_ADMIN_KEY=server_admin.key
+  SERVER_ADMIN_PASSFILE=server_admin.passfile
+
   ENIGX_FILE=./docker/web/default.conf
   enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
   # docker
@@ -64,34 +72,57 @@ build() {
 
   # 本番・開発環境の場合
   if [ $EXE_ENV = prod ] || [ $EXE_ENV = work ];then
-    # SSL認証ファイルを環境毎に名称変更
+    # PUBLIC SSL認証ファイルを環境毎に名称変更
     enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
-    echo -e "[${WORK_DIR}${SERVER_CRT_ENV}]を[${SSL_PATH}${SERVER_CRT}]にコピーします...\n"
-    if [ ! -e ${WORK_DIR}${SERVER_CRT_ENV} ];then
-      echo "${WORK_DIR}${SERVER_CRT_ENV} が存在しません。"
+    echo -e "[${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_CRT_ENV}]を[${SSL_PATH}${SERVER_PUBLIC_CRT}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_CRT_ENV} ];then
+      echo "tettett"
+      echo "${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_CRT_ENV} が存在しません。"
       exit 1
     fi
-    echo -e "[${WORK_DIR}${SERVER_KEY_ENV}]を[${SSL_PATH}${SERVER_KEY}]にコピーします...\n"
-    if [ ! -e ${WORK_DIR}${SERVER_KEY_ENV} ];then
-      echo "${WORK_DIR}${SERVER_KEY_ENV} が存在しません。"
+    echo -e "[${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_KEY_ENV}]を[${SSL_PATH}${SERVER_PUBLIC_KEY}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_KEY_ENV} ];then
+      echo "${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_KEY_ENV} が存在しません。"
       exit 1
     fi
-    echo -e "[${WORK_DIR}${SERVER_PASSFILE_ENV}]を[${SSL_PATH}${SERVER_PASSFILE}]にコピーします...\n"
-    if [ ! -e ${WORK_DIR}${SERVER_PASSFILE_ENV} ];then
-      echo "${WORK_DIR}${SERVER_PASSFILE_ENV} が存在しません。"
+    echo -e "[${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_PASSFILE_ENV}]を[${SSL_PATH}${SERVER_PUBLIC_PASSFILE}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_PASSFILE_ENV} ];then
+      echo "${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_PASSFILE_ENV} が存在しません。"
       exit 1
     fi
-    # SSL認証fileをコピー
-    cp ${WORK_DIR}${SERVER_CRT_ENV} ${SSL_PATH}${SERVER_CRT}
-    cp ${WORK_DIR}${SERVER_KEY_ENV} ${SSL_PATH}${SERVER_KEY}
-    cp ${WORK_DIR}${SERVER_PASSFILE_ENV} ${SSL_PATH}${SERVER_PASSFILE}
+    # PUBLIC SSL認証ファイルをコピー
+    cp ${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_CRT_ENV} ${SSL_PATH}${SERVER_PUBLIC_CRT}
+    cp ${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_KEY_ENV} ${SSL_PATH}${SERVER_PUBLIC_KEY}
+    cp ${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_PASSFILE_ENV} ${SSL_PATH}${SERVER_PUBLIC_PASSFILE}
+
+    # ADMIN SSL認証ファイルを環境毎に名称変更
+    enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
+    echo -e "[${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_CRT_ENV}]を[${SSL_PATH}${SERVER_ADMIN_CRT}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_CRT_ENV} ];then
+      echo "${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_CRT_ENV} が存在しません。"
+      exit 1
+    fi
+    echo -e "[${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_KEY_ENV}]を[${SSL_PATH}${SERVER_ADMIN_KEY}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_KEY_ENV} ];then
+      echo "${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_KEY_ENV} が存在しません。"
+      exit 1
+    fi
+    echo -e "[${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_PASSFILE_ENV}]を[${SSL_PATH}${SERVER_ADMIN_PASSFILE}]にコピーします...\n"
+    if [ ! -e ${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_PASSFILE_ENV} ];then
+      echo "${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_PASSFILE_ENV} が存在しません。"
+      exit 1
+    fi
+    # ADMIN SSL認証ファイルをコピー
+    cp ${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_CRT_ENV} ${SSL_PATH}${SERVER_ADMIN_CRT}
+    cp ${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_KEY_ENV} ${SSL_PATH}${SERVER_ADMIN_KEY}
+    cp ${WORK_DIR}/${EXE_ENV}/${SERVER_ADMIN_PASSFILE_ENV} ${SSL_PATH}${SERVER_ADMIN_PASSFILE}
 
     # nginx  を環境毎に名称変更
     enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
     # docker-compose.yml を環境毎に名称変更
     docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
     # css ファイルの変更部分を環境毎に変更
-    css_base_url=${css_base_url}/${SERVICE_NAME}${SERVICE_NAME}
+    css_base_url=${css_base_url}/${SERVICE_NAME}
   fi
 
   # default.conf コピー
@@ -122,15 +153,15 @@ build() {
 
   # Google Cloud サービスアカウント資格情報ファイルをコピーする
   echo -e "Google Cloud サービスアカウント資格情報ファイルをコピーします...\n"
-  if [ ! -e ${WORK_DIR}"service-account-credentials.json" ];then
-    echo ${WORK_DIR}"service-account-credentials.json が存在しません。"
+  if [ ! -e ${WORK_DIR}/"service-account-credentials.json" ];then
+    echo ${WORK_DIR}/"service-account-credentials.json が存在しません。"
     exit 1
   fi
-  cp ${WORK_DIR}"service-account-credentials.json" ./config/googles
+  cp ${WORK_DIR}/"service-account-credentials.json" ./config/googles
 
-  docker-compose build $(docker ps --filter name=${SERVICE_NAME} --format "{{.Names}}")
+  docker-compose build $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
   echo "コンテナを起動します..."
-  docker-compose up -d $(docker ps --filter name=${SERVICE_NAME} --format "{{.Names}}")
+  docker-compose up -d $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
 
 }
 
@@ -175,7 +206,7 @@ exit 0
 #実行環境
 EXE_ENV="local"
 #作業フォルダ
-WORK_DIR="./work_dir/NightPlanet/env/"
+WORK_DIR="./work_dir/NightPlanet/env"
 #サービスネーム
 SERVICE_NAME="night-planet"
 
