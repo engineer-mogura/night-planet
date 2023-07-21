@@ -64,6 +64,8 @@ build() {
   # docker
   DOCKER_COMPOSE_FILE=./docker-compose.yml
   docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
+  DOCKER_FILE=./docker/web/Dockerfile
+  docker_file_tmp=./docker/web/Dockerfile_${EXE_ENV}
   # css
   REPLACE_URL=`grep -w AWS_URL_HOST ./.env | sed -r 's/AWS_URL_HOST=([^ ]*).*$/\1/'`
   CSS_FILE=./webroot/css/okiyoru.css
@@ -121,6 +123,8 @@ build() {
     enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
     # docker-compose.yml を環境毎に名称変更
     docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
+    # Dockerfile を環境毎に名称変更
+    docker_file_tmp=./docker/web/Dockerfile_${EXE_ENV}
     # css ファイルの変更部分を環境毎に変更
     css_base_url=${css_base_url}/${SERVICE_NAME}
   fi
@@ -140,6 +144,14 @@ build() {
     exit 1
   fi
   cp ${docker_compose_file_tmp} ${DOCKER_COMPOSE_FILE}
+
+  # Dockerfile コピー
+  echo -e "[${docker_file_tmp}]を[${DOCKER_FILE}]にコピーします...\n"
+  if [ ! -e ${docker_file_tmp} ];then
+    echo "${docker_file_tmp} が存在しません。"
+    exit 1
+  fi
+  cp ${docker_file_tmp} ${DOCKER_FILE}
 
   # css 内部のURLを変更する
   echo -e "[cssファイル]内部のURL[$css_base_url]を[${REPLACE_URL}]に置換します...\n"
@@ -161,7 +173,7 @@ build() {
 
   docker-compose build $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
   echo "コンテナを起動します..."
-  docker-compose up -d $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
+  docker-compose -p ${SERVICE_NAME}-${EXE_ENV} up -d $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
 
 }
 
