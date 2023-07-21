@@ -64,7 +64,7 @@ build() {
   # docker
   DOCKER_COMPOSE_FILE=./docker-compose.yml
   docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
-  DOCKER_FILE=./docker/web/Dockerfile
+  DOCKER_FILE=./docker/web/Dokcerfile
   docker_file_tmp=./docker/web/Dockerfile_${EXE_ENV}
   # css
   REPLACE_URL=`grep -w AWS_URL_HOST ./.env | sed -r 's/AWS_URL_HOST=([^ ]*).*$/\1/'`
@@ -173,7 +173,7 @@ build() {
 
   docker-compose build $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
   echo "コンテナを起動します..."
-  docker-compose -p ${SERVICE_NAME}-${EXE_ENV} up -d $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
+  docker-compose up -d $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
 
 }
 

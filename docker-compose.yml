@@ -1,5 +1,5 @@
 version: "3.9"
-
+name: night-planet-local
 services:
 
   web-public-night-planet-local:
