@@ -64,7 +64,7 @@ build() {
   # docker
   DOCKER_COMPOSE_FILE=./docker-compose.yml
   docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
-  DOCKER_FILE=./docker/web/Dokcerfile
+  DOCKER_FILE=./docker/web/Dockerfile
   docker_file_tmp=./docker/web/Dockerfile_${EXE_ENV}
   # css
   REPLACE_URL=`grep -w AWS_URL_HOST ./.env | sed -r 's/AWS_URL_HOST=([^ ]*).*$/\1/'`
