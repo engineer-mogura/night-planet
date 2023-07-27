@@ -61,16 +61,24 @@ build() {
 
   ENIGX_FILE=./docker/web/default.conf
   enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
+
   # docker
   DOCKER_COMPOSE_FILE=./docker-compose.yml
   docker_compose_file_tmp=./docker-compose_${EXE_ENV}.yml
   DOCKER_FILE=./docker/web/Dockerfile
   docker_file_tmp=./docker/web/Dockerfile_${EXE_ENV}
+  # google croud account 認証
+  GOOGLE_CLOUD_CREDENTIALS=service-account-credentials.json
   # css
   REPLACE_URL=`grep -w AWS_URL_HOST ./.env | sed -r 's/AWS_URL_HOST=([^ ]*).*$/\1/'`
   CSS_FILE=./webroot/css/okiyoru.css
   CSS_FILE_TMP=./webroot/css/okiyoru_tmp.css
   css_base_url=http://night-planet.local:9090
+
+  # パーミッション変更
+  # chmod -R 0777 ./logs
+  # chmod -R 0777 ./tmp
+  # chmod 0777 ./bin/cake ./bin/cake.bat ./bin/cake.php
 
   # 本番・開発環境の場合
   if [ $EXE_ENV = prod ] || [ $EXE_ENV = work ];then
@@ -78,7 +86,6 @@ build() {
     enigx_file_tmp=./docker/web/default_${EXE_ENV}.conf
     echo -e "[${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_CRT_ENV}]を[${SSL_PATH}${SERVER_PUBLIC_CRT}]にコピーします...\n"
     if [ ! -e ${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_CRT_ENV} ];then
-      echo "tettett"
       echo "${WORK_DIR}/${EXE_ENV}/${SERVER_PUBLIC_CRT_ENV} が存在しません。"
       exit 1
     fi
@@ -164,12 +171,12 @@ build() {
   mv ${CSS_FILE_TMP} ${CSS_FILE}
 
   # Google Cloud サービスアカウント資格情報ファイルをコピーする
-  echo -e "Google Cloud サービスアカウント資格情報ファイルをコピーします...\n"
-  if [ ! -e ${WORK_DIR}/"service-account-credentials.json" ];then
-    echo ${WORK_DIR}/"service-account-credentials.json が存在しません。"
+  echo -e "[${WORK_DIR}/${GOOGLE_CLOUD_CREDENTIALS}]を[./config/googles/${GOOGLE_CLOUD_CREDENTIALS}]にコピーします...\n"
+  if [ ! -e ${WORK_DIR}/${GOOGLE_CLOUD_CREDENTIALS} ];then
+    echo "${WORK_DIR}/${GOOGLE_CLOUD_CREDENTIALS} が存在しません。"
     exit 1
   fi
-  cp ${WORK_DIR}/"service-account-credentials.json" ./config/googles
+  cp ${WORK_DIR}/${GOOGLE_CLOUD_CREDENTIALS} ./config/googles
 
   docker-compose build $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
   echo "コンテナを起動します..."
