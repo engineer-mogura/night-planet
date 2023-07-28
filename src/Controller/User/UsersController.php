@@ -1109,7 +1109,7 @@ class UsersController extends AppController {
                         ->viewVars(['user' => $user])
                         ->send();
                     $this->log($email, 'debug');
-                    $this->Flash->success('ご指定のメールアドレスに認証メールを送りました。認証を完了してください。');
+                    $this->Flash->success('ご指定のメールアドレスに認証メールを送りました。認証を完了してください。しばらくしてもメールが届かない場合は、迷惑メールフォルダもご確認ください。');
                     return $this->render('send_auth_email');
                 }
             }
