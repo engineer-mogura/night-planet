@@ -151,8 +151,8 @@
     </div>
     <div class="row">
       <div class="input-field col s12 m10 l12 ">
-        <textarea id="system" class="validate materialize-textarea" name="shop_system" data-length="900"></textarea>
-        <label for="system">システム</label>
+        <textarea id="shop_system" class="validate materialize-textarea" name="shop_system" data-length="900"></textarea>
+        <label for="shop_system">システム</label>
       </div>
     </div>
     <div class="row">

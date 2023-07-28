@@ -2037,8 +2037,8 @@ function initializeShop() {
                 $("#tenpo")
                     .find('input[name="bus_hosoku"]')
                     .val(json["bus_hosoku"]);
-                $("#tenpo").find('textarea[name="staff"]').val(json["staff"]);
-                $("#tenpo").find('textarea[name="system"]').val(json["system"]);
+                $("#tenpo").find('textarea[name="web_site"]').val(json["web_site"]);
+                $("#tenpo").find('textarea[name="shop_system"]').val(json["shop_system"]);
                 //クレジットフィールドにあるタグを取得して配列にセット
                 var data = JSON.parse(
                     $("#tenpo").find('input[name="credit_hidden"]').val()
