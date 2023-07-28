@@ -785,7 +785,7 @@ class OwnersController extends AppController
                     ->send();
                 $this->set('owner', $owner);
 
-                $this->Flash->success('パスワード再設定用メールを送信しました。');
+                $this->Flash->success('パスワード再設定用メールを送信しました。しばらくしても届かない場合は迷惑メールフォルダをご確認ください。');
                 Log::info("ID：【".$owner['id']."】アドレス：【".$owner->email
                     ."】パスワード再設定用メールを送信しました。", 'pass_reset');
 

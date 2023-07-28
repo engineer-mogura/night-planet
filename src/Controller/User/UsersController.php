@@ -903,7 +903,7 @@ class UsersController extends AppController {
                     ->send();
                 $this->set('user', $user);
 
-                $this->Flash->success('パスワード再設定用メールを送信しました。');
+                $this->Flash->success('パスワード再設定用メールを送信しました。しばらくしても届かない場合は迷惑メールフォルダをご確認ください。');
                 Log::info("ID：【" . $user['id'] . "】アドレス：【" . $user->email
                     . "】パスワード再設定用メールを送信しました。", 'pass_reset');
 

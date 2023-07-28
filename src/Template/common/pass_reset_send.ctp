@@ -17,7 +17,7 @@
                     endif;
                 ?>
                 <p><?=$email?>へパスワード再設定メールを送信しました。<br>
-                しばらくしてもメールが届かない場合は、スパムフォルダをご確認ください。</p>
+                しばらくしてもメールが届かない場合は、迷惑メールフォルダをご確認ください。</p>
                 <div class="or-button">
                     <?=$this->Html->link('トップページへ行く','/'
                         ,[ 'class'=>'waves-effect waves-light btn-large']);?>
