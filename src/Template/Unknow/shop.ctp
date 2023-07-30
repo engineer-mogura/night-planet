@@ -6,7 +6,7 @@
 					<div class="unknow-contents">
 						<div class="col s12 m12 l12">
 							<p class="unknow-image">
-								<img src="/img/common/unknow.png" class="responsive-img" width="300" height="150">
+								<img src="<?= PATH_ROOT['NO_IMAGE06'] ?>" class="responsive-img" width="300" height="150">
 							</p>
 						</div>
 						<div class="col s12 m12 l12 unknow-message">
