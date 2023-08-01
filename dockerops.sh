@@ -71,8 +71,10 @@ build() {
   GOOGLE_CLOUD_CREDENTIALS=service-account-credentials.json
   # css
   REPLACE_URL=`grep -w AWS_URL_HOST ./.env | sed -r 's/AWS_URL_HOST=([^ ]*).*$/\1/'`
-  CSS_FILE=./webroot/css/okiyoru.css
-  CSS_FILE_TMP=./webroot/css/okiyoru_tmp.css
+  CSS_NIGHT_PLANET_FILE=./webroot/css/night-planet.css
+  CSS_NIGHT_PLANET_FILE_TMP=./webroot/css/night-planet_tmp.css
+  CSS_RATEIT_FILE=./webroot/css/rateit.css
+  CSS_RATEIT_FILE_TMP=./webroot/css/rateit_tmp.css
   css_base_url=http://night-planet.local:9090
 
   # パーミッション変更
@@ -160,15 +162,25 @@ build() {
   fi
   cp ${docker_file_tmp} ${DOCKER_FILE}
 
-  # css 内部のURLを変更する
-  echo -e "[cssファイル]内部のURL[$css_base_url]を[${REPLACE_URL}]に置換します...\n"
-  if [ ! -e ${CSS_FILE} ];then
-    echo "${CSS_FILE} が存在しません。"
+  # night-planet.css 内部のURLを変更する
+  echo -e "[${CSS_NIGHT_PLANET_FILE} ファイル]内部のURL[$css_base_url]を[${REPLACE_URL}]に置換します...\n"
+  if [ ! -e ${CSS_NIGHT_PLANET_FILE} ];then
+    echo "${CSS_NIGHT_PLANET_FILE} が存在しません。"
     exit 1
   fi
-  sed -e "s@$css_base_url@$REPLACE_URL@g" ${CSS_FILE} > ${CSS_FILE_TMP}
-  rm ${CSS_FILE}
-  mv ${CSS_FILE_TMP} ${CSS_FILE}
+  sed -e "s@$css_base_url@$REPLACE_URL@g" ${CSS_NIGHT_PLANET_FILE} > ${CSS_NIGHT_PLANET_FILE_TMP}
+  rm ${CSS_NIGHT_PLANET_FILE}
+  mv ${CSS_NIGHT_PLANET_FILE_TMP} ${CSS_NIGHT_PLANET_FILE}
+
+  # rateit.css 内部のURLを変更する
+  echo -e "[${CSS_RATEIT_FILE} ファイル]内部のURL[$css_base_url]を[${REPLACE_URL}]に置換します...\n"
+  if [ ! -e ${CSS_RATEIT_FILE} ];then
+    echo "${CSS_RATEIT_FILE} が存在しません。"
+    exit 1
+  fi
+  sed -e "s@$css_base_url@$REPLACE_URL@g" ${CSS_RATEIT_FILE} > ${CSS_RATEIT_FILE_TMP}
+  rm ${CSS_RATEIT_FILE}
+  mv ${CSS_RATEIT_FILE_TMP} ${CSS_RATEIT_FILE}
 
   # Google Cloud サービスアカウント資格情報ファイルをコピーする
   echo -e "[${WORK_DIR}/${GOOGLE_CLOUD_CREDENTIALS}]を[./config/googles/${GOOGLE_CLOUD_CREDENTIALS}]にコピーします...\n"

@@ -32,7 +32,7 @@ $this->end();
 endif;
 ?>
 <!-- okiyoru error -->
-<?php $this->layout = 'error_okiyoru';?>
+<?php $this->layout = 'error_night_planet';?>
 
 <blockquote>
     <h4><?= __d('cake', 'The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>></h4>

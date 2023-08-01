@@ -24,7 +24,7 @@
     <?= $this->Html->meta('icon') ?>
 
     <?= $this->Html->css('materialize.css') ?>
-    <?= $this->Html->css('okiyoru.css') ?>
+    <?= $this->Html->css('night-planet.css') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>

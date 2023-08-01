@@ -12,7 +12,7 @@
         <?= $this->Html->script('jquery-3.1.0.min.js') ?>
         <?= $this->Html->script('materialize.min.js') ?>
         <?= $this->Html->css('materialize.css') ?>
-        <?= $this->Html->css('okiyoru.css') ?>
+        <?= $this->Html->css('night-planet.css') ?>
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
         <?= $this->fetch('script') ?>

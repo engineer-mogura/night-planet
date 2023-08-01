@@ -37,7 +37,7 @@ if (Configure::read('debug')) :
 endif;
 ?>
 <!-- okiyoru error -->
-<?php $this->layout = 'error_okiyoru';?>
+<?php $this->layout = 'error_night_planet';?>
 
 <blockquote>
     <h4><?= __d('cake', 'An Internal Error Has Occurred')?></h4>

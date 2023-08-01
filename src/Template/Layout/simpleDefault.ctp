@@ -20,7 +20,7 @@
   <!-- <?= $this->Html->script('materialize.js') ?> --><!-- 検証用 -->
   <?= $this->Html->script('materialize.min.js') ?>
   <?= $this->Html->script('map.js') ?>
-  <?= $this->Html->script('okiyoru.js') ?>
+  <?= $this->Html->script('night-planet.js') ?>
   <?= $this->Html->script('ja_JP.js') ?>
   <?= $this->Html->script('jquery.notifyBar.js') ?>
   <?= $this->Html->script('ajaxzip3.js') ?>
@@ -38,7 +38,7 @@
 
   <?= $this->Html->css('fontello-3eba660b/css/fontello.css') ?>
   <?= $this->Html->css('materialize.css') ?>
-  <?= $this->Html->css('okiyoru.css') ?>
+  <?= $this->Html->css('night-planet.css') ?>
   <?= $this->Html->css('jquery.notifyBar.css') ?>
   <?= $this->Html->css('fullcalendar.css') ?><!-- fullcalendar-3.9.0 --><!-- TODO: minの方を読み込むようにする。軽量化のため -->
 
