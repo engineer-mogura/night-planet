@@ -7,29 +7,37 @@
                 <?php foreach ($news as $key1 => $row1): ?>
                     <?php foreach ($row1 as $key2 => $row2): ?>
                         <?php 
-                            if (count($row2['gallery']) == 1) :
-                                $grid = "grid1";
-                            elseif(count($row2['gallery']) == 2):
-                                $grid = "grid2";
-                            elseif(count($row2['gallery']) >= 3):
-                                $grid = "";
-                            endif;
-                            ?>
+                            if (is_countable($row2['gallery']) ? count($row2['gallery']) > 0 : 0) {
+                                if (count($row2['gallery']) == 1) :
+                                    $grid = "grid1";
+                                elseif(count($row2['gallery']) == 2):
+                                    $grid = "grid2";
+                                elseif(count($row2['gallery']) >= 3):
+                                    $grid = "";
+                                endif;
+                            }
+                        ?>
                         <div id="<?=$key2?>" class="row">
                             <div class="col s12">
                                 <div class="card">
                                     <div class="card-image">
                                         <div style="display: inline-block;margin-bottom:30px;padding:initial;" class="<?=$grid?> my-gallery col s12">
-                                            <?php foreach ($row2['gallery'] as $key3 => $gallery): ?>
-                                                <figure>
-                                                    <a href="<?=$gallery['file_path']?>" data-size="800x1000">
-                                                        <img width="100%" src="<?=$gallery['file_path']?>" alt="<?=$row2->title?>" />
-                                                    </a>
-                                                    <figcaption style="display:none;">
-                                                        <?=$gallery['date']?>
-                                                    </figcaption>
-                                                </figure>
-                                            <?php endforeach; ?>
+                                            <?php
+                                                if (is_countable($row2['gallery']) ? count($row2['gallery']) > 0 : 0) {
+                                                    foreach ($row2['gallery'] as $key3 => $gallery):
+                                            ?>
+                                                    <figure>
+                                                        <a href="<?=$gallery['file_path']?>" data-size="800x1000">
+                                                            <img width="100%" src="<?=$gallery['file_path']?>" alt="<?=$row2->title?>" />
+                                                        </a>
+                                                        <figcaption style="display:none;">
+                                                            <?=$gallery['date']?>
+                                                        </figcaption>
+                                                    </figure>
+                                            <?php
+                                                    endforeach;
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="card-content">

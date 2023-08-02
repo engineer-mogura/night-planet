@@ -9,7 +9,7 @@
             <input type="hidden" name="json_data" value='<?=$job ?>'>
             <input type="hidden" name="treatment_hidden" value='<?=$masData['treatment']?>'>
           </div>
-          <table class="bordered shop-table z-depth-2" border="1">
+          <table class="bordered common-table z-depth-2" border="1">
           <tr>
             <th align="center">店舗名</th>
             <td class="show-job-name"><?php if(!empty($shop->name)) {

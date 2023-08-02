@@ -42,7 +42,7 @@ class NewsController extends AppController
     public function index()
     {
         // ニュース取得
-        $news = $this->Util->getNewss(PATH_ROOT[NEWS], null);
+        $news = $this->Util->getNewss(PATH_ROOT['DEVELOPERS'] . DS . PATH_ROOT['NEWS'], null);
         $this->set('next_view', 'news');
         $this->set(compact('news'));
         $this->render();

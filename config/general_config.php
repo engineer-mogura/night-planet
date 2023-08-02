@@ -234,7 +234,6 @@ return [
         'COUPON' => $URL_S3_BUCKET . '/others/coupon/coupon1.jpg',
         'USER' => 'user',
         'CAST' => 'cast',
-        'DEVELOPER' => 'developer',
         'ADSENSE' => 'adsense',
         'NOTICE' => 'notice',
         'DIARY' => 'diary',
@@ -254,6 +253,7 @@ return [
         'SHOPS' => 'shops',
         'OWNERS' => 'owners',
         'SHOP' => 'shop',
+        'DEVELOPERS' => 'developers',
     )),
 
     // SNSパス設定 path.config
@@ -272,7 +272,7 @@ return [
     )),
 
     // ラベル定数 developer.label menu
-    define('DEVELOPER_LM', array(
+    define('DEVELOPERS_LM', array(
         '001' => '開発者リスト',
         '002' => 'ユーザーリスト',
         '003' => 'オーナーリスト',

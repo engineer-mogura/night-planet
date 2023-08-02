@@ -154,8 +154,7 @@ class UtilComponent extends Component {
         // TODO: Authセッションからオーナー情報を取得せず、shopsテーブルから取る？
         $developerInfo = array();
         $developerInfo = $developerInfo + array(
-            'news_path' => DS . PATH_ROOT['URL_S3_BUCKET']
-                . DS . PATH_ROOT['DEVELOPER'] . DS . PATH_ROOT[NEWS], 'id' => $developer['id']
+            'news_path' => PATH_ROOT['DEVELOPERS'] . DS . PATH_ROOT['NEWS'], 'id' => $developer['id']
         );
         return  $developerInfo;
     }
@@ -918,17 +917,19 @@ class UtilComponent extends Component {
 
                     // 画像数をセット
                     $listObjects = $this->S3Client->getListObjects($this->s3Backet, $news_path . $value->dir);
-
-                    foreach ($listObjects['Contents'] as $Contents) {
-                        $timestamp = date('Y/m/d H:i', strtotime($Contents['LastModified']));
-                        array_push($gallery, array(
-                            "file_path" => PATH_ROOT['URL_S3_BUCKET'] . DS . $Contents['Key'], "date" => $timestamp
-                        ));
-                        continue; // １件のみ取得できればよい
+                    // ファイルが存在したら、画像をセット
+                    if (is_countable($listObjects['Contents']) ? count($listObjects['Contents']) > 0 : 0) {
+                        foreach ($listObjects['Contents'] as $Contents) {
+                            $timestamp = date('Y/m/d H:i', strtotime($Contents['LastModified']));
+                            array_push($gallery, array(
+                                "file_path" => PATH_ROOT['URL_S3_BUCKET'] . DS . $Contents['Key'], "date" => $timestamp
+                            ));
+                            continue; // １件のみ取得できればよい
+                        }
+                        $value->set('gallery', $gallery);
+                        // 画像数をセット
+                        $value->set('gallery_count', count($listObjects['Contents']));
                     }
-                    $value->set('gallery', $gallery);
-                    // 画像数をセット
-                    $value->set('gallery_count', count($listObjects['Contents']));
                 }
             }
         }

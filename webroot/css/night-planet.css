@@ -1382,13 +1382,13 @@ background-color: red;
 #instagram-section .instagram-label:after {
   left: 11em;
   position: absolute;
-  bottom: -35px;
+  bottom: -15px;
   content: "";
   display: inline-block;
   width: 8em;
   height: 10em;
   background-size: contain;
-  background-image: url(http://night-planet.local:9090/night-planet/others/1534417.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/507054.png);
   background-repeat: no-repeat;
 }
 /** キャラクター設定 END **/
@@ -1826,8 +1826,6 @@ table th {
   position: relative;
   text-align: left;
   width: 30%;
-  background-color: #00b0ff;
-  color: white;
   text-align: center;
   /* padding: 10px 0 ; */
   font-weight: initial;
@@ -1839,6 +1837,14 @@ table td {
   /*text-align: center;*/
   /*background-color: #eee;*/
   padding: 10px 5px;
+}
+table.common-table {
+  background-image: url(http://night-planet.local:9090/night-planet/others/obi2.png);
+  background-size: 102%;
+}
+table.common-table th {
+  background-color: #545557de;
+  color: white;
 }
 /* テーブル系共通 END */
 

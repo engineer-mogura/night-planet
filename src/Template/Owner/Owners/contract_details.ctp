@@ -6,7 +6,7 @@
                 <h6><?=('契約内容・プラン変更・広告のお申し込み') ?></h6>
                 <span id="dummy" style="display: hidden;"></span>
                 <div class="col s12 m12 l12">
-                    <table class="bordered shop-table z-depth-2" border="1">
+                    <table class="bordered common-table z-depth-2" border="1">
                         <tbody>
                         <tr>
                             <th align="center">あなたの会員ステータス</th>

@@ -2,8 +2,10 @@
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
-use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use App\Helper\helper;
+use Cake\ORM\RulesChecker;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 
 /**
@@ -55,49 +57,25 @@ class DevelopersTable extends Table
 {
         $validator
             ->integer('id')
-            ->allowEmptyString('id', null, 'create');
-
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 45)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
-
-        $validator
-            ->scalar('role')
-            ->maxLength('role', 10)
-            ->requirePresence('role', 'create')
-            ->notEmptyString('role');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmptyString('email,'メールアドレスを入力してください。');
+            ->notEmpty('email', helper::encode('メールアドレスを入力してください。'))
+            ->allowEmptyString('email', false);
 
         $validator
             ->scalar('password')
-            ->maxLength('password', 255,'パスワードが長すぎます。')
-            ->minLength('password', 8,'パスワードが短すぎます。')
+            ->maxLength('password', 32, helper::encode('パスワードが長すぎます。'))
+            ->minLength('password', 8, helper::encode('パスワードが短すぎます。'))
+            ->notEmpty('password', helper::encode('パスワードを入力してください。'))
             ->requirePresence('password', 'create')
-            ->notEmptyString('password','パスワードを入力してください。');
-
-        $validator
-            ->scalar('file_name')
-            ->maxLength('file_name', 255)
-            ->allowEmptyFile('file_name');
-
-        $validator
-            ->scalar('remember_token')
-            ->maxLength('remember_token', 64)
-            ->allowEmptyString('remember_token');
+            ->allowEmptyString('password', false);
 
         $validator
             ->integer('status')
-            ->notEmptyString('status');
-
-        $validator
-            ->integer('delete_flag')
-            ->notEmptyString('delete_flag');
+            ->allowEmptyString('status');
 
         return $validator;
     }

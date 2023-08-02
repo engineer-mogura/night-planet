@@ -13,7 +13,7 @@
             <input type="hidden" name="credit_hidden" value='<?=$masData['credit']?>'>
             <input type="hidden" name="credit_path" value='<?=PATH_ROOT['CREDIT']?>'>
           </div>
-          <table class="bordered shop-table z-depth-2" border="1">
+          <table class="bordered common-table z-depth-2" border="1">
           <tr>
             <th align="center">店舗名</th>
             <td><?php if(!$shop->name == '') {

@@ -1,6 +1,6 @@
 <?= $this->Html->css('rateit.css') ?>
 <?= $this->Html->script('jquery.rateit.min.js') ?>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.0"></script>
 
 <!-- レビューモーダル START -->
 <?= $this->element('modal/reviewModal'); ?>
@@ -100,6 +100,30 @@
             },
             options: {
                 responsive: true,
+                scales: {
+                    r: {
+                        // 最小値・最大値
+                        min: 0,
+                        max: 5,
+                        // // 背景色
+                        // backgroundColor: 'lightyellow',
+                        // // グリッドライン
+                        // grid: {
+                        // color: 'lightseagreen',
+                        // },
+                        // // アングルライン
+                        // angleLines: {
+                        // color: 'brown',
+                        // },
+                        // // ポイントラベル
+                        // pointLabels: {
+                        // color: 'blue',
+                        // backdropColor: '#ddf',
+                        // backdropPadding: 5,
+                        // padding: 20,
+                        // },
+                    },
+                },
                 // maintainAspectRatio: false,
                 // 各種設定の記述
             }
@@ -107,6 +131,7 @@
         });
     }
     var totalReview  = JSON.parse('<?php echo ($shop['total_review']); ?>');
+
     reviewChart(totalReview);
 
     /** 

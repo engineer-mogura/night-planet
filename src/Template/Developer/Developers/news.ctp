@@ -76,13 +76,12 @@
                                 <?php !empty($row['gallery'][0]['file_path'])? $imgPath = $row['gallery'][0]['file_path'] : $imgPath = PATH_ROOT['NO_IMAGE01']; ?>
                                 <div class="linkbox collapsible-body">
                                     <div class="archiveLink">
-                                        <input type="hidden" name="news_id" value=<?=$row->id?>>
+                                        <input type="hidden" name="id" value=<?=$row->id?>>
                                         <h6 class="li-linkbox__a__h6"><?=$row->created->nice()?>
                                             <a class="li-linkbox__a-image btn-floating btn red darken-3 lighten-1"><i class="material-icons">camera_alt</i></a>
                                             <span class="li-linkbox__a-image__count"><?=$row->gallery_count?></span>
                                         </h6>
                                         <span class="truncate"><?= $row['title'] ?><br><?= $row['content'] ?></span>
-                                        <?=$this->User->get_favo_html('new_info_favo_disable', $row)?>
                                         <a class="waves-effect hoverable" href="#"></a>
                                     </div>
                                 </div>

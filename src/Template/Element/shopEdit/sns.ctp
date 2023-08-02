@@ -7,7 +7,7 @@
           <div style="display:none;">
             <input type="hidden" name="json_data" value='<?=json_encode($shop->snss[0]) ?>'>
           </div>
-          <table class="bordered shop-table z-depth-2" border="1">
+          <table class="bordered common-table z-depth-2" border="1">
           <tr>
             <th align="center">facebook</th>
             <td><?php if(!empty($shop->snss[0]->facebook)):

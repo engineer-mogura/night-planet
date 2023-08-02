@@ -215,7 +215,7 @@
 					<p class="shop-info-label section-label"><span> SYSTEM </span></p>
 				</div>
 				<div class="col s12 m12 l12">
-					<table id="basic-info" class="bordered shop-table z-depth-2" border="1">
+					<table id="basic-info" class="bordered common-table z-depth-2" border="1">
 						<tbody>
 							<tr>
 								<th class="table-header" colspan="2" align="center">
@@ -431,7 +431,7 @@
 					<p class="recruit-label section-label"><span> RECRUIT </span></p>
 				</div>
 				<div class="col s12 m12 l12">
-					<table class="bordered shop-table z-depth-2" border="1">
+					<table class="bordered common-table z-depth-2" border="1">
 						<tbody>
 							<tr>
 							<tr>
@@ -516,7 +516,7 @@
 		</table>
 			</div>
 			<div class="col s12 m12 l12">
-				<table class="tel-table bordered shop-table z-depth-2" border="1">
+				<table class="tel-table bordered common-table z-depth-2" border="1">
 					<tbody>
 						<tr>
 							<th class="table-header" colspan="2" align="center">応募連絡先</th>
