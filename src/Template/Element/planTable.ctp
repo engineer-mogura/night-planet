@@ -71,18 +71,18 @@
                 </tr>
                 <tr class="plan-premium_s">
                     <th><?=SERVECE_PLAN['premium_s']['name']?></th>
-                    <td>一括支払い<br>1,4980円</td>
-                    <td>一括支払い<br>3,1460円<br>😍13,500円お得😍<br>※メイン広告付き</td>
+                    <td>一括支払い<br>2,980円</td>
+                    <td>一括支払い<br>6,960円<br>😍2,980円お得😍<br>※メイン広告付き</td>
                 </tr>
                 <tr class="plan-premium">
                     <th><?=SERVECE_PLAN['premium']['name']?></th>
-                    <td>一括支払い<br>3,980円</td>
-                    <td>一括支払い<br>8,360円<br>😍3,580円お得😍<br>※メイン広告付き</td>
+                    <td>一括支払い<br>1,980円</td>
+                    <td>一括支払い<br>3,960円<br>😍2,980円お得😍<br>※メイン広告付き</td>
                 </tr>
                 <tr class="plan-basic">
                     <th><?=SERVECE_PLAN['basic']['name']?></th>
-                    <td>一括支払い<br>1,980円</td>
-                    <td>一括支払い<br>4,200円<br>😍1,780円お得😍<br>※メイン広告付き</td>
+                    <td>一括支払い<br>980円</td>
+                    <td>一括支払い<br>1,960円<br>😍980円お得😍<br>※メイン広告付き</td>
                 </tr>
                 <tr class="plan-free">
                     <th><?=SERVECE_PLAN['free']['name']?></th>
@@ -91,7 +91,7 @@
                 </tr class="plan-premium">
 			</table>
 			<p style="text-align:center;">😍ただいまキャンペーン中😍</p>
-				<p>期間中に掲載申し込みされたオーナー様は、通常4,200円のベーシックプラン３ヵ月コースを無料で体験していただけます。
+				<p>期間中に掲載申し込みされたオーナー様は、通常1,960円のベーシックプラン３ヵ月コースを無料で体験していただけます。
 				<br>※３ヵ月経過後は、自動的にフリープランへ移行となりますのでご注意ください。
 			</p>
 

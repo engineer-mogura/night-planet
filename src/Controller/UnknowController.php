@@ -69,20 +69,15 @@ class UnknowController extends AppController
 
         // 画像を設定する
         foreach ($search as $key => $shop) {
-            $path = DS.PATH_ROOT['URL_S3_BUCKET'].DS.AREA[$shop->area]['path']
-                .DS.GENRE[$shop->genre]['path']
-                .DS.$shop->dir.DS.PATH_ROOT['TOP_IMAGE'];
-            $dir = new Folder(preg_replace('/(\/\/)/', '/', WWW_ROOT.$path), true, 0755);
 
-            $files = array();
-            $files = glob($dir->path.DS.'*.*');
+            $shop->set('shopInfo', $this->Util->getShopInfo($shop));
+            // アイコンを設定する
+            $files = $this->S3Client->getList($this->s3Backet, $shop->shopInfo['top_image_path'], 1);
             // ファイルが存在したら、画像をセット
-            if (count($files) > 0) {
-                foreach ($files as $file) {
-                    $shop->set('top_image', $path.DS.(basename($file)));
-                }
+            if (is_countable($files) ? count($files) > 0 : 0) {
+                $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
             } else {
-                // 共通画像をセット
+                // 共通トップ画像をセット
                 $shop->set('top_image', PATH_ROOT['SHOP_TOP_IMAGE']);
             }
         }
