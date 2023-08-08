@@ -2407,7 +2407,7 @@ form .message-label {
       margin-left: -25px;
   }
   .brand-logo.oki-brand-logo {
-      font-size: 1.2rem;
+      /* font-size: 1.2rem; */
   }
   span.area-logo {
       font-size: 1.1rem;
@@ -2483,14 +2483,11 @@ form .message-label {
       font-size: inherit;
   }
 }
-@media only screen and (min-width: 450px) {
-
-}
 
 @media only screen and (min-width: 450px) and (max-width: 602px) {
   .brand-logo.oki-brand-logo {
-      margin-left: initial;
-      font-size: 1.7em;
+      margin-left: 10px;
+      /* font-size: 1.7em; */
   }
   .search-result-card .card-image img.card-image-img {
       object-fit: cover;

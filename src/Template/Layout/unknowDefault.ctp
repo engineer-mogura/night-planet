@@ -21,7 +21,7 @@
     <meta property="og:url" content="<?=PUBLIC_DOMAIN.DS?>" />
     <meta property="og:title" content="<?=$title?>" />
     <meta property="og:description" content="<?=$description?>" />
-    <meta property="og:image" content="<?=PATH_ROOT['NIGHT_PLANET_IMAGE']?>" />
+    <meta property="og:image" content="<?=PATH_ROOT['NIGHT_PLANET_LOGO_ICON']?>" />
   <?php
     endif;
   ?>

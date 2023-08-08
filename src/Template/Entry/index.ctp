@@ -13,7 +13,7 @@
     <meta property="og:url" content="<?=PUBLIC_DOMAIN.DS?>" />
     <meta property="og:title" content="【Night Planet ﾅｲﾌﾟﾗ】ご案内" />
     <meta property="og:description" content="【Night Planet ﾅｲﾌﾟﾗ】SNSを駆使した集客を実現します。" />
-    <meta property="og:image" content="<?=PATH_ROOT['NIGHT_PLANET_IMAGE']?>" />
+    <meta property="og:image" content="<?=PATH_ROOT['NIGHT_PLANET_LOGO_ICON']?>" />
 
     <title>【Night Planet ﾅｲﾌﾟﾗ】 沖縄の夜をもっと盛り上げていきませんか？集客のためのポータルナビサイト</title>
     <meta name="description" content="">

@@ -93,7 +93,7 @@ class MainController extends AppController
         }
         // エリア毎のアイコンをセットする
         foreach ($area as $key1 => $value) {
-            $area[$key1]['image'] = PATH_ROOT['NIGHT_PLANET_IMAGE'];
+            $area[$key1]['image'] = PATH_ROOT['NIGHT_PLANET_LOGO_ICON'];
             foreach ($shops as $key2 => $shop) {
                 if ($value['path'] == $shop['area']) {
                     $area[$key1]['image'] = $shop->top_image;

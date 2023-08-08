@@ -40,6 +40,12 @@ RUN echo "5 */1 * * * root /var/www/html/bin/cake analytics_report >> /var/log/c
 
 RUN touch /var/log/cron.log
 CMD ["cron", "-f"]
+# COPY ./docker_startup_cmd.sh /docker_startup_cmd.sh
+# RUN chmod 744 ./docker_startup_cmd.sh
+# CMD sh -c "cron -f && \
+#   sudo chmod 0555 /var/www/html/bin/cake && \
+#   sudo chmod 0555 /var/www/html/bin/cake.bat && \
+#   sudo chmod 0555 /var/www/html/bin/cake.php"
 
 # # cron
 # # 毎日6時30分

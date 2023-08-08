@@ -21,7 +21,7 @@
     <meta property="og:url" content="<?=PUBLIC_DOMAIN.DS?>" />
     <meta property="og:title" content="<?=$title?>" />
     <meta property="og:description" content="<?=$description?>" />
-    <meta property="og:image" content="<?=PATH_ROOT['NIGHT_PLANET_IMAGE']?>" />
+    <meta property="og:image" content="<?=PATH_ROOT['NIGHT_PLANET_LOGO_ICON']?>" />
   <?php
     endif;
   ?>
@@ -119,8 +119,17 @@
   <div class="nav-header-cron-dummy"></div>
   <nav id="nav-header-menu" class="nav-header-menu nav-opacity">
     <div class="nav-wrapper">
-      <a href="#!" data-activates="slide-out" class="button-collapse oki-button-collapse"><i class="material-icons">menu</i></a>
-      <a href="<?= $is_area != AREA['okinawa']['path'] ? DS.$is_area : DS?>" class="brand-logo oki-brand-logo"><?= LT['001'] ?><?=!empty($is_area)?'<span class="area-logo"> '.AREA[$is_area]['label'].'</span>':"" ?></a>
+      <ul>
+        <li>
+          <a href="#!" data-activates="slide-out" class="button-collapse oki-button-collapse"><i class="material-icons">menu</i></a>
+        </li>
+        <li>
+          <a href="<?= $is_area != AREA['okinawa']['path'] ? DS.$is_area : DS?>" class="brand-logo oki-brand-logo">
+            <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=AREA[$is_area]['label']?>"
+            style="position: relative;width:7em;height:9em;top: -98px;">
+          </a>
+        </li>
+      </ul>
       <ul class="right nav-right">
         <li class="nav-search">
           <a data-target="modal-search" class="modal-trigger">
