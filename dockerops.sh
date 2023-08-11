@@ -75,6 +75,8 @@ build() {
   CSS_NIGHT_PLANET_FILE_TMP=./webroot/css/night-planet_tmp.css
   CSS_RATEIT_FILE=./webroot/css/rateit.css
   CSS_RATEIT_FILE_TMP=./webroot/css/rateit_tmp.css
+  CSS_INSTAGRAM_FILE=./webroot/css/instagram.css
+  CSS_INSTAGRAM_FILE_TMP=./webroot/css/instagram_tmp.css
   css_base_url=http://night-planet.local:9090
 
   # パーミッション変更
@@ -171,6 +173,16 @@ build() {
   sed -e "s@$css_base_url@$REPLACE_URL@g" ${CSS_NIGHT_PLANET_FILE} > ${CSS_NIGHT_PLANET_FILE_TMP}
   rm ${CSS_NIGHT_PLANET_FILE}
   mv ${CSS_NIGHT_PLANET_FILE_TMP} ${CSS_NIGHT_PLANET_FILE}
+
+  # instagram.css 内部のURLを変更する
+  echo -e "[${CSS_INSTAGRAM_FILE} ファイル]内部のURL[$css_base_url]を[${REPLACE_URL}]に置換します...\n"
+  if [ ! -e ${CSS_INSTAGRAM_FILE} ];then
+    echo "${CSS_INSTAGRAM_FILE} が存在しません。"
+    exit 1
+  fi
+  sed -e "s@$css_base_url@$REPLACE_URL@g" ${CSS_INSTAGRAM_FILE} > ${CSS_INSTAGRAM_FILE_TMP}
+  rm ${CSS_INSTAGRAM_FILE}
+  mv ${CSS_INSTAGRAM_FILE_TMP} ${CSS_INSTAGRAM_FILE}
 
   # rateit.css 内部のURLを変更する
   echo -e "[${CSS_RATEIT_FILE} ファイル]内部のURL[$css_base_url]を[${REPLACE_URL}]に置換します...\n"
