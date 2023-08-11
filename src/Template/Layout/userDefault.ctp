@@ -126,7 +126,6 @@
         <li>
           <a href="<?= $is_area != AREA['okinawa']['path'] ? DS.$is_area : DS?>" class="brand-logo oki-brand-logo">
             <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=AREA[$is_area]['label']?>" style="position: relative;width:7em;">
-            <?=!empty($is_area)?'<span class="area-logo"> '.AREA[$is_area]['label'].'</span>':"" ?>
           </a>
         </li>
       </ul>

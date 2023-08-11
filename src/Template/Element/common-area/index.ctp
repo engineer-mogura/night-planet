@@ -1,5 +1,6 @@
 <?= $this->fetch('sidebar') ?>
 	<div class="nav-wrapper">
+		<?= $this->element('nav-breadcrumb'); ?>
 		<?= $this->element('top-slider'); ?>
 	</div>
 <div id="area" class="container">
