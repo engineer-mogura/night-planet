@@ -40,7 +40,12 @@
         <section class="navigation">
             <header>
                 <div class="header-content">
-                        <div class="logo"><a href="#"><img src="/Sedna/img/night_planet_logo.png" alt="Sedna logo"></a></div>
+                    <div class="logo">
+
+                        <a href="#">
+                            <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="Night Planet logo" style="position: relative; width: 13em; height: 100%;">
+                        </a>
+                    </div>
                         <div class="header-nav">
                         <nav>
                             <ul class="primary-nav">
