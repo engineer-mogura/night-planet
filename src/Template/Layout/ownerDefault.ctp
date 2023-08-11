@@ -77,12 +77,14 @@
         </li>
         <li>
           <a href="/" class="brand-logo oki-brand-logo">
-            <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=AREA[$is_area]['label']?>" style="position: relative;width:7em;">
-            <?= LT['001'].' '.LT['004'] ?>
+            <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=LT['004']?>" style="position: relative;width:7em;">
           </a>
         </li>
       </ul>
       <ul class="right">
+        <li>
+          <span><?= LT['004'] ?></span>
+        </li>
         <li><a data-target="modal-help" class="modal-trigger"><i class="material-icons">help</i></a></li>
       </ul>
     </div>

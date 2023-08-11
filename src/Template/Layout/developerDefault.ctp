@@ -62,9 +62,20 @@
   <div class="nav-header-cron-dummy"></div>
   <nav id="nav-header-menu" class="nav-header-menu nav-opacity">
     <div class="nav-wrapper">
-      <a href="#!" data-activates="slide-out" class="button-collapse oki-button-collapse"><i class="material-icons">menu</i></a>
-      <a href="#!" class="brand-logo oki-brand-logo"><?= LT['001'].' '.LT['004'] ?></a>
+      <ul>
+        <li>
+          <a href="#!" data-activates="slide-out" class="button-collapse oki-button-collapse"><i class="material-icons">menu</i></a>
+        </li>
+        <li>
+          <a href="/" class="brand-logo oki-brand-logo">
+            <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=LT['004']?>" style="position: relative;width:7em;">
+          </a>
+        </li>
+      </ul>
       <ul class="right">
+        <li>
+          <span><?= LT['004'] ?></span>
+        </li>
         <li><a data-target="modal-help" class="modal-trigger"><i class="material-icons">help</i></a></li>
       </ul>
     </div>
