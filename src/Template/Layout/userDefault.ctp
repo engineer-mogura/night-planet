@@ -68,9 +68,9 @@
 
   <?= $this->Html->css('fontello-3eba660b/css/fontello.css') ?>
   <?= $this->Html->css('materialize.min.css') ?>
-  <?= $this->Html->css('night-planet.css') ?>
-  <?= $this->Html->css('options.css') ?>
-  <?= $this->Html->css('instagram.css') ?>
+  <?= $this->Html->css('night-planet.css?ver=1.0.0') ?>
+  <?= $this->Html->css('options.css?ver=1.0.0') ?>
+  <?= $this->Html->css('instagram.css?ver=1.0.0') ?>
   <?= $this->Html->css('jquery.notifyBar.css') ?>
   <?= $this->Html->css('fullcalendar.min.css') ?><!-- fullcalendar-3.9.0 -->
   <?= $this->Html->css('jquery.marquee.min.css') ?><!-- marquee -->
