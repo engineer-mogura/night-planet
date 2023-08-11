@@ -119,8 +119,16 @@
   <div class="nav-header-cron-dummy"></div>
   <nav id="nav-header-menu" class="nav-header-menu nav-opacity">
     <div class="nav-wrapper">
-      <a href="#!" data-activates="slide-out" class="button-collapse oki-button-collapse"><i class="material-icons">menu</i></a>
-      <a href="<?= $is_area != AREA['okinawa']['path'] ? DS.$is_area : DS?>" class="brand-logo oki-brand-logo"><?= LT['001'] ?><?=!empty($is_area)?'<span class="area-logo"> '.AREA[$is_area]['label'].'</span>':"" ?></a>
+      <ul>
+        <li>
+          <a href="#!" data-activates="slide-out" class="button-collapse oki-button-collapse"><i class="material-icons">menu</i></a>
+        </li>
+        <li>
+          <a href="/" class="brand-logo oki-brand-logo">
+            <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=AREA[$is_area]['label']?>" style="position: relative;width:7em;">
+          </a>
+        </li>
+      </ul>
       <ul class="right nav-right">
         <li class="nav-search"><a data-target="modal-search" class="modal-trigger"><i id="search-puyon" class="puyon material-icons">search</i><span>検索する</span></a></li>
         <li class="nav-account-login <?=true?' lock':' unlock'?>"><a data-target="modal-login" class="modal-trigger"><i class="material-icons"><?=true?'lock':'lock_open'?></i><span><?=true?' ログイン':' マイページ'?></span></a></li>

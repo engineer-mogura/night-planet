@@ -2268,6 +2268,7 @@ form .message-label {
 @media only screen and (min-width: 993px) {
   .brand-logo.oki-brand-logo {
       margin-left: 50px;
+      height: 100%;
   }
   .fixed-action-btn.share {
       display: none;
@@ -2404,10 +2405,10 @@ form .message-label {
 
 @media only screen and (max-width: 450px) {
   .brand-logo.oki-brand-logo {
-      margin-left: -25px;
+      margin-left: -28px;
   }
   .brand-logo.oki-brand-logo {
-      /* font-size: 1.2rem; */
+    height: 100%;
   }
   span.area-logo {
       font-size: 1.1rem;
