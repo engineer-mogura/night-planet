@@ -56,7 +56,7 @@ li.search-result-card .Instagram_logo1 {
   display: inline-block;/*忘れずに！*/
   width: 30px;/*画像の幅*/
   height: 30px;/*画像の高さ*/
-  background-image: url("http://127.0.0.1:9090/night-planet/others/sns/instagram_logo.png");
+  background-image: url("http://night-planet.local:9090/night-planet/others/sns/instagram_logo.png");
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
@@ -68,7 +68,7 @@ li.search-result-card .facebook_logo1 {
   display: inline-block;/*忘れずに！*/
   width: 30px;/*画像の幅*/
   height: 30px;/*画像の高さ*/
-  background-image: url("http://127.0.0.1:9090/night-planet/others/sns/facebook_logo.png");
+  background-image: url("http://night-planet.local:9090/night-planet/others/sns/facebook_logo.png");
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
@@ -80,7 +80,7 @@ li.search-result-card .twitter_logo1 {
   display: inline-block;/*忘れずに！*/
   width: 30px;/*画像の幅*/
   height: 30px;/*画像の高さ*/
-  background-image: url("http://127.0.0.1:9090/night-planet/others/sns/twitter_logo.png");
+  background-image: url("http://night-planet.local:9090/night-planet/others/sns/twitter_logo.png");
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
@@ -109,7 +109,7 @@ article#SNS_Instagram header .Instagram_logo1 {
   display: inline-block;/*忘れずに！*/
   width: 30px;/*画像の幅*/
   height: 30px;/*画像の高さ*/
-  background-image: url("http://127.0.0.1:9090/night-planet/others/sns/instagram_logo.png");
+  background-image: url("http://night-planet.local:9090/night-planet/others/sns/instagram_logo.png");
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
@@ -403,7 +403,7 @@ article#SNS_Instagram a.img.night-planet-chara:after {
   width: 4em;
   height: 4em;
   background-size: contain;
-  background-image: url(http://127.0.0.1:9090/night-planet/others/544587.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/544587.png);
   background-repeat: no-repeat;
 }
 article#SNS_Instagram a.img.night-planet-img:after {
@@ -415,7 +415,7 @@ article#SNS_Instagram a.img.night-planet-img:after {
   width: 4em;
   height: 4em;
   background-size: contain;
-  background-image: url(http://127.0.0.1:9090/night-planet/others/night_planet_top_favicon.png);
+  background-image: url(http://night-planet.local:9090/night-planet/others/night_planet_top_favicon.png);
   background-repeat: no-repeat;
 }
 /** キャラクター設定 END **/
