@@ -124,7 +124,7 @@
           <a href="#!" data-activates="slide-out" class="button-collapse oki-button-collapse"><i class="material-icons">menu</i></a>
         </li>
         <li>
-          <a href="<?= $is_area != AREA['okinawa']['path'] ? DS.$is_area : DS?>" class="brand-logo oki-brand-logo">
+          <a href="/" class="brand-logo oki-brand-logo">
             <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=AREA[$is_area]['label']?>" style="position: relative;width:7em;">
           </a>
         </li>

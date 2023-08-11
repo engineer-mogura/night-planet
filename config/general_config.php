@@ -7,8 +7,8 @@ $http = "http://";
 if (isset($_SERVER['HTTPS'])) {
     $http = "https://";
 } else if (
-    strpos(env('APP_URL'), 'prod') !== false
-    || strpos(env('APP_URL'), 'work') !== false
+    strpos(env('APP_URL'), 'prod') === true
+    || strpos(env('APP_URL'), 'work') === true
 ) {
     $http = "https://";
 }
