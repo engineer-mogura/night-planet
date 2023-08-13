@@ -3,20 +3,18 @@
 <head>
   <?= $this->element('analytics_key'); ?>
   <?= $this->Html->charset() ?>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> -->
+
   <title>
     <?= LT['004'] ?>:
     <?= $this->fetch('title') ?>
   </title>
-  <?= $this->Html->meta('apple-touch-icon-precomposed', '/favicon.ico', [
-    'type'=>'icon',
-    'size' => '144x144',
-    'rel'=>'apple-touch-icon-precomposed'
-  ])."\n";?>
+
+  <!--メタリスト START -->
+  <?= $this->element('heads/meta'); ?>
   <?= CAST_NO_INDEX ? $this->Html->meta('robots',['content'=> 'noindex']): "";?>
   <?= NO_FOLLOW ? $this->Html->meta('robots',['content'=> 'nofollow']): "";?>
   <?= $this->Html->meta('icon') ?>
+
   <?= $this->Html->script('jquery-3.1.0.min.js') ?>
   <!-- <?= $this->Html->script('materialize.js') ?> --><!-- 検証用 -->
  <?= $this->Html->script('materialize.min.js') ?>
@@ -39,7 +37,7 @@
 
   <?= $this->Html->css('fontello-3eba660b/css/fontello.css') ?>
   <?= $this->Html->css('materialize.min.css') ?>
-  <?= $this->Html->css('night-planet.css') ?>
+  <?= $this->element('heads/css/night-planet'); ?>
   <?= $this->Html->css('jquery.notifyBar.css') ?>
   <?= $this->Html->css('fullcalendar.min.css') ?><!-- fullcalendar-3.9.0 --><!-- TODO: minの方を読み込むようにする。軽量化のため -->
 

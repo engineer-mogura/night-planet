@@ -1713,7 +1713,7 @@
                                                         <tr>
                                                             <th>
                                                                 <center data-parsed="">
-                                                                    <img src="https://drive.google.com/uc?id=1TKrYQU6OSwawgTiq3gPQyYfmxXLCtd1y"
+                                                                    <img src="https://drive.google.com/uc?id=1qBNz9hWUiuwOxHghxNHNAqBiPRTRCe2B"
                                                                         class="swu-logo" alt="Logo Image">
                                                                 </center>
                                                             </th>

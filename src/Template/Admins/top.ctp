@@ -2,17 +2,20 @@
 <html>
     <head>
         <?= $this->Html->charset() ?>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> -->
+
         <title>
             <?= LT['007'] ?>:
             <?= $this->fetch('title') ?>
         </title>
+
+        <!--メタリスト START -->
+        <?= $this->element('heads/meta'); ?>
         <?= $this->Html->meta('icon') ?>
+
         <?= $this->Html->script('jquery-3.1.0.min.js') ?>
         <?= $this->Html->script('materialize.min.js') ?>
-        <?= $this->Html->css('materialize.css') ?>
-        <?= $this->Html->css('night-planet.css') ?>
+        <?= $this->Html->css('materialize.min.css') ?>
+        <?= $this->element('heads/css/night-planet'); ?>
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
         <?= $this->fetch('script') ?>
@@ -22,7 +25,9 @@
         <div class="or-card">
             <div class="card-image waves-block">
                 <div class="or-form-wrap">
-                    <h3 class="center-align"><?= LT['001'] ?></h3>
+                    <h3 class="center-align">
+                        <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=LT['004']?>" style="width:7em;">
+                    </h3>
                 </div>
                 <div class="card-content center-align">
 					<div class="row">

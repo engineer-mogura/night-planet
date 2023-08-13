@@ -415,7 +415,7 @@ article#SNS_Instagram a.img.night-planet-img:after {
   width: 4em;
   height: 4em;
   background-size: contain;
-  background-image: url(http://night-planet.local:9090/night-planet/others/night_planet_top_favicon.png);
+  background-image: url(/favicons/icon-152x152.png);
   background-repeat: no-repeat;
 }
 /** キャラクター設定 END **/

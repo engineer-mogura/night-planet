@@ -33,12 +33,15 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 <html>
 <head>
     <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>
         <?= $cakeDescription ?>
     </title>
 
+    <!--メタリスト START -->
+    <?= $this->element('heads/meta'); ?>
     <?= $this->Html->meta('icon') ?>
+
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('style.css') ?>
     <?= $this->Html->css('home.css') ?>

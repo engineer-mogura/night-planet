@@ -3,20 +3,17 @@
 <head>
   <?= $this->element('analytics_key'); ?>
   <?= $this->Html->charset() ?>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> -->
   <title>
     <?= LT['004'] ?>:
     <?= $this->fetch('title') ?>
   </title>
-  <?= $this->Html->meta('apple-touch-icon-precomposed', '/night_planet_top_favicon.png', [
-      'type'=>'icon',
-      'size' => '144x144',
-      'rel'=>'apple-touch-icon-precomposed'
-  ])."\n";?>
+
+  <!--メタリスト START -->
+  <?= $this->element('heads/meta'); ?>
   <?= SHOP_NO_INDEX ? $this->Html->meta('robots',['content'=> 'noindex']): "";?>
   <?= NO_FOLLOW ? $this->Html->meta('robots',['content'=> 'nofollow']): "";?>
   <?= $this->Html->meta('icon') ?>
+
   <?= $this->Html->script('jquery-3.1.0.min.js') ?>
   <?= $this->Html->script('materialize.min.js') ?>
   <?= $this->Html->script('map.js') ?>
@@ -40,7 +37,7 @@
 
   <?= $this->Html->css('fontello-3eba660b/css/fontello.css') ?>
   <?= $this->Html->css('materialize.min.css') ?>
-  <?= $this->Html->css('night-planet.css') ?>
+  <?= $this->element('heads/css/night-planet'); ?>
   <?= $this->Html->css('jquery.notifyBar.css') ?>
   <?= $this->Html->css('fullcalendar.min.css') ?><!-- fullcalendar-3.9.0 -->
   <?= $this->Html->css('jquery.marquee.min.css') ?><!-- marquee -->
@@ -93,12 +90,14 @@
         </li>
         <li>
           <a href="/" class="brand-logo oki-brand-logo">
-            <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=AREA[$is_area]['label']?>" style="position: relative;width:7em;">
-            <?= LT['001'].' '.LT['004'] ?>
+            <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=LT['004']?>" style="position: relative;width:7em;">
           </a>
         </li>
       </ul>
       <ul class="right">
+        <li>
+          <span><?= LT['004'] ?></span>
+        </li>
         <li><a data-target="modal-help" class="modal-trigger"><i class="material-icons">help</i></a></li>
       </ul>
     </div>

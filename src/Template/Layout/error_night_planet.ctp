@@ -17,14 +17,17 @@
 <html>
 <head>
     <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>
         <?= $this->fetch('title') ?>
     </title>
+
+    <!--メタリスト START -->
+    <?= $this->element('heads/meta'); ?>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('materialize.css') ?>
-    <?= $this->Html->css('night-planet.css') ?>
+    <?= $this->Html->css('materialize.min.css') ?>
+    <?= $this->element('heads/css/night-planet'); ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>

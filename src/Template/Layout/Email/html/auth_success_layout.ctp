@@ -1713,8 +1713,8 @@
                                                         <tr>
                                                             <th>
                                                                 <center data-parsed="">
-                                                                    <img src="https://drive.google.com/uc?id=1TKrYQU6OSwawgTiq3gPQyYfmxXLCtd1y"
-                                                                        class="swu-logo" alt="Logo Image">
+                                                                    <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=LT['004']?>
+                                                                        class="swu-logo" alt="Logo Image" style="width:7em;">
                                                                 </center>
                                                             </th>
                                                             <th class="expander"></th>

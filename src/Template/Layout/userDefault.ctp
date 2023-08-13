@@ -3,7 +3,12 @@
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
   <?= $this->element('analytics_key'); ?>
   <?= $this->Html->charset() ?>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <?= $this->fetch('title') ?>
+  </title>
+
+  <!--メタリスト START -->
+  <?= $this->element('heads/meta'); ?>
   <?php 
     if(isset($shop) || isset($cast)):
   ?>
@@ -25,19 +30,11 @@
   <?php
     endif;
   ?>
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> -->
-  <title>
-    <?= $this->fetch('title') ?>
-  </title>
-  <?= $this->Html->meta('apple-touch-icon-precomposed', '/night_planet_top_favicon.png', [
-      'type'=>'icon',
-      'size' => '144x144',
-      'rel'=>'apple-touch-icon-precomposed'
-  ])."\n";?>
   <?= USER_NO_INDEX ? $this->Html->meta('robots',['content'=> 'noindex']): "";?>
   <?= NO_FOLLOW ? $this->Html->meta('robots',['content'=> 'nofollow']): "";?>
   <?= $this->Html->meta('description',['content'=> $description]) ?>
   <?= $this->Html->meta('icon') ?>
+
   <?= $this->Html->script('jquery-3.1.0.min.js') ?>
   <!-- <?= $this->Html->script('materialize.js') ?> --><!-- 検証用 -->
   <?= $this->Html->script('materialize.min.js') ?>
@@ -68,9 +65,9 @@
 
   <?= $this->Html->css('fontello-3eba660b/css/fontello.css') ?>
   <?= $this->Html->css('materialize.min.css') ?>
-  <?= $this->Html->css('night-planet.css?ver=1.0.0') ?>
-  <?= $this->Html->css('options.css?ver=1.0.0') ?>
-  <?= $this->Html->css('instagram.css?ver=1.0.0') ?>
+  <?= $this->element('heads/css/night-planet'); ?>
+  <?= $this->element('heads/css/options'); ?>
+  <?= $this->element('heads/css/instagram'); ?>
   <?= $this->Html->css('jquery.notifyBar.css') ?>
   <?= $this->Html->css('fullcalendar.min.css') ?><!-- fullcalendar-3.9.0 -->
   <?= $this->Html->css('jquery.marquee.min.css') ?><!-- marquee -->
