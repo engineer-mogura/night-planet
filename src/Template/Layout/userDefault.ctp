@@ -33,7 +33,7 @@
   <?= USER_NO_INDEX ? $this->Html->meta('robots',['content'=> 'noindex']): "";?>
   <?= NO_FOLLOW ? $this->Html->meta('robots',['content'=> 'nofollow']): "";?>
   <?= $this->Html->meta('description',['content'=> $description]) ?>
-  <?= $this->Html->meta('icon') ?>
+  <?= $this->Html->meta('icon', '/favicons/favicon.ico') ?>
 
   <?= $this->Html->script('jquery-3.1.0.min.js') ?>
   <!-- <?= $this->Html->script('materialize.js') ?> --><!-- 検証用 -->

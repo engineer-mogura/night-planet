@@ -9,6 +9,21 @@ target () {
   done
 }
 
+#night-planet コンテナ、ボリュームを停止後、削除する
+delete () {
+  target
+  echo "コンテナを停止後、削除し、関連ボリュームも削除します..."
+  docker rm -f $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
+  echo "以下、コンテナが削除された事を確認してください、何も表示されない場合は削除完了です"
+  docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}"
+  echo -e "\n"
+
+  docker volume rm ${SERVICE_NAME}-${EXE_ENV}_mysql-volume ${SERVICE_NAME}-${EXE_ENV}_maildir
+  echo "以下、ボリュームが削除された事を確認してください、何も表示されない場合は削除完了です"
+  docker volume ls -f name=${SERVICE_NAME}
+  echo -e "\n"
+}
+
 up () {
   IMAGES=$(docker ps -q | wc -l)
   if [ "${IMAGES}" -ge 1 ]; then
@@ -19,6 +34,7 @@ up () {
   docker-compose up -d
 }
 
+#night-planet コンテナをビルドし起動する
 build() {
   target
   IMAGES=$(docker ps -q | wc -l)
@@ -235,6 +251,7 @@ Options:
 -u upを実行します。現在起動しているコンテナを停止して、"$(pwd)"にあるdocker-composeを起動します。
 -b buildを実行します。コンテナのイメージの作り直しをします。Dockerfileを更新した場合はこちら。
 -c cleanを実行します。コンテナのイメージを削除します。
+-d deleteを実行します。コンテナ、関連ボリュームを削除します。
 -r cleanを実行してからupを実行します。なにかトラブルシュートなどできれいにしたい場合はこちら。
 -h ヘルプを表示します。
 -pb build 時に実行環境(本番環境)を指定します。
@@ -253,12 +270,13 @@ WORK_DIR="./work_dir/NightPlanet/env"
 #サービスネーム
 SERVICE_NAME="night-planet"
 
-while getopts :ubcrhpwl OPT
+while getopts :ubcdrhpwl OPT
 do
 case $OPT in
 u ) up;;
 b ) build;;
 c ) clean;;
+d ) delete;;
 r ) clean ; up;;
 h ) usage;;
 p ) EXE_ENV='prod';;
