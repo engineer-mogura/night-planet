@@ -16,12 +16,15 @@ delete () {
   docker rm -f $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
   echo "以下、コンテナが削除された事を確認してください、何も表示されない場合は削除完了です"
   docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}"
-  echo -e "\n"
-
-  docker volume rm ${SERVICE_NAME}-${EXE_ENV}_mysql-volume ${SERVICE_NAME}-${EXE_ENV}_maildir
+  echo "\n"
+  if [ $EXE_ENV = prod ] || [ $EXE_ENV = work ];then
+    docker volume rm ${SERVICE_NAME}-${EXE_ENV}_mysql-volume
+  else
+    docker volume rm ${SERVICE_NAME}-${EXE_ENV}_mysql-volume ${SERVICE_NAME}-${EXE_ENV}_maildir
+  fi
   echo "以下、ボリュームが削除された事を確認してください、何も表示されない場合は削除完了です"
   docker volume ls -f name=${SERVICE_NAME}
-  echo -e "\n"
+  echo "\n"
 }
 
 up () {
