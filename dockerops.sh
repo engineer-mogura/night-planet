@@ -14,26 +14,28 @@ delete () {
 
   # 本番環境の場合は実施するか確認する
   if [ $EXE_ENV = prod ];then
-    read -n1 -p "ok? (y/N): " yn
-    if [[ $yn -ne [yY] ]]; then
+    read -n1 -p "本番環境で実施しようとしています。実行しますか? (y/N): " yn
+    if [[ $yn != [yY] ]]; then
+      echo "\n"
+      echo "キャンセルしました。"
       exit 1
     fi
-  fi
-
-  target
-  echo "コンテナを停止後、削除し、関連ボリュームも削除します..."
-  docker rm -f $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
-  echo "以下、コンテナが削除された事を確認してください、何も表示されない場合は削除完了です"
-  docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}"
-  echo "\n"
-  if [ $EXE_ENV = prod ] || [ $EXE_ENV = work ];then
-    docker volume rm ${SERVICE_NAME}-${EXE_ENV}_mysql-volume
   else
-    docker volume rm ${SERVICE_NAME}-${EXE_ENV}_mysql-volume ${SERVICE_NAME}-${EXE_ENV}_maildir
+    target
+    echo "コンテナを停止後、削除し、関連ボリュームも削除します..."
+    docker rm -f $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
+    echo "以下、コンテナが削除された事を確認してください、何も表示されない場合は削除完了です"
+    docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}"
+    echo "\n"
+    if [ $EXE_ENV = prod ] || [ $EXE_ENV = work ];then
+      docker volume rm ${SERVICE_NAME}-${EXE_ENV}_mysql-volume
+    else
+      docker volume rm ${SERVICE_NAME}-${EXE_ENV}_mysql-volume ${SERVICE_NAME}-${EXE_ENV}_maildir
+    fi
+    echo "以下、ボリュームが削除された事を確認してください、何も表示されない場合は削除完了です"
+    docker volume ls -f name=${SERVICE_NAME}
+    echo "\n"
   fi
-  echo "以下、ボリュームが削除された事を確認してください、何も表示されない場合は削除完了です"
-  docker volume ls -f name=${SERVICE_NAME}
-  echo "\n"
 }
 
 up () {
