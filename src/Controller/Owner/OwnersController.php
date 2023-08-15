@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller\Owner;
 
 use Cake\Log\Log;
@@ -14,14 +15,13 @@ use Cake\Auth\DefaultPasswordHasher;
 use Cake\Datasource\ConnectionManager;
 
 /**
-* Owners Controller
-*
-* @property \App\Model\Table\OwnersTable $Owners
-*
-* @method \App\Model\Entity\Owner[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
-*/
-class OwnersController extends AppController
-{
+ * Owners Controller
+ *
+ * @property \App\Model\Table\OwnersTable $Owners
+ *
+ * @method \App\Model\Entity\Owner[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ */
+class OwnersController extends AppController {
     use MailerAwareTrait;
     public $components = array('Security');
 
@@ -33,9 +33,9 @@ class OwnersController extends AppController
 
         parent::beforeFilter($event);
         // オーナーに関する情報をセット
-        if(!is_null($user = $this->Auth->user())){
+        if (!is_null($user = $this->Auth->user())) {
             $owner = $this->Owners->find("all")
-                ->where(['owners.id'=>$user['id']])
+                ->where(['owners.id' => $user['id']])
                 ->contain(['ServecePlans'])
                 ->first();
             $ownerInfo = $this->Util->getOwnerInfo($owner);
@@ -50,23 +50,25 @@ class OwnersController extends AppController
             $owner->icon = $ownerInfo['icon'];
 
             // 現在プラン適応フラグを取得する
-            $is_range_plan = $this->Util->check_in_range($owner->servece_plan->from_start
-                , $owner->servece_plan->to_end, new FrozenTime(date("Y-m-d")));
+            $is_range_plan = $this->Util->check_in_range(
+                $owner->servece_plan->from_start,
+                $owner->servece_plan->to_end,
+                new FrozenTime(date("Y-m-d"))
+            );
             $this->set(compact('ownerInfo', 'owner', 'is_range_plan'));
         }
     }
 
-    public function login()
-    {
+    public function login() {
         // レイアウトを使用しない
         $this->viewBuilder()->autoLayout(false);
 
         if ($this->request->is('post')) {
 
             // バリデーションはログイン用を使う。
-            $owner = $this->Owners->newEntity( $this->request->getData(),['validate' => 'ownerLogin']);
+            $owner = $this->Owners->newEntity($this->request->getData(), ['validate' => 'ownerLogin']);
 
-            if(!$owner->errors()) {
+            if (!$owner->errors()) {
 
                 // 現在リクエスト中のユーザーを識別する
                 $owner = $this->Auth->identify();
@@ -74,20 +76,24 @@ class OwnersController extends AppController
                     // セッションにユーザー情報を保存する
                     $this->Auth->setUser($owner);
                     Log::info($this->Util->setAccessLog(
-                        $owner, $this->request->params['action']), 'access');
+                        $owner,
+                        $this->request->params['action']
+                    ), 'access');
 
-                // TODO: 本来ログイン後は、元々のURLに飛ばしたい所だけど、固定でオーナーのトップ画面にする。
-                // AuthComponent.loginRedirectでURLの固定が難しい。
-                // 何かいい方法があれば...。
-                //   $this->request->session()->delete('Auth.redirect');
-                //   return $this->redirect($this->Auth->redirectUrl());
+                    // TODO: 本来ログイン後は、元々のURLに飛ばしたい所だけど、固定でオーナーのトップ画面にする。
+                    // AuthComponent.loginRedirectでURLの固定が難しい。
+                    // 何かいい方法があれば...。
+                    //   $this->request->session()->delete('Auth.redirect');
+                    //   return $this->redirect($this->Auth->redirectUrl());
                     return $this->redirect(['action' => 'index']);
                 }
                 // ログイン失敗
                 $this->Flash->error(RESULT_M['FRAUD_INPUT_FAILED']);
             } else {
                 Log::error($this->Util->setAccessLog(
-                    $owner, $this->request->params['action']).'　失敗', 'access');
+                    $owner,
+                    $this->request->params['action']
+                ) . '　失敗', 'access');
                 foreach ($owner->errors() as $key1 => $value1) {
                     foreach ($value1 as $key2 => $value2) {
                         $this->Flash->error($value2);
@@ -103,12 +109,13 @@ class OwnersController extends AppController
     /**
      * セッション情報を削除し、ログアウトする
      */
-    public function logout()
-    {
+    public function logout() {
         $auth = $this->request->session()->read('Auth.Owner');
         $this->request->session()->destroy();
         Log::info($this->Util->setAccessLog(
-            $auth, $this->request->params['action']), 'access');
+            $auth,
+            $this->request->params['action']
+        ), 'access');
 
         // レイアウトを使用しない
         $this->viewBuilder()->autoLayout(false);
@@ -121,8 +128,7 @@ class OwnersController extends AppController
      *
      * @return void
      */
-    public function verifyError()
-    {
+    public function verifyError() {
         $this->viewBuilder()->layout('simpleDefault');
         $this->render('/Owner/Owners/verify_error');
         return;
@@ -135,11 +141,10 @@ class OwnersController extends AppController
      * @param [type] $token
      * @return void
      */
-    public function verify($token)
-    {
+    public function verify($token) {
         try {
             $tmp = $this->Tmps->get(Token::getId($token));
-        } catch(RuntimeException $e) {
+        } catch (RuntimeException $e) {
             $this->Flash->error('URLが無効になっています。');
             return $this->redirect(['action' => 'verifyError']);
         }
@@ -163,13 +168,12 @@ class OwnersController extends AppController
         // トランザクション処理開始
         $connection->begin();
 
-        try{
+        try {
 
             // オーナー情報セット
-            $data = ['name' => $tmp->name, 'role' => $tmp->role
-                    , 'tel' => $tmp->tel, 'email' => $tmp->email
-                    , 'password' => $tmp->password, 'age' => $tmp->age
-                    , 'status' => 1, 'gender' => $tmp->gender];
+            $data = [
+                'name' => $tmp->name, 'role' => $tmp->role, 'tel' => $tmp->tel, 'email' => $tmp->email, 'password' => $tmp->password, 'age' => $tmp->age, 'status' => 1, 'gender' => $tmp->gender
+            ];
 
             // 新規エンティティ
             $owner = $this->Owners->patchEntity($this->Owners->newEntity(), $data, ['validate' => false]);
@@ -193,8 +197,10 @@ class OwnersController extends AppController
             $servecePlans->previous_plan = SERVECE_PLAN['basic']['label'];
             $servecePlans->course        = 3;
             $servecePlans->from_start    = date('Y-m-d', strtotime("now"));
-            $servecePlans->to_end        = date('Y-m-d'
-                , strtotime("+". 3 . "month"));
+            $servecePlans->to_end        = date(
+                'Y-m-d',
+                strtotime("+" . 3 . "month")
+            );
             //**************************キャンペーン中 2019/12/1 ~ 2020/3/1 予定 *************************/
 
             // バリデーションチェック
@@ -212,7 +218,7 @@ class OwnersController extends AppController
             // 認証完了したら、メール送信
             $email = new Email('default');
             $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
-                ->setSubject($owner->name."様、メールアドレスの認証が完了しました。")
+                ->setSubject($owner->name . "様、メールアドレスの認証が完了しました。")
                 ->setTo($owner->email)
                 ->setBcc(MAIL['SUPPORT_MAIL'])
                 ->setTemplate("auth_success")
@@ -223,8 +229,7 @@ class OwnersController extends AppController
             $this->set('owner', $owner);
             // 一時テーブル削除
             $this->Tmps->delete($tmp);
-
-        } catch(RuntimeException $e) {
+        } catch (RuntimeException $e) {
             // ロールバック
             $connection->rollback();
             $this->log($this->Util->setLog($owner, $e));
@@ -239,11 +244,10 @@ class OwnersController extends AppController
         return $this->redirect(['action' => 'login']);
     }
 
-    public function index()
-    {
+    public function index() {
         $shops = $this->Shops->newEntity();
         // 認証されてる場合
-        if(!is_null($user = $this->Auth->user())){
+        if (!is_null($user = $this->Auth->user())) {
 
             // 店舗追加フラグを設定する
             $is_add = true; // 店舗追加フラグ
@@ -252,8 +256,9 @@ class OwnersController extends AppController
             $shops = $this->Shops->find('all')
                 ->contain(['Owners', 'ShopLikes' => function ($q) {
                     return $q
-                        ->select(['ShopLikes.id','ShopLikes.shop_id','ShopLikes.user_id'
-                            , 'total' => $q->func()->count('ShopLikes.shop_id')])
+                        ->select([
+                            'ShopLikes.id', 'ShopLikes.shop_id', 'ShopLikes.user_id', 'total' => $q->func()->count('ShopLikes.shop_id')
+                        ])
                         ->group('shop_id')
                         ->where(['ShopLikes.shop_id']);
                 }])
@@ -267,21 +272,24 @@ class OwnersController extends AppController
             $plan = $this->viewVars['ownerInfo']['current_plan'];
 
             // 店舗追加フラグを設定する
-			if(count($shops) > 0):
-				$is_add = false;
-				// プレミアムプランの場合は店舗フラグを立てる
-				if($plan == SERVECE_PLAN['premium_s']['label']):
-					$is_add = true;
-				endif;
-			endif;
+            if (count($shops) > 0) :
+                $is_add = false;
+                // プレミアムプランの場合は店舗フラグを立てる
+                if ($plan == SERVECE_PLAN['premium_s']['label']) :
+                    $is_add = true;
+                endif;
+            endif;
 
             // トップ画像を設定する
             foreach ($shops as $key => $shop) {
-                $files = $this->S3Client->getList($this->s3Backet,
-                    PATH_ROOT['SHOPS'] . DS . $shop['dir'] . DS . PATH_ROOT['TOP_IMAGE'], 1);
+                $files = $this->S3Client->getList(
+                    $this->s3Backet,
+                    PATH_ROOT['SHOPS'] . DS . $shop['dir'] . DS . PATH_ROOT['TOP_IMAGE'],
+                    1
+                );
                 // ファイルが存在したら、画像をセット
                 if (is_countable($files) ? count($files) > 0 : 0) {
-                    $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
+                    $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
                 } else {
                     // 共通トップ画像をセット
                     $shop->set('top_image', PATH_ROOT['SHOP_TOP_IMAGE']);
@@ -290,7 +298,7 @@ class OwnersController extends AppController
         }
         $owner = $this->viewVars['owner'];
         //$val = $this->Analytics->getAnalytics();
-        $this->set(compact('shops','owner','is_add'));
+        $this->set(compact('shops', 'owner', 'is_add'));
         $this->render();
     }
 
@@ -299,8 +307,7 @@ class OwnersController extends AppController
      *
      * @return void
      */
-    public function switchShop()
-    {
+    public function switchShop() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -315,14 +322,14 @@ class OwnersController extends AppController
         // ステータスをセット
         $shop->status = $this->request->getData('status');
         // メッセージをセット
-        $shop->status == 1 ? 
-            $message = RESULT_M['DISPLAY_SUCCESS']: $message = RESULT_M['HIDDEN_SUCCESS'];
+        $shop->status == 1 ?
+            $message = RESULT_M['DISPLAY_SUCCESS'] : $message = RESULT_M['HIDDEN_SUCCESS'];
         try {
             // レコード更新実行
             if (!$this->Shops->save($shop)) {
                 throw new RuntimeException('レコードの更新ができませんでした。');
             }
-        } catch(RuntimeException $e) {
+        } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $message = RESULT_M['CHANGE_FAILED'];
             $flg = false;
@@ -335,8 +342,7 @@ class OwnersController extends AppController
         $this->response->body(json_encode($response));
     }
 
-    public function shopAdd()
-    {
+    public function shopAdd() {
         $auth = $this->request->session()->read('Auth.Owner');
 
         // 非表示または論理削除している場合はログイン画面にリダイレクトする
@@ -353,7 +359,7 @@ class OwnersController extends AppController
         try {
             // プレミアムSプラン以外 かつ 店舗が１件登録されている場合 不正なパターンでエラー
             if ($plan != SERVECE_PLAN['premium_s']['label'] && $shop_count >= 1) {
-                throw new RuntimeException(RESULT_M['SHOP_ADD_FAILED'].' 不正アクセスがあります。');
+                throw new RuntimeException(RESULT_M['SHOP_ADD_FAILED'] . ' 不正アクセスがあります。');
             }
         } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
@@ -380,11 +386,9 @@ class OwnersController extends AppController
                 }
             }
             // オーナー情報セット
-            $data = ['owner_id' => $this->viewVars['ownerInfo']['id']
-                    , 'name' => $this->request->getData('name')
-                    , 'area' => $this->request->getData('area')
-                    , 'genre' => $this->request->getData('genre')
-                    , 'status' => 0, 'delete_flag' => 0, 'dir' => $newDir];
+            $data = [
+                'owner_id' => $this->viewVars['ownerInfo']['id'], 'name' => $this->request->getData('name'), 'area' => $this->request->getData('area'), 'genre' => $this->request->getData('genre'), 'status' => 0, 'delete_flag' => 0, 'dir' => $newDir
+            ];
 
             // バリデーションは新規登録用を使う。
             $shop = $this->Shops->newEntity($data);
@@ -424,7 +428,6 @@ class OwnersController extends AppController
 
                     // コミット
                     $connection->commit();
-
                 } catch (RuntimeException $e) {
                     // ロールバック
                     $connection->rollback();
@@ -446,9 +449,9 @@ class OwnersController extends AppController
                 }
             }
         }
-        $masterCodesFind = array('area','genre');
+        $masterCodesFind = array('area', 'genre');
         $selectList = $this->Util->getSelectList($masterCodesFind, $this->MasterCodes, false);
-        $this->set(compact('shop','selectList'));
+        $this->set(compact('shop', 'selectList'));
         $this->render();
     }
 
@@ -457,8 +460,7 @@ class OwnersController extends AppController
      *
      * @return void
      */
-    public function profile()
-    {
+    public function profile() {
         $auth = $this->request->session()->read('Auth.Owner');
 
         // 非表示または論理削除している場合はログイン画面にリダイレクトする
@@ -486,8 +488,7 @@ class OwnersController extends AppController
      *
      * @return void
      */
-    public function saveProfile()
-    {
+    public function saveProfile() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -527,18 +528,23 @@ class OwnersController extends AppController
             if (!empty($file["name"]) && $file["name"] == 'blob') {
                 $limitFileSize = CAPACITY['MAX_NUM_BYTES_FILE'];
                 try {
-                    $convertFile = $this->Util->file_upload($file, null, $chkDuplicate
-                                    , $this->viewVars['ownerInfo']['icon']
-                                    , $limitFileSize);
+                    $convertFile = $this->Util->file_upload(
+                        $file,
+                        null,
+                        $chkDuplicate,
+                        $this->viewVars['ownerInfo']['icon'],
+                        $limitFileSize
+                    );
 
                     // 画像ファイルアップロード
                     $upResult = $this->S3Rapper->upload(
-                        PATH_ROOT['OWNERS'] . DS . $convertFile, $file["tmp_name"]);
+                        PATH_ROOT['OWNERS'] . DS . $convertFile,
+                        $file["tmp_name"]
+                    );
                     // 同じファイル名でない場合は前の画像を削除
                     if ((PATH_ROOT['OWNERS'] . DS . $convertFile !== $fileBefor) && !empty($fileBefor)) {
                         $delResult = $this->S3Rapper->delete($fileBefor);
                     }
-
                 } catch (RuntimeException $e) {
                     $this->log($this->Util->setLog($auth, $e));
                     $flg = false;
@@ -563,7 +569,6 @@ class OwnersController extends AppController
                     $this->response->body(json_encode($response));
                     return;
                 }
-
             }
             // 例外が発生している場合にメッセージをセットして返却する
             if (!$flg) {
@@ -577,7 +582,6 @@ class OwnersController extends AppController
             }
             // 最新の画像をセット
             $owner->icon = PATH_ROOT['URL_S3_BUCKET'] . DS . PATH_ROOT['OWNERS'] . DS . $convertFile;
-
         } else {
             // バリデーションはプロフィール変更用を使う。
             $owner = $this->Owners->patchEntity($this->Owners
@@ -630,7 +634,6 @@ class OwnersController extends AppController
         );
         $this->response->body(json_encode($response));
         return;
-
     }
 
     /**
@@ -638,15 +641,14 @@ class OwnersController extends AppController
      *
      * @return void
      */
-    public function contractDetails()
-    {
+    public function contractDetails() {
         $auth = $this->request->session()->read('Auth.Owner');
 
         $owner = $this->Owners->find('all')
-            ->where(['owners.id'=>$auth['id']])
-            ->contain(['ServecePlans','Shops.Adsenses'=>[
-                        'sort'=>['type'=>'ASC','valid_start'=>'ASC']
-                ]])
+            ->where(['owners.id' => $auth['id']])
+            ->contain(['ServecePlans', 'Shops.Adsenses' => [
+                'sort' => ['type' => 'ASC', 'valid_start' => 'ASC']
+            ]])
             ->first();
         $owner->set('icon', $this->viewVars['owner']->icon);
         $this->set(compact('owner'));
@@ -658,17 +660,16 @@ class OwnersController extends AppController
      *
      * @return void
      */
-    public function changePlan()
-    {
+    public function changePlan() {
         $auth = $this->request->session()->read('Auth.Owner');
 
         if ($this->request->is('post')) {
 
             $owner = $this->Owners->find('all')
-                ->where(['owners.id'=>$auth['id']])
-                ->contain(['ServecePlans','Shops.Adsenses'=>[
-                            'sort'=>['type'=>'ASC','valid_start'=>'ASC']
-                    ]])
+                ->where(['owners.id' => $auth['id']])
+                ->contain(['ServecePlans', 'Shops.Adsenses' => [
+                    'sort' => ['type' => 'ASC', 'valid_start' => 'ASC']
+                ]])
                 ->toArray();
             // 現在プランが適応中かチェックする
             // プランを強制的に変更した不正なアクセスの場合
@@ -686,8 +687,10 @@ class OwnersController extends AppController
             $servecePlans->current_plan  = $this->request->getData('plan');
             $servecePlans->course        = $this->request->getData('course');
             $servecePlans->from_start    = date('Y-m-d', strtotime("now"));
-            $servecePlans->to_end        = date('Y-m-d'
-                , strtotime("+". $this->request->getData('course') . "month"));
+            $servecePlans->to_end        = date(
+                'Y-m-d',
+                strtotime("+" . $this->request->getData('course') . "month")
+            );
 
             try {
                 // レコード更新実行
@@ -703,28 +706,26 @@ class OwnersController extends AppController
                     ->setTemplate("change_plan_success")
                     ->setLayout("simple_layout")
                     ->emailFormat("html")
-                    ->viewVars(['owner' => $owner[0],'servecePlans' => $servecePlans])
+                    ->viewVars(['owner' => $owner[0], 'servecePlans' => $servecePlans])
                     ->send();
                 $this->set('owner', $owner[0]);
                 // 完了メッセージ
                 $this->Flash->success(RESULT_M['CHANGE_PLAN_SUCCESS']);
-                Log::info("ID：【".$owner[0]['id']."】アドレス：【".$owner[0]->email
-                    ."】" . RESULT_M['CHANGE_PLAN_SUCCESS'] . ', pass_reset');
-
+                Log::info("ID：【" . $owner[0]['id'] . "】アドレス：【" . $owner[0]->email
+                    . "】" . RESULT_M['CHANGE_PLAN_SUCCESS'] . ', pass_reset');
             } catch (RuntimeException $e) {
                 $this->log($this->Util->setLog($auth, $e));
                 $this->Flash->error(RESULT_M['CHANGE_PLAN_FAILED']);
             }
 
             return $this->redirect('/owner/owners/contract_details');
-
         }
 
         $owner = $this->Owners->find('all')
-            ->where(['owners.id'=>$auth['id']])
-            ->contain(['ServecePlans','Shops.Adsenses'=>[
-                        'sort'=>['type'=>'ASC','valid_start'=>'ASC']
-                ]])
+            ->where(['owners.id' => $auth['id']])
+            ->contain(['ServecePlans', 'Shops.Adsenses' => [
+                'sort' => ['type' => 'ASC', 'valid_start' => 'ASC']
+            ]])
             ->first();
         // 現在プランフラグをセットする
         $owner->set('is_range_plan', $this->viewVars['is_range_plan']);
@@ -734,10 +735,9 @@ class OwnersController extends AppController
         $this->render();
     }
 
-    public function view($id = null)
-    {
+    public function view($id = null) {
 
-        if(isset($this->request->query["targetEdit"])){
+        if (isset($this->request->query["targetEdit"])) {
             $targetEdit = $this->request->getQuery("targetEdit");
             $shop = $this->Owners->find('all')->contain(['Shops']);
 
@@ -751,18 +751,19 @@ class OwnersController extends AppController
         }
     }
 
-    public function passReset()
-    {
+    public function passReset() {
         // シンプルレイアウトを使用
         $this->viewBuilder()->layout('simpleDefault');
 
         if ($this->request->is('post')) {
 
             // バリデーションはパスワードリセットその１を使う。
-            $owner = $this->Owners->newEntity( $this->request->getData()
-                , ['validate' => 'OwnerPassReset1']);
+            $owner = $this->Owners->newEntity(
+                $this->request->getData(),
+                ['validate' => 'OwnerPassReset1']
+            );
 
-            if(!$owner->errors()) {
+            if (!$owner->errors()) {
 
                 // メールアドレスで取得
                 $owner = $this->Owners->find()
@@ -786,18 +787,17 @@ class OwnersController extends AppController
                 $this->set('owner', $owner);
 
                 $this->Flash->success('パスワード再設定用メールを送信しました。しばらくしても届かない場合は迷惑メールフォルダをご確認ください。');
-                Log::info("ID：【".$owner['id']."】アドレス：【".$owner->email
-                    ."】パスワード再設定用メールを送信しました。", 'pass_reset');
+                Log::info("ID：【" . $owner['id'] . "】アドレス：【" . $owner->email
+                    . "】パスワード再設定用メールを送信しました。", 'pass_reset');
 
                 return $this->render('/common/pass_reset_send');
-
             } else {
                 // 送信失敗
                 foreach ($owner->errors() as $key1 => $value1) {
                     foreach ($value1 as $key2 => $value2) {
                         $this->Flash->error($value2);
-                        Log::error("ID：【".$owner['id']."】アドレス：【".$owner->email
-                            ."】エラー：【".$value2."】", 'pass_reset');
+                        Log::error("ID：【" . $owner['id'] . "】アドレス：【" . $owner->email
+                            . "】エラー：【" . $value2 . "】", 'pass_reset');
                     }
                 }
             }
@@ -815,24 +815,23 @@ class OwnersController extends AppController
      * @param [type] $token
      * @return void
      */
-    public function resetVerify($token)
-    {
+    public function resetVerify($token) {
 
         // シンプルレイアウトを使用
         $this->viewBuilder()->layout('simpleDefault');
         $owner = $this->Auth->identify();
         try {
             $owner = $this->Owners->get(Token::getId($token));
-        } catch(RuntimeException $e) {
+        } catch (RuntimeException $e) {
             $this->Flash->error('URLが無効になっています。');
             return $this->redirect(['action' => 'login']);
         }
 
         // 以下でトークンの有効期限や改ざんを検証することが出来る
         if (!$owner->tokenVerify($token)) {
-            Log::info("ID：【".$owner->id."】"."アドレス：【".$owner->email."】".
-                "エラー：【".RESULT_M['PASS_RESET_FAILED']."】アクション：【"
-                . $this->request->params['action']. "】", "pass_reset");
+            Log::info("ID：【" . $owner->id . "】" . "アドレス：【" . $owner->email . "】" .
+                "エラー：【" . RESULT_M['PASS_RESET_FAILED'] . "】アクション：【"
+                . $this->request->params['action'] . "】", "pass_reset");
 
             $this->Flash->error(RESULT_M['PASS_RESET_FAILED']);
             return $this->redirect(['action' => 'login']);
@@ -843,8 +842,10 @@ class OwnersController extends AppController
             $is_reset_form = false;
 
             // バリデーションはパスワードリセットその２を使う。
-            $validate = $this->Owners->newEntity( $this->request->getData()
-                , ['validate' => 'OwnerPassReset2']);
+            $validate = $this->Owners->newEntity(
+                $this->request->getData(),
+                ['validate' => 'OwnerPassReset2']
+            );
 
             if (!$validate->errors()) {
 
@@ -857,9 +858,9 @@ class OwnersController extends AppController
                 // 一応ちゃんと変更されたかチェックする
                 if (!$owner->isDirty('password')) {
 
-                    Log::info("ID：【".$owner->id."】"."アドレス：【".$owner->email."】".
-                    "エラー：【パスワードの変更に失敗しました。】アクション：【"
-                        . $this->request->params['action']. "】", "pass_reset");
+                    Log::info("ID：【" . $owner->id . "】" . "アドレス：【" . $owner->email . "】" .
+                        "エラー：【パスワードの変更に失敗しました。】アクション：【"
+                        . $this->request->params['action'] . "】", "pass_reset");
 
                     $this->Flash->error('パスワードの変更に失敗しました。');
                     return $this->redirect(['action' => 'login']);
@@ -870,7 +871,7 @@ class OwnersController extends AppController
                     // 変更完了したら、メール送信
                     $email = new Email('default');
                     $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
-                        ->setSubject($owner->name."様、メールアドレスの変更が完了しました。")
+                        ->setSubject($owner->name . "様、メールアドレスの変更が完了しました。")
                         ->setTo($owner->email)
                         ->setBcc(MAIL['SUPPORT_MAIL'])
                         ->setTemplate("pass_reset_success")
@@ -882,11 +883,10 @@ class OwnersController extends AppController
 
                     // 変更完了でログインページへ
                     $this->Flash->success(RESULT_M['PASS_RESET_SUCCESS']);
-                    Log::info("ID：【".$owner['id']."】アドレス：【".$owner->email
-                        ."】". RESULT_M['PASS_RESET_SUCCESS'], 'pass_reset');
+                    Log::info("ID：【" . $owner['id'] . "】アドレス：【" . $owner->email
+                        . "】" . RESULT_M['PASS_RESET_SUCCESS'], 'pass_reset');
                     return $this->redirect(['action' => 'login']);
                 }
-
             } else {
 
                 // パスワードリセットフォームの表示フラグ
@@ -900,23 +900,24 @@ class OwnersController extends AppController
 
             // パスワードリセットフォームの表示フラグ
             $is_reset_form = true;
-            $this->set(compact('is_reset_form','owner'));
+            $this->set(compact('is_reset_form', 'owner'));
             return $this->render('/common/pass_reset_form');
         }
     }
 
-    public function passChange()
-    {
+    public function passChange() {
         $auth = $this->request->session()->read('Auth.Owner');
 
         if ($this->request->is('post')) {
 
             $isValidate = false; // エラー有無
             // バリデーションはパスワードリセットその３を使う。
-            $validate = $this->Owners->newEntity( $this->request->getData()
-                , ['validate' => 'OwnerPassReset3']);
+            $validate = $this->Owners->newEntity(
+                $this->request->getData(),
+                ['validate' => 'OwnerPassReset3']
+            );
 
-            if(!$validate->errors()) {
+            if (!$validate->errors()) {
 
                 $hasher = new DefaultPasswordHasher();
                 $owner = $this->viewVars['owner'];
@@ -926,8 +927,10 @@ class OwnersController extends AppController
                     return $this->redirect($this->Auth->logout());
                 }
 
-                $equal_check = $hasher->check($this->request->getData('password')
-                    , $owner->password);
+                $equal_check = $hasher->check(
+                    $this->request->getData('password'),
+                    $owner->password
+                );
                 // 入力した現在のパスワードとデータベースのパスワードを比較する
                 if (!$equal_check) {
                     $this->Flash->error('現在のパスワードが間違っています。');
@@ -940,9 +943,9 @@ class OwnersController extends AppController
                 // 一応ちゃんと変更されたかチェックする
                 if (!$owner->isDirty('password')) {
 
-                    Log::info("ID：【".$owner->id."】"."アドレス：【".$owner->email."】".
-                    "エラー：【パスワードの変更に失敗しました。】アクション：【"
-                        . $this->request->params['action']. "】", "pass_reset");
+                    Log::info("ID：【" . $owner->id . "】" . "アドレス：【" . $owner->email . "】" .
+                        "エラー：【パスワードの変更に失敗しました。】アクション：【"
+                        . $this->request->params['action'] . "】", "pass_reset");
 
                     $this->Flash->error('パスワードの変更に失敗しました。');
                     return $this->render();
@@ -956,7 +959,7 @@ class OwnersController extends AppController
                     // 変更完了したら、メール送信
                     $email = new Email('default');
                     $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
-                        ->setSubject($owner->name."様、メールアドレスの変更が完了しました。")
+                        ->setSubject($owner->name . "様、メールアドレスの変更が完了しました。")
                         ->setTo($owner->email)
                         ->setBcc(MAIL['SUPPORT_MAIL'])
                         ->setTemplate("pass_reset_success")
@@ -968,16 +971,14 @@ class OwnersController extends AppController
 
                     // 変更完了でログインページへ
                     $this->Flash->success(RESULT_M['PASS_RESET_SUCCESS']);
-                    Log::info("ID：【".$owner['id']."】アドレス：【".$owner->email
-                        ."】". RESULT_M['PASS_RESET_SUCCESS'], 'pass_reset');
+                    Log::info("ID：【" . $owner['id'] . "】アドレス：【" . $owner->email
+                        . "】" . RESULT_M['PASS_RESET_SUCCESS'], 'pass_reset');
 
                     return $this->redirect(['action' => 'login']);
-
                 } catch (RuntimeException $e) {
                     $this->log($this->Util->setLog($auth, $e));
                     $this->Flash->error('パスワードの変更に失敗しました。');
                 }
-
             } else {
                 $owner = $validate;
             }
@@ -990,18 +991,16 @@ class OwnersController extends AppController
         return $this->render();
     }
 
-    public function blackhole($type)
-    {
+    public function blackhole($type) {
         switch ($type) {
-          case 'csrf':
-            $this->Flash->error(__('不正な送信が行われました'));
-            $this->redirect(array('controller' => 'owners', 'action' => 'index'));
-            break;
-          default:
-            $this->Flash->error(__('不正な送信が行われました'));
-            $this->redirect(array('controller' => 'owners', 'action' => 'index'));
-            break;
+            case 'csrf':
+                $this->Flash->error(__('不正な送信が行われました'));
+                $this->redirect(array('controller' => 'owners', 'action' => 'index'));
+                break;
+            default:
+                $this->Flash->error(__('不正な送信が行われました'));
+                $this->redirect(array('controller' => 'owners', 'action' => 'index'));
+                break;
         }
     }
-
 }
