@@ -11,6 +11,15 @@ target () {
 
 #night-planet コンテナ、ボリュームを停止後、削除する
 delete () {
+
+  # 本番環境の場合は実施するか確認する
+  if [ $EXE_ENV = prod ];then
+    read -n1 -p "ok? (y/N): " yn
+    if [[ $yn -ne [yY] ]]; then
+      exit 1
+    fi
+  fi
+
   target
   echo "コンテナを停止後、削除し、関連ボリュームも削除します..."
   docker rm -f $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
