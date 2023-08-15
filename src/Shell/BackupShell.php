@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Shell;
 
 use Cake\Log\Log;
@@ -10,12 +11,10 @@ use App\Controller\Component\BatchComponent;
 /**
  * DatabaseBackup shell command.
  */
-class BackupShell extends Shell
-{
+class BackupShell extends Shell {
     public $tasks = ['Mysqldump']; // ← タスクの読み込み
-     function initialize()
-    {
-    // コンポーネントを参照(コンポーネントを利用する場合)
+    function initialize() {
+        // コンポーネントを参照(コンポーネントを利用する場合)
         $this->Batch = new BatchComponent(new ComponentRegistry());
     }
     /**
@@ -25,8 +24,7 @@ class BackupShell extends Shell
      *
      * @return \Cake\Console\ConsoleOptionParser
      */
-    public function getOptionParser()
-    {
+    public function getOptionParser() {
         $parser = parent::getOptionParser();
 
         return $parser;
@@ -37,8 +35,7 @@ class BackupShell extends Shell
      *
      * @return bool|int|null Success or error code.
      */
-    public function main()
-    {
+    public function main() {
         // タスクの実行
         $result = $this->Batch->backup();
 

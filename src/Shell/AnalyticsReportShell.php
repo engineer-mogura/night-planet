@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Shell;
 
 use Cake\Log\Log;
@@ -10,12 +11,10 @@ use App\Controller\Component\BatchComponent;
 /**
  * DatabaseBackup shell command.
  */
-class AnalyticsReportShell extends Shell
-{
+class AnalyticsReportShell extends Shell {
     public $tasks = ['AnalyticsReport']; // ← タスクの読み込み
 
-    function initialize()
-    {
+    function initialize() {
         // コンポーネントを参照(コンポーネントを利用する場合)
         $this->Batch = new BatchComponent(new ComponentRegistry());
     }
@@ -26,8 +25,7 @@ class AnalyticsReportShell extends Shell
      *
      * @return \Cake\Console\ConsoleOptionParser
      */
-    public function getOptionParser()
-    {
+    public function getOptionParser() {
         $parser = parent::getOptionParser();
 
         return $parser;
@@ -40,8 +38,7 @@ class AnalyticsReportShell extends Shell
      * args2 終了日</abr>
      * @return bool|int|null Success or error code.
      */
-    public function main()
-    {
+    public function main() {
         // タスクの実行
         $result = $this->Batch->analyticsReport($this->args[0], $this->args[1]);
         if ($result) {

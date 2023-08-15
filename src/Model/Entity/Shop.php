@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -46,8 +47,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Update[] $updates
  * @property \App\Model\Entity\WorkSchedule[] $work_schedules
  */
-class Shop extends Entity
-{
+class Shop extends Entity {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -103,8 +103,7 @@ class Shop extends Entity
      *
      * @return void
      */
-    protected function _getFullAddress()
-    {
+    protected function _getFullAddress() {
         return $this->_properties['pref21'] .
             $this->_properties['addr21'] . $this->_properties['strt21'];
     }
@@ -115,8 +114,7 @@ class Shop extends Entity
      *
      * @return void
      */
-    protected function _getRegistryAlias()
-    {
+    protected function _getRegistryAlias() {
         return $this->_registryAlias;
     }
 }

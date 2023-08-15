@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -17,8 +18,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Cast $cast
  * @property \App\Model\Entity\DiaryLike[] $diary_likes
  */
-class Diary extends Entity
-{
+class Diary extends Entity {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -45,8 +45,7 @@ class Diary extends Entity
      *
      * @return void
      */
-    protected function _getRegistryAlias()
-    {
+    protected function _getRegistryAlias() {
         return $this->_registryAlias;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -21,8 +22,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Shop $shop
  * @property \App\Model\Entity\User $user
  */
-class Review extends Entity
-{
+class Review extends Entity {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -52,8 +52,7 @@ class Review extends Entity
      *
      * @return void
      */
-    protected function _getReviewAverage()
-    {
+    protected function _getReviewAverage() {
         $average = ($this->_properties['cost'] + $this->_properties['atmosphere']
             + $this->_properties['customer'] + $this->_properties['staff']
             + $this->_properties['cleanliness']) / 5;
@@ -67,8 +66,7 @@ class Review extends Entity
      *
      * @return void
      */
-    protected function _getRegistryAlias()
-    {
+    protected function _getRegistryAlias() {
         return $this->_registryAlias;
     }
 }

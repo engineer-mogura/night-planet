@@ -1,8 +1,9 @@
 <?php
+
 namespace App\Shell;
 
-use Cake\Console\Shell;
 use Cake\Log\Log;
+use Cake\Console\Shell;
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use App\Controller\Component\BatchComponent;
@@ -10,12 +11,10 @@ use App\Controller\Component\BatchComponent;
 /**
  * DatabaseBackup shell command.
  */
-class SaveNewPhotosRankShell extends Shell
-{
+class SaveNewPhotosRankShell extends Shell {
     public $tasks = ['SaveNewPhotosRank']; // ← タスクの読み込み
 
-    function initialize()
-    {
+    function initialize() {
         // コンポーネントを参照(コンポーネントを利用する場合)
         $this->Batch = new BatchComponent(new ComponentRegistry());
     }
@@ -26,8 +25,7 @@ class SaveNewPhotosRankShell extends Shell
      *
      * @return \Cake\Console\ConsoleOptionParser
      */
-    public function getOptionParser()
-    {
+    public function getOptionParser() {
         $parser = parent::getOptionParser();
 
         return $parser;
@@ -38,8 +36,7 @@ class SaveNewPhotosRankShell extends Shell
      *
      * @return bool|int|null Success or error code.
      */
-    public function main()
-    {
+    public function main() {
         // タスクの実行
         $result = $this->Batch->saveNewPhotosRank();
         if ($result) {

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -21,8 +22,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  */
-class NewPhotosRank extends Entity
-{
+class NewPhotosRank extends Entity {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

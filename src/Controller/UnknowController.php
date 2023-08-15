@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use \Cake\ORM\Query;
@@ -9,18 +10,16 @@ use Cake\ORM\TableRegistry;
 use Cake\Mailer\MailerAwareTrait;
 
 /**
-* Users Controller
-*
-* @property \App\Model\Table\UsersTable $Users
-*
-* @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
-*/
-class UnknowController extends AppController
-{
+ * Users Controller
+ *
+ * @property \App\Model\Table\UsersTable $Users
+ *
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ */
+class UnknowController extends AppController {
     use MailerAwareTrait;
 
-    public function initialize()
-    {
+    public function initialize() {
         parent::initialize();
         $this->Users = TableRegistry::get('users');
         $this->Shops = TableRegistry::get('shops');
@@ -30,8 +29,7 @@ class UnknowController extends AppController
         $this->MasterCodes = TableRegistry::get("master_codes");
     }
 
-    public function beforeFilter(Event $event)
-    {
+    public function beforeFilter(Event $event) {
         // parent::beforeFilter($event);
         // $this->Auth->allow(['signup','verify','logout']);
         parent::beforeRender($event); //親クラスのbeforeRendorを呼ぶ
@@ -42,8 +40,8 @@ class UnknowController extends AppController
         $result = '';
         if (!empty($query['area']) && !empty($query['genre'])) {
             // コントローラでセットされたresultを代入してセパレータを追加
-            $result .=  AREA[$query['area']]['label'] . 'の'.
-                        GENRE[$query['genre']]['label'].'一覧';
+            $result .=  AREA[$query['area']]['label'] . 'の' .
+                GENRE[$query['genre']]['label'] . '一覧';
         } elseif (!empty($query['area'])) {
             $result .=  AREA[$query['area']]['label'] . '一覧';
         } elseif (!empty($query['genre'])) {
@@ -56,15 +54,16 @@ class UnknowController extends AppController
         $this->set(compact("result", "title", "description"));
     }
 
-    public function shop()
-    {
+    public function shop() {
         // urlパラメタ
         $arg        = $this->request->getQuery();
-        $area_genre = ['area'=> AREA[$arg['area']], 'genre'=>GENRE[$arg['genre']]];
+        $area_genre = ['area' => AREA[$arg['area']], 'genre' => GENRE[$arg['genre']]];
         $unknow     = true;
         $search = $this->Shops->find()
-            ->where(['area'=>$arg['area'],'genre'=>$arg['genre'],
-                'shops.status = 1 AND shops.delete_flag = 0'])
+            ->where([
+                'area' => $arg['area'], 'genre' => $arg['genre'],
+                'shops.status = 1 AND shops.delete_flag = 0'
+            ])
             ->contain(['snss'])->toArray();
 
         // 画像を設定する
@@ -75,7 +74,7 @@ class UnknowController extends AppController
             $files = $this->S3Client->getList($this->s3Backet, $shop->shopInfo['top_image_path'], 1);
             // ファイルが存在したら、画像をセット
             if (is_countable($files) ? count($files) > 0 : 0) {
-                $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
+                $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
             } else {
                 // 共通トップ画像をセット
                 $shop->set('top_image', PATH_ROOT['SHOP_TOP_IMAGE']);
@@ -84,27 +83,25 @@ class UnknowController extends AppController
 
         // 検索条件を取得し、画面側でselectedする
         $selected = $this->request->getQuery();
-        $masterCodesFind = array('area','genre');
+        $masterCodesFind = array('area', 'genre');
         $selectList = $this->Util->getSelectList($masterCodesFind, $this->MasterCodes, false);
 
         $this->set(compact('search', 'unknow', 'area_genre', 'selectList'));
         $this->render();
     }
 
-    public function cast()
-    {
+    public function cast() {
         // 検索ボックス内容セットする
-        $masterCodesFind = array('area','genre');
+        $masterCodesFind = array('area', 'genre');
         $selectList = $this->Util->getSelectList($masterCodesFind, $this->MasterCodes, false);
 
         $this->set(compact('selectList'));
         $this->render();
     }
 
-    public function diary()
-    {
+    public function diary() {
         // 検索ボックス内容セットする
-        $masterCodesFind = array('area','genre');
+        $masterCodesFind = array('area', 'genre');
         $selectList = $this->Util->getSelectList($masterCodesFind, $this->MasterCodes, false);
 
         $this->set(compact('selectList'));
@@ -117,8 +114,7 @@ class UnknowController extends AppController
      * @param array $validate
      * @return void
      */
-    public function confReturnJson()
-    {
+    public function confReturnJson() {
         $this->viewBuilder()->autoLayout(false);
         $this->autoRender = false;
         $this->response->charset('UTF-8');

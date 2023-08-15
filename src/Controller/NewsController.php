@@ -1,28 +1,25 @@
 <?php
+
 namespace App\Controller;
 
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 
 /**
-* Users Controller
-*
-* @property \App\Model\Table\UsersTable $Users
-*
-* @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
-*/
-class NewsController extends AppController
-{
+ * Users Controller
+ *
+ * @property \App\Model\Table\UsersTable $Users
+ *
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ */
+class NewsController extends AppController {
 
-    public function initialize()
-    {
-         parent::initialize();
+    public function initialize() {
+        parent::initialize();
         $this->News = TableRegistry::get('news');
-
     }
 
-    public function beforeFilter(Event $event)
-    {
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
 
         // 常に現在エリアを取得
@@ -30,7 +27,7 @@ class NewsController extends AppController
         // SEO対策
         $title = str_replace("_service_name_", LT['000'], TITLE['TOP_TITLE']);
         $description = str_replace("_service_name_", LT['000'], META['TOP_DESCRIPTION']);
-        $this->set(compact("title", "description","is_area","is_login_modal_show"));
+        $this->set(compact("title", "description", "is_area", "is_login_modal_show"));
     }
 
     /**
@@ -39,8 +36,7 @@ class NewsController extends AppController
      * @param array $validate
      * @return void
      */
-    public function index()
-    {
+    public function index() {
         // ニュース取得
         $news = $this->Util->getNewss(PATH_ROOT['DEVELOPERS'] . DS . PATH_ROOT['NEWS'], null);
         $this->set('next_view', 'news');
@@ -55,8 +51,7 @@ class NewsController extends AppController
      * @param array $validate
      * @return void
      */
-    public function confReturnJson()
-    {
+    public function confReturnJson() {
         $this->viewBuilder()->autoLayout(false);
         $this->autoRender = false;
         $this->response->charset('UTF-8');

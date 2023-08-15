@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -15,8 +16,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Shop $shop
  * @property \App\Model\Entity\User $user
  */
-class ShopLike extends Entity
-{
+class ShopLike extends Entity {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -41,9 +41,7 @@ class ShopLike extends Entity
      *
      * @return void
      */
-    protected function _getRegistryAlias()
-    {
+    protected function _getRegistryAlias() {
         return $this->_registryAlias;
     }
-
 }

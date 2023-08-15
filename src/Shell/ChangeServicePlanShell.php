@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Shell;
 
 use Cake\Console\Shell;
@@ -6,8 +7,7 @@ use Cake\Console\Shell;
 /**
  * DatabaseBackup shell command.
  */
-class ChangeServicePlanShell extends Shell
-{
+class ChangeServicePlanShell extends Shell {
     public $tasks = ['ChangeServicePlan']; // ← タスクの読み込み
     /**
      * Manage the available sub-commands along with their arguments and help
@@ -16,8 +16,7 @@ class ChangeServicePlanShell extends Shell
      *
      * @return \Cake\Console\ConsoleOptionParser
      */
-    public function getOptionParser()
-    {
+    public function getOptionParser() {
         $parser = parent::getOptionParser();
 
         return $parser;
@@ -28,8 +27,7 @@ class ChangeServicePlanShell extends Shell
      *
      * @return bool|int|null Success or error code.
      */
-    public function main()
-    {
+    public function main() {
         $this->out($this->OptionParser->help());
         // タスクの実行
         $this->ChangeServicePlan->main();

@@ -437,7 +437,7 @@ class AreaController extends AppController {
             }, 'Casts.CastLikes' => function (Query $q) {
                 $main = $q
                     ->select([
-                       'cast_id', 'user_id', 'total' => $q->func()->count('CastLikes.cast_id')
+                        'cast_id', 'user_id', 'total' => $q->func()->count('CastLikes.cast_id')
                     ])
                     ->group('cast_id', 'user_id');
 
@@ -448,7 +448,7 @@ class AreaController extends AppController {
             }, 'ShopLikes' => function (Query $q) {
                 $main = $q
                     ->select([
-                       'shop_id', 'user_id', 'total' => $q->func()->count('ShopLikes.shop_id')
+                        'shop_id', 'user_id', 'total' => $q->func()->count('ShopLikes.shop_id')
                     ])
                     ->group('shop_id', 'user_id');
 
@@ -497,18 +497,18 @@ class AreaController extends AppController {
                     return $sub->select([
                         'shop_info_id', 'total' => $sub->func()->count('shop_info_id')
                     ])
-                    ->group(['shop_info_id'])
-                    ->where(['shop_id' => $id]);
+                        ->group(['shop_info_id'])
+                        ->where(['shop_id' => $id]);
                 })
-                ->select($this->ShopInfos->getSchema()->columns())
-                ->select(['your_like.like'])
-                ->leftJoin(
-                    ['your_like' => $subquery],
-                    ['your_like.like = ShopInfos.id']
-                )
-                ->group(['ShopInfos.id'])
-                ->order(['ShopInfos.created' => 'DESC'])
-                ->limit(1);
+                    ->select($this->ShopInfos->getSchema()->columns())
+                    ->select(['your_like.like'])
+                    ->leftJoin(
+                        ['your_like' => $subquery],
+                        ['your_like.like = ShopInfos.id']
+                    )
+                    ->group(['ShopInfos.id'])
+                    ->order(['ShopInfos.created' => 'DESC'])
+                    ->limit(1);
                 return $main;
             }, 'WorkSchedules' => function (Query $q) {
                 $end_date = date("Y-m-d H:i:s");
@@ -519,7 +519,7 @@ class AreaController extends AppController {
             }, 'Reviews' => function (Query $q) use ($id) {
                 $main = $q
                     ->select([
-                       'Reviews.shop_id', 'total' => $q->func()->count('Reviews.shop_id')
+                        'Reviews.shop_id', 'total' => $q->func()->count('Reviews.shop_id')
                     ])
                     ->group('shop_id')
                     ->where(['shop_id' => $id]);
@@ -744,7 +744,7 @@ class AreaController extends AppController {
                 }, 'Casts.CastLikes' => function (Query $q) {
                     $main = $q
                         ->select([
-                        'CastLikes.id', 'cast_id', 'user_id', 'total' => $q->func()->count('CastLikes.cast_id')
+                            'CastLikes.id', 'cast_id', 'user_id', 'total' => $q->func()->count('CastLikes.cast_id')
                         ])
                         ->group('cast_id', 'user_id');
 
@@ -755,7 +755,7 @@ class AreaController extends AppController {
                 }, 'Casts.Snss' => function (Query $q) {
                     return $q
                         ->where(['Snss.cast_id']);
-                }, 'Casts.Diarys' => function (Query $q) use ($id, $shop_id)  {
+                }, 'Casts.Diarys' => function (Query $q) use ($id, $shop_id) {
 
                     $subquery = $this->Users->find()
                         ->distinct()
@@ -787,18 +787,18 @@ class AreaController extends AppController {
                         return $sub->select([
                             'diary_id', 'total' => $sub->func()->count('diary_id')
                         ])
-                        ->group(['diary_id']);
+                            ->group(['diary_id']);
                     })
-                    ->select($this->Diarys->getSchema()->columns())
-                    ->select(['your_like.like'])
-                    ->leftJoin(
-                        ['your_like' => $subquery],
-                        ['your_like.like = Diarys.id']
-                    )
-                    ->group(['Diarys.id'])
-                    ->order(['Diarys.created' => 'DESC'])
-                    ->limit(1);
-                 }, 'Snss'
+                        ->select($this->Diarys->getSchema()->columns())
+                        ->select(['your_like.like'])
+                        ->leftJoin(
+                            ['your_like' => $subquery],
+                            ['your_like.like = Diarys.id']
+                        )
+                        ->group(['Diarys.id'])
+                        ->order(['Diarys.created' => 'DESC'])
+                        ->limit(1);
+                }, 'Snss'
             ])->first();
 
         // 店舗情報
@@ -964,8 +964,11 @@ class AreaController extends AppController {
         $this->set('shopInfo', $this->Util->getShopInfo($cast->shop));
 
         // スタッフの全ての日記を取得
-        $diarys = $this->Util->getDiarys($id, $this->viewVars['castInfo']['diary_path']
-            , empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']);
+        $diarys = $this->Util->getDiarys(
+            $id,
+            $this->viewVars['castInfo']['diary_path'],
+            empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']
+        );
         $top_diarys = array();
         $arcive_diarys = array();
         $count = 0;
@@ -1076,8 +1079,11 @@ class AreaController extends AppController {
         $this->set('shopInfo', $this->Util->getShopInfo($shop));
 
         // 店舗の全てのニュースを取得
-        $notices = $this->Util->getNotices($id, $this->viewVars['shopInfo']['notice_path']
-            , empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']);
+        $notices = $this->Util->getNotices(
+            $id,
+            $this->viewVars['shopInfo']['notice_path'],
+            empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']
+        );
         $top_notices = array();
         $arcive_notices = array();
         $count = 0;

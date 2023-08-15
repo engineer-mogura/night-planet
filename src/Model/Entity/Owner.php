@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -30,8 +31,7 @@ use Cake\Auth\DefaultPasswordHasher;
  * @property \App\Model\Entity\ServecePlan[] $servece_plans
  * @property \App\Model\Entity\Shop[] $shops
  */
-class Owner extends Entity
-{
+class Owner extends Entity {
     use TokenTrait;
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -80,9 +80,7 @@ class Owner extends Entity
      *
      * @return void
      */
-    protected function _getRegistryAlias()
-    {
+    protected function _getRegistryAlias() {
         return $this->_registryAlias;
     }
-
 }

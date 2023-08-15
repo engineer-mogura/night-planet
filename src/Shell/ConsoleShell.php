@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -12,26 +13,25 @@
  * @since     3.0.0
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Shell;
 
-use Cake\Console\ConsoleOptionParser;
-use Cake\Console\Shell;
 use Cake\Log\Log;
+use Cake\Console\Shell;
 use Psy\Shell as PsyShell;
+use Cake\Console\ConsoleOptionParser;
 
 /**
  * Simple console wrapper around Psy\Shell.
  */
-class ConsoleShell extends Shell
-{
+class ConsoleShell extends Shell {
 
     /**
      * Start the shell and interactive console.
      *
      * @return int|null
      */
-    public function main()
-    {
+    public function main() {
         if (!class_exists('Psy\Shell')) {
             $this->err('<error>Unable to load Psy\Shell.</error>');
             $this->err('');
@@ -64,16 +64,15 @@ class ConsoleShell extends Shell
      *
      * @return \Cake\Console\ConsoleOptionParser
      */
-    public function getOptionParser()
-    {
+    public function getOptionParser() {
         $parser = new ConsoleOptionParser('console');
         $parser->setDescription(
             'This shell provides a REPL that you can use to interact with ' .
-            'your application in a command line designed to run PHP code. ' .
-            'You can use it to run adhoc queries with your models, or ' .
-            'explore the features of CakePHP and your application.' .
-            "\n\n" .
-            'You will need to have psysh installed for this Shell to work.'
+                'your application in a command line designed to run PHP code. ' .
+                'You can use it to run adhoc queries with your models, or ' .
+                'explore the features of CakePHP and your application.' .
+                "\n\n" .
+                'You will need to have psysh installed for this Shell to work.'
         );
 
         return $parser;

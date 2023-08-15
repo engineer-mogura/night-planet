@@ -17,8 +17,7 @@ use App\Controller\ApiGooglesController;
 use App\Controller\Component\UtilComponent;
 use App\Controller\Component\S3ClientComponent;
 
-class BatchComponent extends Component
-{
+class BatchComponent extends Component {
     //public $components = ['S3Client'];
 
     use MailerAwareTrait; // メールクラス
@@ -32,13 +31,12 @@ class BatchComponent extends Component
      * mysqldumpを実行する
      * @return mixed
      */
-    public function backup()
-    {
+    public function backup() {
         $result = true; // 正常終了フラグ
         // コネクションオブジェクト取得
         $con = ConnectionManager::get('default');
         // バックアップファイルを何日分残しておくか
-        $period='+30';
+        $period = '+30';
         // ルートディレクトリ
         $root = ROOT;
         // 日付
@@ -49,25 +47,29 @@ class BatchComponent extends Component
         $mysqldump_path = '/usr/bin/mysqldump ';
 
         // バックアップディクレトリ作成
-        exec('mkdir -p '. $root . DS . 'np_backup', $output, $result_code);
+        exec('mkdir -p ' . $root . DS . 'np_backup', $output, $result_code);
         // パーミッション変更
         exec('chmod 700 ' . $root . DS . 'np_backup');
 
         // バックアップディクレトリ作成
-        exec('mkdir -p '. $dirpath, $output, $result_code);
+        exec('mkdir -p ' . $dirpath, $output, $result_code);
         // パーミッション変更
         exec('chmod 700 ' . $dirpath);
 
         // コマンド
-        $command = sprintf($mysqldump_path . '--no-tablespaces -h %s -u %s -p%s %s | gzip > %sbackup.sql.gz'
-            , $con->config()['host'], $con->config()['username']
-            , $con->config()['password'], $con->config()['database']
-            , $dirpath . DS . $date);
+        $command = sprintf(
+            $mysqldump_path . '--no-tablespaces -h %s -u %s -p%s %s | gzip > %sbackup.sql.gz',
+            $con->config()['host'],
+            $con->config()['username'],
+            $con->config()['password'],
+            $con->config()['database'],
+            $dirpath . DS . $date
+        );
 
         // データベースバックアップ
         exec($command, $output, $result_code);
 
-        Log::info(__LINE__ . '::' . __METHOD__ . '::' . "アウトプット:". print_r($output) . "結果コード:" . $result_code, 'batch_bk');
+        Log::info(__LINE__ . '::' . __METHOD__ . '::' . "アウトプット:" . print_r($output) . "結果コード:" . $result_code, 'batch_bk');
         return $result;
     }
 
@@ -75,11 +77,10 @@ class BatchComponent extends Component
      * ディクレトリバックアップを実行する
      * @return mixed
      */
-    public function dirBackup()
-    {
+    public function dirBackup() {
         $result = true; // 正常終了フラグ
         // バックアップファイルを何日分残しておくか
-        $period='+7';
+        $period = '+7';
         // ルートディレクトリ
         $root = dirname(ROOT);
         // 日付
@@ -87,7 +88,7 @@ class BatchComponent extends Component
         // バックアップファイルを保存するディレクトリ
         $dirpath = $root . DS . 'np_backup';
         // バックアップ元フォルダ
-        $backupfolder= $root . DS . 'img';
+        $backupfolder = $root . DS . 'img';
         // ファイル名を定義(※ファイル名で日付がわかるようにしておきます)
         $filename = 'images_' . $date . 'tar.gz ';
         // バックアップ実行
@@ -100,7 +101,7 @@ class BatchComponent extends Component
         if ($result_code != 0) {
             $result = false;
         }
-        Log::info(__LINE__ . '::' . __METHOD__ . '::' . "アウトプット:".$output . "結果コード:" . $result, 'batch_bk');
+        Log::info(__LINE__ . '::' . __METHOD__ . '::' . "アウトプット:" . $output . "結果コード:" . $result, 'batch_bk');
         return $result;
     }
 
@@ -111,16 +112,15 @@ class BatchComponent extends Component
      * @param [type] $diaryPath
      * @return array
      */
-    public function changeServicePlan()
-    {
+    public function changeServicePlan() {
 
         $result = true; // 正常終了フラグ
         $servece_plans = TableRegistry::get('servece_plans');
         $owners        = TableRegistry::get('owners');
         $plans = $servece_plans->find("all")
-                    ->where(['NOW() > to_end', 'to_end !=' => '0000-00-00'])
-                    ->contain(['owners'])
-                    ->toArray();
+            ->where(['NOW() > to_end', 'to_end !=' => '0000-00-00'])
+            ->contain(['owners'])
+            ->toArray();
 
         $update_entities = array();
 
@@ -135,7 +135,10 @@ class BatchComponent extends Component
             array_push($update_entities, $update_entity);
         }
         $entities = $servece_plans->patchEntities(
-                $servece_plans, $update_entities, ['validate' => false]);
+            $servece_plans,
+            $update_entities,
+            ['validate' => false]
+        );
         try {
             // レコード更新実行
             // if (!$servece_plans->saveMany($entities)) {
@@ -171,8 +174,7 @@ class BatchComponent extends Component
      * @param [type] $diaryPath
      * @return array
      */
-    public function saveNewPhotosRank()
-    {
+    public function saveNewPhotosRank() {
         $this->NewPhotosRank   = TableRegistry::get('new_photos_rank');
         $this->Snss            = TableRegistry::get('snss');
         $this->Shops           = TableRegistry::get('shops');
@@ -186,42 +188,43 @@ class BatchComponent extends Component
         // $files = $this->S3Client->getListObjects(null, $dir, 100);
 
         $shops = $this->Shops->find('all')
-            ->contain(['Casts' => function (Query $q) {
+            ->contain([
+                'Casts' => function (Query $q) {
                     return $q
                         ->where(['Casts.status = 1 AND Casts.delete_flag = 0']);
                 }, 'Casts.Diarys' => function (Query $q) {
                     return $q
-                        ->order(['Diarys.created'=>'DESC'])
+                        ->order(['Diarys.created' => 'DESC'])
                         ->limit(5);
                 }, 'ShopInfos' => function (Query $q) {
                     return $q
-                        ->order(['ShopInfos.created'=>'DESC'])
+                        ->order(['ShopInfos.created' => 'DESC'])
                         ->limit(5);
                 }
             ])
             ->where(['shops.status = 1 AND shops.delete_flag = 0'])->limit("200")->toArray();
 
         $snss   =  $this->Snss->find("all", ["DISTINCT instagram"])
-                    ->where(["instagram != ''"])
-                    ->contain(['Shops' => function (Query $q) {
-                        return $q
-                            ->where(['Shops.status = 1 AND Shops.delete_flag = 0']);
-                    }, 'shops.Owners.ServecePlans' => function (Query $q) {
-                        return $q
-                            ->where(['current_plan is not'=> SERVECE_PLAN['free']['label']]);
-                    }])->limit(199)->toArray();
+            ->where(["instagram != ''"])
+            ->contain(['Shops' => function (Query $q) {
+                return $q
+                    ->where(['Shops.status = 1 AND Shops.delete_flag = 0']);
+            }, 'shops.Owners.ServecePlans' => function (Query $q) {
+                return $q
+                    ->where(['current_plan is not' => SERVECE_PLAN['free']['label']]);
+            }])->limit(199)->toArray();
 
         // 店舗,スタッフ情報をセット
-        foreach($shops as $key => $shop) {
+        foreach ($shops as $key => $shop) {
 
             $shop->set('shopInfo', $this->Util->getShopInfo($shop));
-            foreach($shop->casts as $key => $cast) {
+            foreach ($shop->casts as $key => $cast) {
                 $cast->set('castInfo', $this->Util->getCastInfo($cast, $shop));
             }
         }
 
         // 店舗,スタッフ情報をセット
-        foreach($snss as $key => $sns) {
+        foreach ($snss as $key => $sns) {
             $shop = $sns->shop;
             // ナイプラ自身のインスタの場合
             if ($shop->ig_data['business_discovery']['username'] == API['INSTAGRAM_USER_NAME']) {
@@ -230,20 +233,22 @@ class BatchComponent extends Component
 
             $shop->set('shopInfo', $this->Util->getShopInfo($shop));
             if ($shop->casts != null && is_array($shop->casts)) {
-                foreach($shop->casts as $key => $cast) {
+                foreach ($shop->casts as $key => $cast) {
                     $cast->set('castInfo', $this->Util->getCastInfo($cast, $shop));
                 }
             }
-
         }
 
         // ナイプラのsnsエンティティ作成
         $sns = $this->Snss->newEntity();
         $sns->set("shop", $this->Shops->newEntity());
         $sns->set("instagram", API['INSTAGRAM_USER_NAME']);
-        $sns->shop->set("shopInfo"
-            , array('area' => REGION['okinawa']
-            , 'genre' => array('label'=>'ナイプラ')));
+        $sns->shop->set(
+            "shopInfo",
+            array(
+                'area' => REGION['okinawa'], 'genre' => array('label' => 'ナイプラ')
+            )
+        );
         array_push($snss, $sns);
 
         // Instagram情報セット
@@ -256,13 +261,18 @@ class BatchComponent extends Component
             $cache_path = PATH_ROOT['TMP'] . DS . PATH_ROOT['CACHE'];
             $datFile = $insta_user_name . '-instagram_graph_api.dat';
             // インスタ情報を取得
-            $tmp_ig_data = $this->Util->getInstagram($insta_user_name, null
-                , $shop->shopInfo['current_plan'], $cache_path, $datFile);
+            $tmp_ig_data = $this->Util->getInstagram(
+                $insta_user_name,
+                null,
+                $shop->shopInfo['current_plan'],
+                $cache_path,
+                $datFile
+            );
             // データ取得に失敗した場合
             if (!$tmp_ig_data) {
-                Log::warning(__LINE__ . '::' . __METHOD__ . '::'.'【'.AREA[$shop->area]['label']
-                    .GENRE[$shop->genre]['label'].$shop->name
-                    .'】のインスタグラムのデータ取得に失敗しました。', "batch_snpr");
+                Log::warning(__LINE__ . '::' . __METHOD__ . '::' . '【' . AREA[$shop->area]['label']
+                    . GENRE[$shop->genre]['label'] . $shop->name
+                    . '】のインスタグラムのデータ取得に失敗しました。', "batch_snpr");
             }
             $ig_data = $tmp_ig_data->business_discovery;
             // インスタユーザーが存在しない場合
@@ -274,10 +284,9 @@ class BatchComponent extends Component
             //$cache_file = $this->Util->scanDir($cache_path, $exp);
             $shop->set('ig_data', $ig_data);
             // キャッシュファイルの最終更新日時を取得
-            $shop->set('ig_date',  date('Y-m-d H:i:s', @filemtime('s3://' .env('AWS_BUCKET') . DS . $cache_path . DS . $datFile)));
+            $shop->set('ig_date',  date('Y-m-d H:i:s', @filemtime('s3://' . env('AWS_BUCKET') . DS . $cache_path . DS . $datFile)));
             //$shop->set('ig_path', $cache_file[0]);
             array_push($shops, $shop);
-
         }
 
         $sort_lists = array();
@@ -303,13 +312,15 @@ class BatchComponent extends Component
 
                     // 最大５件までデータ取得
                     foreach ($ig_data['media']['data'] as $key => $value) {
-                        if ($key == 5) { break; }
+                        if ($key == 5) {
+                            break;
+                        }
                         $newPhotosRankEntity = $this->NewPhotosRank->newEntity();
                         // メディアURLが取得出来ない場合があるのでその際は、ログ出してスルーする
                         if (empty($value['media_url'])) {
-                            Log::warning(__LINE__ . '::' . __METHOD__ . '::'.'【'.AREA[$shop->area]['label']
-                                .GENRE[$shop->genre]['label'].$shop->name
-                                .'】のインスタグラム【 media_url 】が存在しませんでした。', "batch_snpr");
+                            Log::warning(__LINE__ . '::' . __METHOD__ . '::' . '【' . AREA[$shop->area]['label']
+                                . GENRE[$shop->genre]['label'] . $shop->name
+                                . '】のインスタグラム【 media_url 】が存在しませんでした。', "batch_snpr");
                             continue;
                         }
                         $newPhotosRankEntity->set('shop_id', $shop->id);
@@ -323,7 +334,7 @@ class BatchComponent extends Component
                         $newPhotosRankEntity->set('photo_path', $value['media_url']);
                         // ナイプラ自身のインスタの場合
                         if ($ig_data['username'] == API['INSTAGRAM_USER_NAME']) {
-                            $newPhotosRankEntity->set('details', 'https://www.instagram.com/'. $ig_data['username']);
+                            $newPhotosRankEntity->set('details', 'https://www.instagram.com/' . $ig_data['username']);
                         } else {
                             $newPhotosRankEntity->set('details', $shop->shopInfo['shop_url']);
                         }
@@ -332,11 +343,12 @@ class BatchComponent extends Component
 
                         array_push($newPhotosRankEntityList, $newPhotosRankEntity);
                     }
-
                 } else if (is_countable($sort_list->shop_infos)) {
                     $shop = $sort_list;
                     foreach ($sort_list->shop_infos as $key => $value) {
-                        if ($key == 5) { break; }
+                        if ($key == 5) {
+                            break;
+                        }
 
                         $photo_path = $shop->shopInfo['notice_path'] . $value['dir'];
                         $filePath = $this->S3Client->getList(null, $photo_path, 1);
@@ -361,7 +373,6 @@ class BatchComponent extends Component
                         $newPhotosRankEntity->set('post_date', $value->modified->format("Y-m-d H:i:s"));
                         array_push($newPhotosRankEntityList, $newPhotosRankEntity);
                     }
-
                 }
             } else if ($alias == 'casts') {
 
@@ -371,13 +382,15 @@ class BatchComponent extends Component
 
                     // 最大５件までデータ取得
                     foreach ($ig_data['media']['data'] as $key => $value) {
-                        if ($key == 5) { break; }
+                        if ($key == 5) {
+                            break;
+                        }
                         $newPhotosRankEntity = $this->NewPhotosRank->newEntity();
                         // メディアURLが取得出来ない場合があるのでその際は、ログ出してスルーする
                         if (empty($value['media_url'])) {
-                            Log::warning(__LINE__ . '::' . __METHOD__ . '::'.'【'.AREA[$cast->area]['label']
-                                .GENRE[$cast->genre]['label'].$cast->name
-                                .'】のインスタグラム【 media_url 】が存在しませんでした。', "batch_snpr");
+                            Log::warning(__LINE__ . '::' . __METHOD__ . '::' . '【' . AREA[$cast->area]['label']
+                                . GENRE[$cast->genre]['label'] . $cast->name
+                                . '】のインスタグラム【 media_url 】が存在しませんでした。', "batch_snpr");
                             continue;
                         }
                         $newPhotosRankEntity->set('cast_id', $cast->id);
@@ -391,7 +404,7 @@ class BatchComponent extends Component
                         $newPhotosRankEntity->set('photo_path', $value['media_url']);
                         // ナイプラ自身のインスタの場合
                         if ($ig_data['username'] == API['INSTAGRAM_USER_NAME']) {
-                            $newPhotosRankEntity->set('details', 'https://www.instagram.com/'. $ig_data['username']);
+                            $newPhotosRankEntity->set('details', 'https://www.instagram.com/' . $ig_data['username']);
                         } else {
                             $newPhotosRankEntity->set('details', $cast->castInfo['cast_url']);
                         }
@@ -403,7 +416,9 @@ class BatchComponent extends Component
                 } else if (is_countable($sort_list->diarys) > 0) {
                     $cast = $sort_list;
                     foreach ($sort_list->diarys as $key => $value) {
-                        if ($key == 5) { break; }
+                        if ($key == 5) {
+                            break;
+                        }
 
                         $photo_path = $cast->castInfo['diary_path'] . $value['dir'];
                         $filePath = $this->S3Client->getList(null, $photo_path, 1);
@@ -428,10 +443,8 @@ class BatchComponent extends Component
                         $newPhotosRankEntity->set('post_date', $value->modified->format("Y-m-d H:i:s"));
                         array_push($newPhotosRankEntityList, $newPhotosRankEntity);
                     }
-
                 }
             }
-
         }
         foreach ($newPhotosRankEntityList as $key => $entity) {
             $updated[$key] = $entity['post_date'];
@@ -439,23 +452,22 @@ class BatchComponent extends Component
         //配列のkeyのupdatedでソート
         array_multisort($updated, SORT_DESC, $newPhotosRankEntityList);
 
-        try{
+        try {
             // レコードが存在した場合は削除する
             if ($this->NewPhotosRank->find('all')->count() > 0) {
                 // 新着フォトランキングレコード削除
                 if (!$this->NewPhotosRank->deleteAll([""])) {
                     Log::error(__LINE__ . '::' . __METHOD__ . "::レコードの削除に失敗しました。", "batch_snpr");
-                    throw new RuntimeException($action_name.'レコードの削除に失敗しました。');
+                    throw new RuntimeException($action_name . 'レコードの削除に失敗しました。');
                 }
             }
             // レコードを一括登録する
             if (!$this->NewPhotosRank->saveMany($newPhotosRankEntityList)) {
                 Log::error(__LINE__ . '::' . __METHOD__ . "::レコードの登録に失敗しました。", "batch_snpr");
-                throw new RuntimeException($action_name.'レコードの登録に失敗しました。');
+                throw new RuntimeException($action_name . 'レコードの登録に失敗しました。');
             }
-
-        } catch(RuntimeException $e) {
-            Log::error(__LINE__ . '::' . __METHOD__ . "::バッチ処理が失敗しました。". $e, "batch_snpr");
+        } catch (RuntimeException $e) {
+            Log::error(__LINE__ . '::' . __METHOD__ . "::バッチ処理が失敗しました。" . $e, "batch_snpr");
             $result = false; // 異常終了フラグ
         }
 
@@ -467,8 +479,7 @@ class BatchComponent extends Component
      *
      * @return array
      */
-    public function analyticsReport(string $startDate = null, string $endDate = null)
-    {
+    public function analyticsReport(string $startDate = null, string $endDate = null) {
 
         $isZenjitsu = true;
         $isHosyu = false;
@@ -476,13 +487,13 @@ class BatchComponent extends Component
         // バッチ手動実行時に日付が指定されている場合はチェックする
         if (isset($startDate)) {
             if (!isset($endDate)) {
-                throw new RuntimeException(__LINE__ . '::' . __METHOD__ . "::バッチ処理が失敗しました。終了日を指定してください。【開始日：". $startDate . "】【終了日：". $endDate . "】");
+                throw new RuntimeException(__LINE__ . '::' . __METHOD__ . "::バッチ処理が失敗しました。終了日を指定してください。【開始日：" . $startDate . "】【終了日：" . $endDate . "】");
             }
             $startTime = Time::parse($startDate);
             $endTime = Time::parse($endDate);
             // 開始日が終了日より前であるか判定
-            if(!$startTime->lte($endTime)) {
-                throw new RuntimeException(__LINE__ . '::' . __METHOD__ . "::バッチ処理が失敗しました。日付の前後が不正です。【開始日：". $startDate . "】【終了日：". $endDate . "】");
+            if (!$startTime->lte($endTime)) {
+                throw new RuntimeException(__LINE__ . '::' . __METHOD__ . "::バッチ処理が失敗しました。日付の前後が不正です。【開始日：" . $startDate . "】【終了日：" . $endDate . "】");
             }
             $isHosyu = true;
         }
@@ -511,7 +522,7 @@ class BatchComponent extends Component
             }
             // タスクの実行
             $result = $this->calculateAnalyticsReport($reports,  $startDate);
-            Log::info(__LINE__ . '::' . __METHOD__ . "::". $startDate . '~' . $endDate . '1日分処理しました。', "batch_ar");
+            Log::info(__LINE__ . '::' . __METHOD__ . "::" . $startDate . '~' . $endDate . '1日分処理しました。', "batch_ar");
         } else {
             // 前日アナリティクスレポート取得
             $reports = $this->ApiGoogles->index($isHosyu, null, $startDate, $endDate);
@@ -525,8 +536,7 @@ class BatchComponent extends Component
      *
      * @return array
      */
-    public function calculateAnalyticsReport($reports,  $start_date)
-    {
+    public function calculateAnalyticsReport($reports,  $start_date) {
 
         $this->AccessYears  = TableRegistry::get('access_years');
         $this->AccessMonths = TableRegistry::get('access_months');
@@ -617,8 +627,8 @@ class BatchComponent extends Component
             }
             $dimensionFilter = $area . $genre;
 
-           // 店舗、スタッフページの場合
-           if (preg_match('/^'.$dimensionFilter . '/', $pagePath, $matches)) {
+            // 店舗、スタッフページの場合
+            if (preg_match('/^' . $dimensionFilter . '/', $pagePath, $matches)) {
 
                 $url_aplit = explode('/', $pagePath);
                 $delimitCount = count($url_aplit);
@@ -633,13 +643,13 @@ class BatchComponent extends Component
                     $shop_id = $url_aplit[$delimitCount - 1];
 
                     $shop = $this->Shops->find()
-                                ->where(['id'=>$shop_id])
-                                ->first();
-                    $patch_data = array('shop_id'=>(int) $shop_id,'owner_id'=>$shop->owner_id
-                                ,'name'=>$shop->name,'area'=>$shop->area
-                                ,'genre'=>$shop->genre,'pagePath'=>$pagePath);
+                        ->where(['id' => $shop_id])
+                        ->first();
+                    $patch_data = array(
+                        'shop_id' => (int) $shop_id, 'owner_id' => $shop->owner_id, 'name' => $shop->name, 'area' => $shop->area, 'genre' => $shop->genre, 'pagePath' => $pagePath
+                    );
 
-                    $logInfo = 'start_date:: ' .$start_date. ', 年月日:: ' . $date. ' , URL:: ' . $pagePath . ' , 店舗名:: ' . $shop->name;
+                    $logInfo = 'start_date:: ' . $start_date . ', 年月日:: ' . $date . ' , URL:: ' . $pagePath . ' , 店舗名:: ' . $shop->name;
 
                     // 月別アクセスエンティティ
                     $entityYear = $this->AccessYears->find()
@@ -653,20 +663,19 @@ class BatchComponent extends Component
                     $entityWeek = $this->AccessWeeks->find()
                         ->where(['shop_id' => $shop_id, 'owner_id' => $shop->owner_id])
                         ->first();
-
                 } else if ('cast' == $url_aplit[$delimitCount - 2]) {
                     // スタッフの場合
                     $cast_id = $url_aplit[$delimitCount - 1];
 
                     $cast = $this->Casts->find('all')
-                                ->contain(['Shops'])
-                                ->where(['casts.id'=>$cast_id])
-                                ->first();
-                    $patch_data = array('cast_id'=>(int) $cast_id,'owner_id'=>$cast->shop->owner_id
-                                ,'name'=>$cast->name,'area'=>$cast->shop->area
-                                ,'genre'=>$cast->shop->genre,'pagePath'=>$pagePath);
+                        ->contain(['Shops'])
+                        ->where(['casts.id' => $cast_id])
+                        ->first();
+                    $patch_data = array(
+                        'cast_id' => (int) $cast_id, 'owner_id' => $cast->shop->owner_id, 'name' => $cast->name, 'area' => $cast->shop->area, 'genre' => $cast->shop->genre, 'pagePath' => $pagePath
+                    );
 
-                    $logInfo = 'start_date:: ' .$start_date. ', 年月日:: ' . $date. ' , URL:: ' . $pagePath . ' , スタッフ名:: ' . $cast->name;
+                    $logInfo = 'start_date:: ' . $start_date . ', 年月日:: ' . $date . ' , URL:: ' . $pagePath . ' , スタッフ名:: ' . $cast->name;
 
                     // 月別アクセスエンティティ
                     $entityYear = $this->AccessYears->find()
@@ -680,7 +689,6 @@ class BatchComponent extends Component
                     $entityWeek = $this->AccessWeeks->find()
                         ->where(['cast_id' => $cast_id, 'owner_id' => $cast->shop->owner_id])
                         ->first();
-
                 }
 
                 Log::info($logInfo, "batch_ar");
@@ -694,8 +702,11 @@ class BatchComponent extends Component
                     $patch_year['y'] = $y;
                     $entityYear = $this->AccessYears->newEntity();
                     $entityYear = $this->AccessYears
-                        ->patchEntity($entityYear, $patch_year,
-                            ['validate' => false]);
+                        ->patchEntity(
+                            $entityYear,
+                            $patch_year,
+                            ['validate' => false]
+                        );
                 }
 
                 // 取得出来なかったら新規エンティティ
@@ -707,8 +718,11 @@ class BatchComponent extends Component
                     $patch_month['ym'] = $ym;
                     $entityMonth = $this->AccessMonths->newEntity();
                     $entityMonth = $this->AccessMonths
-                        ->patchEntity($entityMonth, $patch_month,
-                            ['validate' => false]);
+                        ->patchEntity(
+                            $entityMonth,
+                            $patch_month,
+                            ['validate' => false]
+                        );
                 }
 
                 // 取得出来なかったら新規エンティティ
@@ -718,97 +732,105 @@ class BatchComponent extends Component
 
                     $entityWeek  = $this->AccessWeeks->newEntity();
                     $entityWeek = $this->AccessWeeks
-                        ->patchEntity($entityWeek, $patch_data,
-                            ['validate' => false]);
+                        ->patchEntity(
+                            $entityWeek,
+                            $patch_data,
+                            ['validate' => false]
+                        );
                 }
 
                 // 年別アクセスエンティティ
                 $entityYear->set($now_date->month . '_sessions', $this->Util
                     ->addVal($entityYear->get(
-                        $now_date->month . '_sessions'), (int) $sessions));
+                        $now_date->month . '_sessions'
+                    ), (int) $sessions));
                 $entityYear->set($now_date->month . '_pageviews', $this->Util
                     ->addVal($entityYear->get(
-                        $now_date->month . '_pageviews'), (int) $screenPageViews));
+                        $now_date->month . '_pageviews'
+                    ), (int) $screenPageViews));
                 $entityYear->set($now_date->month . '_users', $this->Util
                     ->addVal($entityYear->get(
-                        $now_date->month . '_users'), (int) $newUsers));
+                        $now_date->month . '_users'
+                    ), (int) $newUsers));
 
                 // 月別アクセスエンティティ
                 $entityMonth->set($day . '_sessions', $this->Util
                     ->addVal($entityMonth->get(
-                        $day . '_sessions'), (int) $sessions));
+                        $day . '_sessions'
+                    ), (int) $sessions));
                 $entityMonth->set($day . '_pageviews', $this->Util
                     ->addVal($entityMonth->get(
-                        $day . '_pageviews'), (int) $screenPageViews));
+                        $day . '_pageviews'
+                    ), (int) $screenPageViews));
                 $entityMonth->set($day . '_users', $this->Util
                     ->addVal($entityMonth->get(
-                        $day . '_users'), (int) $newUsers));
+                        $day . '_users'
+                    ), (int) $newUsers));
 
                 // 曜日別アクセスエンティティ
                 $entityWeek->set($week['en'] . '_sessions', $this->Util
                     ->addVal($entityWeek->get(
-                        $week['en'] . '_sessions'), (int) $sessions));
+                        $week['en'] . '_sessions'
+                    ), (int) $sessions));
                 $entityWeek->set($week['en'] . '_pageviews', $this->Util
                     ->addVal($entityWeek->get(
-                        $week['en'] . '_pageviews'), (int) $screenPageViews));
+                        $week['en'] . '_pageviews'
+                    ), (int) $screenPageViews));
                 $entityWeek->set($week['en'] . '_users', $this->Util
                     ->addVal($entityWeek->get(
-                        $week['en'] . '_users'), (int) $newUsers));
+                        $week['en'] . '_users'
+                    ), (int) $newUsers));
 
                 // データが存在しない場合は先にインサートする
                 if (!$isFirstYearData) {
                     if (!$this->AccessYears->save($entityYear)) {
-                        throw new RuntimeException($action_name.'レコードの登録に失敗しました。');
+                        throw new RuntimeException($action_name . 'レコードの登録に失敗しました。');
                     }
                 } else {
                     array_push($entities_year,  $entityYear);
                 }
                 if (!$isFirstWeekData) {
                     if (!$this->AccessWeeks->save($entityWeek)) {
-                        throw new RuntimeException($action_name.'レコードの登録に失敗しました。');
+                        throw new RuntimeException($action_name . 'レコードの登録に失敗しました。');
                     }
                 } else {
                     array_push($entities_week,  $entityWeek);
                 }
                 if (!$isFirstMonthData) {
                     if (!$this->AccessMonths->save($entityMonth)) {
-                        throw new RuntimeException($action_name.'レコードの登録に失敗しました。');
+                        throw new RuntimeException($action_name . 'レコードの登録に失敗しました。');
                     }
                 } else {
                     array_push($entities_month, $entityMonth);
                 }
-
             } else {
                 // それ以外のURLの場合
                 continue;
             }
 
-            try{
+            try {
                 // レコードを一括登録する
                 if (count($entities_year) > 0) {
                     if (!$this->AccessYears->saveMany($entities_year)) {
-                        throw new RuntimeException($action_name.'レコードの登録に失敗しました。');
+                        throw new RuntimeException($action_name . 'レコードの登録に失敗しました。');
                     }
                 }
                 if (count($entities_week) > 0) {
                     if (!$this->AccessWeeks->saveMany($entities_week)) {
-                        throw new RuntimeException($action_name.'レコードの登録に失敗しました。');
+                        throw new RuntimeException($action_name . 'レコードの登録に失敗しました。');
                     }
                 }
                 if (count($entities_month) > 0) {
                     if (!$this->AccessMonths->saveMany($entities_month)) {
-                        throw new RuntimeException($action_name.'レコードの登録に失敗しました。');
+                        throw new RuntimeException($action_name . 'レコードの登録に失敗しました。');
                     }
                 }
-
-            } catch(RuntimeException $e) {
-                Log::error(__LINE__ . '::' . __METHOD__ . "::バッチ処理が失敗しました。". $e, "batch_ar");
+            } catch (RuntimeException $e) {
+                Log::error(__LINE__ . '::' . __METHOD__ . "::バッチ処理が失敗しました。" . $e, "batch_ar");
                 $result = false; // 異常終了フラグ
             }
-
         }
 
         return $result;
     }
-
 }

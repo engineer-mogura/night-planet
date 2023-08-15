@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -12,6 +13,7 @@
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Event\Event;
@@ -24,11 +26,9 @@ use Cake\Event\Event;
  *
  * @link https://book.cakephp.org/3.0/en/controllers/pages-controller.html
  */
-class OtherController extends AppController
-{
+class OtherController extends AppController {
 
-    public function beforeFilter(Event $event)
-    {
+    public function beforeFilter(Event $event) {
         $this->viewBuilder()->layout('simpleDefault');
         parent::beforeRender($event); //親クラスのbeforeRendorを呼ぶ
         parent::beforeFilter($event);
@@ -79,8 +79,7 @@ class OtherController extends AppController
      *
      * @return void
      */
-    public function faq()
-    {
+    public function faq() {
         $this->render();
     }
 
@@ -89,8 +88,7 @@ class OtherController extends AppController
      *
      * @return void
      */
-    public function terms()
-    {
+    public function terms() {
         $this->render();
     }
 
@@ -99,9 +97,7 @@ class OtherController extends AppController
      *
      * @return void
      */
-    public function privacyPolicy()
-    {
+    public function privacyPolicy() {
         $this->render();
     }
-
 }

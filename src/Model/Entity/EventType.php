@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -12,8 +13,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\CastSchedule[] $cast_schedules
  */
-class EventType extends Entity
-{
+class EventType extends Entity {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

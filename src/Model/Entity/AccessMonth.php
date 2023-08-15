@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -113,8 +114,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Shop $shop
  * @property \App\Model\Entity\Owner $owner
  */
-class AccessMonth extends Entity
-{
+class AccessMonth extends Entity {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

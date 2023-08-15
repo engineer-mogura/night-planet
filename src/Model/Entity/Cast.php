@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -36,8 +37,7 @@ use Cake\Auth\DefaultPasswordHasher;
  * @property \App\Model\Entity\Sns[] $snss
  * @property \App\Model\Entity\Update[] $updates
  */
-class Cast extends Entity
-{
+class Cast extends Entity {
     use TokenTrait;
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -84,7 +84,7 @@ class Cast extends Entity
     protected $_hidden = [
         'password',
         //'remember_token',  // 自動ログイン用トークン TODO: リリース前にコメントインする
-        ];
+    ];
 
     /**
      * テーブル名を返却する
@@ -92,9 +92,7 @@ class Cast extends Entity
      *
      * @return void
      */
-    protected function _getRegistryAlias()
-    {
+    protected function _getRegistryAlias() {
         return $this->_registryAlias;
     }
-
 }

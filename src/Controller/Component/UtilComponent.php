@@ -138,8 +138,7 @@ class UtilComponent extends Component {
 
         $ownerInfo = $ownerInfo + array('id' => $owner['id']);
         $ownerInfo = $ownerInfo + array(
-            'current_plan' => $owner->servece_plans[0]->current_plan
-            , 'previous_plan' => $owner->servece_plans[0]->previous_plan
+            'current_plan' => $owner->servece_plan->current_plan, 'previous_plan' => $owner->servece_plan->previous_plan
         );
 
         return  $ownerInfo;
@@ -368,8 +367,10 @@ class UtilComponent extends Component {
                 'c' => [
                     'table' => 'casts',
                     'type' => 'INNER',
-                    'conditions' => ['c.id = ' . $cast_id,
-                        'c.status = 1 AND c.delete_flag = 0'],
+                    'conditions' => [
+                        'c.id = ' . $cast_id,
+                        'c.status = 1 AND c.delete_flag = 0'
+                    ],
                 ]
             ]);
 
@@ -379,11 +380,11 @@ class UtilComponent extends Component {
             ->select($diarys->Schema()->columns())
             ->contain(['DiaryLikes' => function ($q) use ($user_id) {
                 return $q
-                ->select([
-                    'DiaryLikes.diary_id', 'total' => $q->func()->count('DiaryLikes.diary_id')
-                ])
-                ->group('DiaryLikes.diary_id')
-                ->where(['DiaryLikes.diary_id']);
+                    ->select([
+                        'DiaryLikes.diary_id', 'total' => $q->func()->count('DiaryLikes.diary_id')
+                    ])
+                    ->group('DiaryLikes.diary_id')
+                    ->where(['DiaryLikes.diary_id']);
             }])
             ->where(['cast_id' => $cast_id])
             ->order(['created' => 'DESC']);
@@ -399,12 +400,12 @@ class UtilComponent extends Component {
             'ym_created' => $ym,
             'md_created' => $md
         ])
-        ->select('your_like.like')
-        ->leftJoin(
-            ['your_like' => $subquery],
-            ['your_like.like = diarys.id']
-        )
-        ->toArray();
+            ->select('your_like.like')
+            ->leftJoin(
+                ['your_like' => $subquery],
+                ['your_like.like = diarys.id']
+            )
+            ->toArray();
 
         $archives = $this->groupArray($archives, 'ym_created');
         $archives = array_values($archives);
@@ -448,7 +449,7 @@ class UtilComponent extends Component {
             ->contain(['DiaryLikes' => function ($q) use ($user_id) {
                 $main = $q
                     ->select([
-                       'diary_id', 'user_id', 'total' => $q->func()->count('DiaryLikes.diary_id')
+                        'diary_id', 'user_id', 'total' => $q->func()->count('DiaryLikes.diary_id')
                     ])
                     ->group('diary_id', 'user_id');
 
@@ -583,7 +584,10 @@ class UtilComponent extends Component {
 
             // 最新のスタッフブログ情報とイイネの総数取得
             $diarys = $this->Diarys->find()
-                ->contain(['Casts' => function ($q) { return $q->select(); },
+                ->contain([
+                    'Casts' => function ($q) {
+                        return $q->select();
+                    },
                     'Casts.Shops' => function ($q) use ($is_area) {
                         // トップページ
                         if (empty($is_area)) {
@@ -754,7 +758,7 @@ class UtilComponent extends Component {
             ->contain(['ShopInfoLikes' => function ($q) use ($user_id) {
                 $main = $q
                     ->select([
-                       'shop_info_id', 'user_id', 'total' => $q->func()->count('shop_info_id')
+                        'shop_info_id', 'user_id', 'total' => $q->func()->count('shop_info_id')
                     ])
                     ->group('shop_info_id', 'user_id');
 
@@ -834,13 +838,13 @@ class UtilComponent extends Component {
                 return $q
                     ->where([$conditions]);
             }, 'ShopInfoLikes' => function ($q) {
-                    $main = $q
-                        ->select([
-                            'shop_info_id', 'user_id', 'total' => $q->func()->count('shop_info_id')
-                        ])
-                        ->group('shop_info_id')
-                        ->where(['shop_info_id']);
-                    return $main;
+                $main = $q
+                    ->select([
+                        'shop_info_id', 'user_id', 'total' => $q->func()->count('shop_info_id')
+                    ])
+                    ->group('shop_info_id')
+                    ->where(['shop_info_id']);
+                return $main;
             }])
             ->select()
             ->select(['your_like.like'])
@@ -1450,14 +1454,14 @@ class UtilComponent extends Component {
         $result = new Folder($cache_path, true, 0755);
 
         // キャッシュファイルの最終更新日時を取得
-        $cache_lastmodified = @filemtime('s3://' .env('AWS_BUCKET') . DS . $cache_path . DS . $dat_file_name);
+        $cache_lastmodified = @filemtime('s3://' . env('AWS_BUCKET') . DS . $cache_path . DS . $dat_file_name);
 
         // 更新日時の比較
         if (!$cache_lastmodified) {
             // Graph API から JSON 形式でデータを取得
             $ig_json = @file_get_contents($graph_api . $ig_buisiness . '?fields=' . $fields . '&access_token=' . $access_token);
             // 取得したデータをキャッシュに保存する
-            $stream = fopen('s3://' .env('AWS_BUCKET') . DS . $cache_path . DS . $dat_file_name, 'w');
+            $stream = fopen('s3://' . env('AWS_BUCKET') . DS . $cache_path . DS . $dat_file_name, 'w');
             fwrite($stream, $ig_json);
             fclose($stream);
         } else {
@@ -1465,12 +1469,12 @@ class UtilComponent extends Component {
                 // キャッシュの最終更新日時がキャッシュ時間よりも古い場合は再取得する
                 $ig_json = @file_get_contents($graph_api . $ig_buisiness . '?fields=' . $fields . '&access_token=' . $access_token);
                 // 取得したデータをキャッシュに保存する
-                $stream = fopen('s3://' .env('AWS_BUCKET') . DS . $cache_path . DS . $dat_file_name, 'w');
+                $stream = fopen('s3://' . env('AWS_BUCKET') . DS . $cache_path . DS . $dat_file_name, 'w');
                 fwrite($stream, $ig_json);
                 fclose($stream);
             } else {
                 // キャッシュファイルが新しければキャッシュデータを使用する
-                $ig_json = @file_get_contents('s3://' .env('AWS_BUCKET') . DS . $cache_path . DS . $dat_file_name);
+                $ig_json = @file_get_contents('s3://' . env('AWS_BUCKET') . DS . $cache_path . DS . $dat_file_name);
             }
         }
 
@@ -1540,14 +1544,12 @@ class UtilComponent extends Component {
                     ->order(['shop_id', 'ym'])->toArray();
             } else if ($type == 'cast') {
                 $wk_ranking = $this->AccessMonths->find()
-                    ->contain(['Casts','Casts.Shops'])
-                    ->where(['ym IN' => $in_array, 'cast_id IS NOT NULL'
-                        , 'Shops.status = 1 AND Shops.delete_flag = 0'
-                        , 'Casts.status = 1 AND Casts.delete_flag = 0'
+                    ->contain(['Casts', 'Casts.Shops'])
+                    ->where([
+                        'ym IN' => $in_array, 'cast_id IS NOT NULL', 'Shops.status = 1 AND Shops.delete_flag = 0', 'Casts.status = 1 AND Casts.delete_flag = 0'
                     ])
                     ->order(['cast_id', 'ym'])->toArray();
             }
-
         } else {
             if ($type == 'shop') {
                 $wk_ranking = $this->AccessMonths->find()
@@ -1558,15 +1560,12 @@ class UtilComponent extends Component {
                     ->order(['shop_id', 'ym'])->toArray();
             } else if ($type == 'cast') {
                 $wk_ranking = $this->AccessMonths->find()
-                    ->contain(['Casts','Casts.Shops'])
-                    ->where(['ym IN' => $in_array, 'cast_id IS NOT NULL'
-                        , 'access_months.area' => $area
-                        , 'Shops.status = 1 AND Shops.delete_flag = 0'
-                        , 'Casts.status = 1 AND Casts.delete_flag = 0'
+                    ->contain(['Casts', 'Casts.Shops'])
+                    ->where([
+                        'ym IN' => $in_array, 'cast_id IS NOT NULL', 'access_months.area' => $area, 'Shops.status = 1 AND Shops.delete_flag = 0', 'Casts.status = 1 AND Casts.delete_flag = 0'
                     ])
                     ->order(['cast_id', 'ym'])->toArray();
             }
-
         }
 
         // 店舗毎にグループ化する
@@ -1680,7 +1679,6 @@ class UtilComponent extends Component {
                         break;
                     }
                 }
-
             } else if ($type == 'cast') {
                 // スタッフ
                 foreach ($wk_entities_rank as $key => $value) {
@@ -1703,9 +1701,7 @@ class UtilComponent extends Component {
                         break;
                     }
                 }
-
             }
-
         }
         // 制限数に満たない場合は空で埋める
         for ($i = count($entities_rank); $i <= $limit; $i++) {

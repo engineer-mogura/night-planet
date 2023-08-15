@@ -1,11 +1,11 @@
 <?php
+
 namespace App\Helper;
 
-class helper
-{
+class helper {
   public static $charArys = array('UTF-8', 'eucJP-win', 'SJIS-win', 'ASCII', 'EUC-JP', 'SJIS', 'JIS');
 
-  public static function encode (string $str) : string {
+  public static function encode(string $str): string {
     $beforStr = $str;
     $convertStr = "";
     $charCode = mb_detect_encoding($beforStr, self::$charArys);
@@ -16,5 +16,4 @@ class helper
     }
     return $convertStr;
   }
-
 }

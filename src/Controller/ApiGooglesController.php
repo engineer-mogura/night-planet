@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use Cake\Log\Log;
@@ -13,15 +14,13 @@ use Cake\Controller\ComponentRegistry;
 use Google\Analytics\Data\V1beta as Google;
 use App\Controller\Component\BatchComponent;
 
-class ApiGooglesController extends AppController
-{
+class ApiGooglesController extends AppController {
     /**
      * Undocumented function 保守用
      *
      * @return void
      */
-    public function index($isHosyu, $isZenjitsu = null, $startDate = null, $endDate = null)
-    {
+    public function index($isHosyu, $isZenjitsu = null, $startDate = null, $endDate = null) {
 
         // 自動レンダリングを OFF
         $this->render(false, false);
@@ -40,8 +39,8 @@ class ApiGooglesController extends AppController
             $start = $startDate; // 開始日
             $end   = $endDate; // 終了日
 
-            Log::info(__LINE__ . '::' . __METHOD__ 
-                . "::保守用一括登録処理,開始日：". $start . "終了日：". $end , "batch_ar");
+            Log::info(__LINE__ . '::' . __METHOD__
+                . "::保守用一括登録処理,開始日：" . $start . "終了日：" . $end, "batch_ar");
 
             $moto_start_date = date($start);
             $moto_end_date = date($end);
@@ -52,14 +51,14 @@ class ApiGooglesController extends AppController
             $count = 0;
 
             while ($is) {
-                $startDate = date("Y-m-d",strtotime($moto_start_date . "+" . $count . " day"));
-                $endDate = date("Y-m-d",strtotime($moto_start_date . "+" . $count . " day"));
+                $startDate = date("Y-m-d", strtotime($moto_start_date . "+" . $count . " day"));
+                $endDate = date("Y-m-d", strtotime($moto_start_date . "+" . $count . " day"));
 
                 // Call the Analytics Reporting API V4.
                 try {
                     $reports = $this->getReport($client, $startDate, $endDate, $gaProperty);
                 } catch (ApiException $e) {
-                    Log::error(__LINE__ . '::' . __METHOD__ . '::'.'【Call failed with message: %s'
+                    Log::error(__LINE__ . '::' . __METHOD__ . '::' . '【Call failed with message: %s'
                         . PHP_EOL, $e->getMessage(), "batch_ar");
                 }
 
@@ -71,8 +70,7 @@ class ApiGooglesController extends AppController
                 }
                 $count++;
             }
-            Log::info(__LINE__ . '::' . __METHOD__ . "::". $startDate . '~' . $endDate . ' ' . $count . '日分処理しました。', "batch_ar");
-
+            Log::info(__LINE__ . '::' . __METHOD__ . "::" . $startDate . '~' . $endDate . ' ' . $count . '日分処理しました。', "batch_ar");
         } else {
             if ($isZenjitsu) {
                 // 前日登録処理の場合
@@ -88,13 +86,12 @@ class ApiGooglesController extends AppController
             try {
                 $reports = $this->getReport($client, $startDate, $endDate, $gaProperty);
             } catch (ApiException $e) {
-                Log::error(__LINE__ . '::' . __METHOD__ . '::'.'【Call failed with message: %s'
+                Log::error(__LINE__ . '::' . __METHOD__ . '::' . '【Call failed with message: %s'
                     . PHP_EOL, $e->getMessage(), "batch_ar");
             }
 
             return $reports;
         }
-
     }
 
     /**
@@ -103,8 +100,7 @@ class ApiGooglesController extends AppController
      * @param service An authorized Analytics Reporting API V4 service object.
      * @return The Analytics Reporting API V4 response.
      */
-    public function getReport($client, $startDate, $endDate, $gaProperty)
-    {
+    public function getReport($client, $startDate, $endDate, $gaProperty) {
         /**
          * dimension filter を作成
          */
@@ -163,27 +159,27 @@ class ApiGooglesController extends AppController
                 ]),
             ],
             'dimensionFilter' =>
-                new Google\FilterExpression([
-                    'filter' => new Google\Filter([
-                        'field_name' => 'pagePath',
-                        'string_filter' => new Google\Filter\StringFilter([
-                            'match_type' => Google\Filter\StringFilter\MatchType::PARTIAL_REGEXP,
-                            'value' => $dimensionFilter
-                        ]),
+            new Google\FilterExpression([
+                'filter' => new Google\Filter([
+                    'field_name' => 'pagePath',
+                    'string_filter' => new Google\Filter\StringFilter([
+                        'match_type' => Google\Filter\StringFilter\MatchType::PARTIAL_REGEXP,
+                        'value' => $dimensionFilter
                     ]),
                 ]),
-                // // キャスト,日記,お知らせ画面を対象外にする
-                // new Google\FilterExpression([
-                //     'not_expression' => new Google\FilterExpression([
-                //         'filter' => new Google\Filter([
-                //             'field_name' => 'pagePath',
-                //             'string_filter' => new Google\Filter\StringFilter([
-                //                 'match_type' => Google\Filter\StringFilter\MatchType::PARTIAL_REGEXP,
-                //                 'value' => '\/.*(cast|diary|notice).*\/',// ^(\/ignore|\/except).*
-                //             ]),
-                //         ]),
-                //     ])
-                // ]),
+            ]),
+            // // キャスト,日記,お知らせ画面を対象外にする
+            // new Google\FilterExpression([
+            //     'not_expression' => new Google\FilterExpression([
+            //         'filter' => new Google\Filter([
+            //             'field_name' => 'pagePath',
+            //             'string_filter' => new Google\Filter\StringFilter([
+            //                 'match_type' => Google\Filter\StringFilter\MatchType::PARTIAL_REGEXP,
+            //                 'value' => '\/.*(cast|diary|notice).*\/',// ^(\/ignore|\/except).*
+            //             ]),
+            //         ]),
+            //     ])
+            // ]),
             'metrics' => [
                 new Google\Metric([
                     'name' => 'screenPageViews',
@@ -214,21 +210,23 @@ class ApiGooglesController extends AppController
         ]);
         $format = "\r\n【date : %s 】\r\n【pageTitle : %s 】\r\n【pagePath : %s 】\r\n【landingPagePlusQueryString : %s 】\r\n【dayOfWeek : %s 】\r\n【dayOfWeekName : %s 】\r\n【screenPageViews : %s 】\r\n【newUsers : %s 】\r\n【activeUsers : %s 】\r\n【sessions : %s 】";
         foreach ($response->getRows() as $row) {
-            $this->log(sprintf($format,
-                                $row->getDimensionValues()[0]->getValue(),
-                                $row->getDimensionValues()[1]->getValue(),
-                                $row->getDimensionValues()[2]->getValue(),
-                                $row->getDimensionValues()[3]->getValue(),
-                                $row->getDimensionValues()[4]->getValue(),
-                                $row->getDimensionValues()[5]->getValue(),
-                                $row->getMetricValues()[0]->getValue(),
-                                $row->getMetricValues()[1]->getValue(),
-                                $row->getMetricValues()[2]->getValue(),
-                                $row->getMetricValues()[3]->getValue()
-                            )
-                    , 'debug');
+            $this->log(
+                sprintf(
+                    $format,
+                    $row->getDimensionValues()[0]->getValue(),
+                    $row->getDimensionValues()[1]->getValue(),
+                    $row->getDimensionValues()[2]->getValue(),
+                    $row->getDimensionValues()[3]->getValue(),
+                    $row->getDimensionValues()[4]->getValue(),
+                    $row->getDimensionValues()[5]->getValue(),
+                    $row->getMetricValues()[0]->getValue(),
+                    $row->getMetricValues()[1]->getValue(),
+                    $row->getMetricValues()[2]->getValue(),
+                    $row->getMetricValues()[3]->getValue()
+                ),
+                'debug'
+            );
         }
         return $response;
     }
-
 }

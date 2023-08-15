@@ -1,24 +1,24 @@
 <?php
+
 namespace App\Controller\Developer;
 
 use Cake\Log\Log;
+use Cake\I18n\Time;
 use Cake\Event\Event;
+use RuntimeException;
 use Token\Util\Token;
 use Cake\Filesystem\File;
 use Cake\Filesystem\Folder;
 use Cake\Mailer\MailerAwareTrait;
-use Cake\I18n\Time;
-use RuntimeException;
 
 /**
-* Developers Controller
-*
-* @property \App\Model\Table\DevelopersTable $Developers
-*
-* @method \App\Model\Entity\Developer[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
-*/
-class DevelopersController extends AppController
-{
+ * Developers Controller
+ *
+ * @property \App\Model\Table\DevelopersTable $Developers
+ *
+ * @method \App\Model\Entity\Developer[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ */
+class DevelopersController extends AppController {
     use MailerAwareTrait;
     public $components = array('Security');
 
@@ -26,25 +26,24 @@ class DevelopersController extends AppController
         // AppController.beforeFilterをコールバック
         $this->Security->setConfig('blackHoleCallback', 'blackhole');
         // 店舗スイッチアクションのセキュリティ無効化 AJAXを使用しているので
-        $this->Security->setConfig('unlockedActions', ['saveNews','updateNews','deleteNews']);
+        $this->Security->setConfig('unlockedActions', ['saveNews', 'updateNews', 'deleteNews']);
         parent::beforeFilter($event);
         // デベロッパ用テンプレート
         $this->viewBuilder()->layout('developerDefault');
         // デベロッパに関する情報をセット
-        if(!is_null($user = $this->Auth->user())){
+        if (!is_null($user = $this->Auth->user())) {
             $developer = $this->Developers->find("all")
-                ->where(['developers.email'=>$user['email']])
+                ->where(['developers.email' => $user['email']])
                 ->first();
             $userInfo = $this->Util->getDeveloperInfo($developer);
             $this->set(compact('userInfo'));
         }
     }
 
-    public function index()
-    {
+    public function index() {
         $developer = $this->Developers->newEntity();
         // 認証されてる場合
-        if(!is_null($user = $this->Auth->user())){
+        if (!is_null($user = $this->Auth->user())) {
 
             // デベロッパに所属する全ての店舗を取得する
             $developer = $this->Developers->find('all')
@@ -54,30 +53,30 @@ class DevelopersController extends AppController
             if (!$this->checkStatus($user)) {
                 return $this->redirect($this->Auth->logout());
             }
-
         }
         //$val = $this->Analytics->getAnalytics();
         $this->set(compact('developer'));
         $this->render();
     }
 
-    public function login()
-    {
+    public function login() {
         // レイアウトを使用しない
         $this->viewBuilder()->autoLayout(false);
 
         if ($this->request->is('post')) {
 
             // バリデーションはログイン用を使う。
-            $developer = $this->Developers->newEntity( $this->request->getData(),['validate' => 'developerLogin']);
+            $developer = $this->Developers->newEntity($this->request->getData(), ['validate' => 'developerLogin']);
 
-            if(!$developer->errors()) {
+            if (!$developer->errors()) {
 
                 if ($developer) {
                     // セッションにユーザー情報を保存する
                     $this->Auth->setUser($developer);
                     Log::info($this->Util->setAccessLog(
-                        $developer, $this->request->params['action']), 'access');
+                        $developer,
+                        $this->request->params['action']
+                    ), 'access');
 
                     return $this->redirect(['action' => 'index']);
                 }
@@ -85,7 +84,9 @@ class DevelopersController extends AppController
                 $this->Flash->error(RESULT_M['FRAUD_INPUT_FAILED']);
             } else {
                 Log::error($this->Util->setAccessLog(
-                    $developer, $this->request->params['action']).'　失敗', 'access');
+                    $developer,
+                    $this->request->params['action']
+                ) . '　失敗', 'access');
                 foreach ($developer->errors() as $key1 => $value1) {
                     foreach ($value1 as $key2 => $value2) {
                         $this->Flash->error($value2);
@@ -101,12 +102,13 @@ class DevelopersController extends AppController
     /**
      * セッション情報を削除し、ログアウトする
      */
-    public function logout()
-    {
+    public function logout() {
         $auth = $this->request->session()->read('Auth.Developer');
         $this->request->session()->destroy();
         Log::info($this->Util->setAccessLog(
-            $auth, $this->request->params['action']), 'access');
+            $auth,
+            $this->request->params['action']
+        ), 'access');
 
         // レイアウトを使用しない
         $this->viewBuilder()->autoLayout(false);
@@ -114,13 +116,12 @@ class DevelopersController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 
-        /**
+    /**
      * ニュース 画面表示処理
      *
      * @return void
      */
-    public function news()
-    {
+    public function news() {
         // ニュース取得
         $allNews = $this->getAllNews();
         $top_news = $allNews[0];
@@ -133,8 +134,7 @@ class DevelopersController extends AppController
      * ニュース 登録処理
      * @return void
      */
-    public function saveNews()
-    {
+    public function saveNews() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -157,7 +157,7 @@ class DevelopersController extends AppController
         if ($news->errors()) {
             // 入力エラーがあれば、メッセージをセットして返す
             $errors = $this->Util->setErrMessage($news); // エラーメッセージをセット
-            $response = array('success'=>false,'message'=>$errors);
+            $response = array('success' => false, 'message' => $errors);
             $this->response->body(json_encode($response));
             return;
         }
@@ -168,8 +168,8 @@ class DevelopersController extends AppController
             . DS . $date->format('m') . DS . $date->format('d')
             . DS . $date->format('Ymd_His');
         $dir = preg_replace('/(\/\/)/', '/', WWW_ROOT . $this->viewVars['userInfo']['news_path']
-             . $newsPath);
-        $dir = new Folder($dir , true, 0755);
+            . $newsPath);
+        $dir = new Folder($dir, true, 0755);
         $news->dir = $newsPath; // ニュースのパスをセット
         try {
             // 追加画像がある場合
@@ -188,14 +188,12 @@ class DevelopersController extends AppController
                         $isDuplicate = true;
                         continue;
                     }
-
                 }
             }
             // レコード更新実行
             if (!$this->News->save($news)) {
                 throw new RuntimeException('レコードの登録ができませんでした。');
             }
-
         } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $flg = false;
@@ -205,7 +203,7 @@ class DevelopersController extends AppController
         if (!$flg) {
             // アップロード失敗の時、処理を中断する
             if (file_exists($dir->path)) {
-                $dir->delete();// フォルダ削除
+                $dir->delete(); // フォルダ削除
             }
             $message = RESULT_M['SIGNUP_FAILED'];
             $response = array(
@@ -238,16 +236,17 @@ class DevelopersController extends AppController
      *
      * @return void
      */
-    public function viewNews()
-    {
+    public function viewNews() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
         }
         $this->confReturnJson(); // json返却用の設定
 
-        $news = $this->Util->getNews($this->request->query["id"]
-            , $this->viewVars['userInfo']['news_path']);
+        $news = $this->Util->getNews(
+            $this->request->query["id"],
+            $this->viewVars['userInfo']['news_path']
+        );
 
         $this->response->body(json_encode($news));
         return;
@@ -258,8 +257,7 @@ class DevelopersController extends AppController
      *
      * @return void
      */
-    public function updateNews()
-    {
+    public function updateNews() {
 
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
@@ -274,8 +272,11 @@ class DevelopersController extends AppController
         $auth = $this->request->session()->read('Auth.Developer');
         $id = $auth['id']; // ログインユーザID
         $tmpDir = null; // バックアップ用
-        $dir = preg_replace('/(\/\/)/', '/',
-            WWW_ROOT.$this->request->data["dir_path"]);
+        $dir = preg_replace(
+            '/(\/\/)/',
+            '/',
+            WWW_ROOT . $this->request->data["dir_path"]
+        );
         // 対象ディレクトリパス取得
         $dir = new Folder($dir, true, 0755);
         $files = array();
@@ -288,7 +289,7 @@ class DevelopersController extends AppController
         if ($news->errors()) {
             // 入力エラーがあれば、メッセージをセットして返す
             $errors = $this->Util->setErrMessage($news); // エラーメッセージをセット
-            $response = array('result'=>false,'errors'=>$errors);
+            $response = array('result' => false, 'errors' => $errors);
             $this->response->body(json_encode($response));
             return;
         }
@@ -296,7 +297,7 @@ class DevelopersController extends AppController
         $delFiles = json_decode($this->request->data["del_list"], true);
         // 既に登録された画像があればデコードし格納、無ければ空の配列を格納する
         ($image_befor = json_decode($this->request->data["json_data"], true)) > 0
-            ? : $image_befor = array();
+            ?: $image_befor = array();
 
         try {
 
@@ -313,7 +314,7 @@ class DevelopersController extends AppController
             // 既に登録された画像がある場合は、ファイルのバックアップを取得
             if (count($image_befor) > 0) {
                 // 一時ディレクトリ作成
-                $tmpDir = new Folder(WWW_ROOT.$this->viewVars['userInfo']['tmp_path']
+                $tmpDir = new Folder(WWW_ROOT . $this->viewVars['userInfo']['tmp_path']
                     . DS . time(), true, 0777);
                 // 一時ディレクトリにバックアップ実行
                 if (!$dir->copy($tmpDir->path)) {
@@ -323,7 +324,7 @@ class DevelopersController extends AppController
 
             // 削除する画像分処理する
             foreach ($delFiles as $key => $file) {
-                $delFile = new File(WWW_ROOT . DS .$file['path']);
+                $delFile = new File(WWW_ROOT . DS . $file['path']);
                 // ファイル削除処理実行
                 if (!$delFile->delete()) {
                     throw new RuntimeException('画像の削除に失敗しました。');
@@ -353,7 +354,6 @@ class DevelopersController extends AppController
             if (!$this->News->save($news)) {
                 throw new RuntimeException('レコードの登録ができませんでした。');
             }
-
         } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $flg = false;
@@ -369,7 +369,7 @@ class DevelopersController extends AppController
                     $file->delete(); // このファイルを削除します
                 }
                 $tmpDir->copy($dir->path);
-                $tmpDir->delete();// tmpフォルダ削除
+                $tmpDir->delete(); // tmpフォルダ削除
             }
             $message = RESULT_M['UPDATE_FAILED'];
             $flg = false;
@@ -383,7 +383,7 @@ class DevelopersController extends AppController
 
         // 一時ディレクトリ削除
         if (file_exists($tmpDir->path)) {
-            $tmpDir->delete();// tmpフォルダ削除
+            $tmpDir->delete(); // tmpフォルダ削除
         }
 
         // ニュース取得
@@ -408,8 +408,7 @@ class DevelopersController extends AppController
      *
      * @return void
      */
-    public function deleteNews()
-    {
+    public function deleteNews() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -424,8 +423,11 @@ class DevelopersController extends AppController
         $tmpDir = null; // バックアップ用
 
         try {
-            $del_path = preg_replace('/(\/\/)/', '/',
-                WWW_ROOT.$this->request->getData('dir_path'));
+            $del_path = preg_replace(
+                '/(\/\/)/',
+                '/',
+                WWW_ROOT . $this->request->getData('dir_path')
+            );
             // 削除対象ディレクトリパス取得
             $dir = new Folder($del_path);
             // 削除対象ディレクトリパス存在チェック
@@ -438,7 +440,7 @@ class DevelopersController extends AppController
                 throw new RuntimeException('ディレクトリサイズが大きすぎます。');
             }
             // 一時ディレクトリ作成
-            $tmpDir = new Folder(WWW_ROOT.$this->viewVars['userInfo']['tmp_path']
+            $tmpDir = new Folder(WWW_ROOT . $this->viewVars['userInfo']['tmp_path']
                 . DS . time(), true, 0777);
             // 一時ディレクトリにバックアップ実行
             if (!$dir->copy($tmpDir->path)) {
@@ -463,7 +465,7 @@ class DevelopersController extends AppController
             }
             // 一時ディレクトリがあれば削除する
             if (isset($tmpDir) && file_exists($tmpDir->path)) {
-                $tmpDir->delete();// tmpディレクトリ削除
+                $tmpDir->delete(); // tmpディレクトリ削除
             }
             $this->log($this->Util->setLog($auth, $e));
             $flg = false;
@@ -505,8 +507,7 @@ class DevelopersController extends AppController
      *
      * @return void
      */
-    public function getAllNews()
-    {
+    public function getAllNews() {
         $news = $this->Util->getNewss($this->viewVars['userInfo']['news_path'], null);
         $top_news = array();
         $arcive_news = array();
@@ -537,18 +538,16 @@ class DevelopersController extends AppController
         return array($top_news, $arcive_news);
     }
 
-    public function blackhole($type)
-    {
+    public function blackhole($type) {
         switch ($type) {
-          case 'csrf':
-            $this->Flash->error(__('不正な送信が行われました'));
-            $this->redirect(array('controller' => 'developers', 'action' => 'index'));
-            break;
-          default:
-            $this->Flash->error(__('不正な送信が行われました'));
-            $this->redirect(array('controller' => 'developers', 'action' => 'index'));
-            break;
+            case 'csrf':
+                $this->Flash->error(__('不正な送信が行われました'));
+                $this->redirect(array('controller' => 'developers', 'action' => 'index'));
+                break;
+            default:
+                $this->Flash->error(__('不正な送信が行われました'));
+                $this->redirect(array('controller' => 'developers', 'action' => 'index'));
+                break;
         }
     }
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use Aws\Result;
@@ -11,8 +12,7 @@ use App\Controller\AppController;
  *
  * @method \App\Model\Entity\S3[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class S3Controller extends AppController
-{
+class S3Controller extends AppController {
     protected $s3Backet;
 
     // /**
@@ -107,28 +107,26 @@ class S3Controller extends AppController
     //     return $this->redirect(['action' => 'index']);
     // }
 
-    public function initialize()
-    {
+    public function initialize() {
         parent::initialize();
         $this->loadComponent('S3Client');
         $this->autoRender = false;
 
-        $this->s3Backet = env('AWS_URL').env('AWS_BUCKET');
+        $this->s3Backet = env('AWS_URL') . env('AWS_BUCKET');
     }
 
-    public function getList()
-    {
+    public function getList() {
         $file_list = $this->S3Client->getList(null);
-        print_r($file_list); exit;
+        print_r($file_list);
+        exit;
     }
 
-    public function upload($key, $tmpName, $bucketName=null)
-    {
-		$option = [
-			'Bucket'     => '',
-			'Key'        => $key,
-			'SourceFile' => $tmpName,
-		];
+    public function upload($key, $tmpName, $bucketName = null) {
+        $option = [
+            'Bucket'     => '',
+            'Key'        => $key,
+            'SourceFile' => $tmpName,
+        ];
 
         $result = $this->S3Client->putFile($option, $bucketName);
         if ($result instanceof Result) {
@@ -138,8 +136,7 @@ class S3Controller extends AppController
         }
     }
 
-    public function download($fineName)
-    {
+    public function download($fineName) {
         $file_name = $fineName;
         $s3_dir = "";
         $store_dir = sprintf('%s/d', $this->s3Backet);
@@ -151,16 +148,14 @@ class S3Controller extends AppController
         return $file;
     }
 
-    public function downloadDirectory()
-    {
+    public function downloadDirectory() {
         $s3_dir = "cp";
         $local_dir = "dl";
         $local_dir_path = sprintf('%s/%s', $this->s3Backet, $local_dir);
         $this->S3Client->getDirectory($s3_dir, $local_dir_path);
     }
 
-    public function copy()
-    {
+    public function copy() {
         $file_name = "test.png";
         $s3_dir = "";
         $s3_copy_dir = "cp/";
@@ -171,15 +166,13 @@ class S3Controller extends AppController
         $this->S3Client->copyFile($s3_file_path, $s3_copy_file_path);
     }
 
-    public function copyDirectory()
-    {
+    public function copyDirectory() {
         $s3_from_dir = "cp";
         $s3_to_dir = "cp_d";
         $this->S3Client->copyDirectory($s3_from_dir, $s3_to_dir);
     }
 
-    public function move()
-    {
+    public function move() {
         $file_name = "test.png";
         $s3_from_dir = "cp/";
         $s3_to_dir = "mv/";
@@ -188,15 +181,13 @@ class S3Controller extends AppController
         $this->S3Client->moveFile($s3_from_path, $s3_to_path);
     }
 
-    public function moveDirectory()
-    {
+    public function moveDirectory() {
         $s3_from_dir = "mv";
         $s3_to_dir = "mv_d";
         $this->S3Client->moveDirectory($s3_from_dir, $s3_to_dir);
     }
 
-    public function delete($key)
-    {
+    public function delete($key) {
         $s3_file_path = $key;
         $result = $this->S3Client->deleteFile($s3_file_path);
         if ($result instanceof Result) {
@@ -213,8 +204,7 @@ class S3Controller extends AppController
         }
     }
 
-    public function deleteDirectory($dirPath)
-    {
+    public function deleteDirectory($dirPath) {
         $s3_file_path = $dirPath;
         $result = $this->S3Client->deleteDirectory($s3_file_path);
         if ($result instanceof Result) {
@@ -226,7 +216,5 @@ class S3Controller extends AppController
         } else {
             throw new RuntimeException($result);
         }
-
     }
-
 }

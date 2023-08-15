@@ -473,16 +473,18 @@ class UsersController extends AppController {
             ->contain(['ShopLikes' => function (Query $q) {
                 return $q
                     ->select([
-                        'ShopLikes.shop_id', 'total' => $q->func()->count('ShopLikes.shop_id')
-                        , 'ShopLikes2.created'
+                        'ShopLikes.shop_id', 'total' => $q->func()->count('ShopLikes.shop_id'), 'ShopLikes2.created'
                     ])
                     ->join([
                         'ShopLikes2' => [
                             'table' => 'shop_likes',
                             'type' => 'INNER',
-                            'conditions' => ['AND' => ['ShopLikes2.shop_id = ShopLikes.shop_id'],
-                                ['ShopLikes2.user_id = ' . $this->viewVars['userInfo']['id']]]
-                        ]])
+                            'conditions' => [
+                                'AND' => ['ShopLikes2.shop_id = ShopLikes.shop_id'],
+                                ['ShopLikes2.user_id = ' . $this->viewVars['userInfo']['id']]
+                            ]
+                        ]
+                    ])
                     ->group(['ShopLikes2.shop_id', 'ShopLikes2.created'])
                     ->where(['ShopLikes.shop_id'])
                     ->order(['ShopLikes2.created' => 'DESC']);
@@ -577,14 +579,16 @@ class UsersController extends AppController {
                 'join2' => [
                     'table' => 'casts',
                     'type' => 'INNER',
-                    'conditions' => ['AND' => ['join2.status = 1 ']
-                                    ,[' join2.delete_flag = 0']],
+                    'conditions' => [
+                        'AND' => ['join2.status = 1 '], [' join2.delete_flag = 0']
+                    ],
                 ],
                 'join3' => [
                     'table' => 'shops',
                     'type' => 'INNER',
-                    'conditions' => ['AND' => ['join3.status = 1 ']
-                                    ,[' join3.delete_flag = 0']],
+                    'conditions' => [
+                        'AND' => ['join3.status = 1 '], [' join3.delete_flag = 0']
+                    ],
                 ]
             ])->where([
                 'users.id = ' . $this->viewVars['userInfo']['id']
@@ -599,16 +603,18 @@ class UsersController extends AppController {
             ->contain(['CastLikes' => function (Query $q) {
                 return $q
                     ->select([
-                        'CastLikes.cast_id', 'total' => $q->func()->count('CastLikes.cast_id')
-                        , 'CastLikes2.created'
+                        'CastLikes.cast_id', 'total' => $q->func()->count('CastLikes.cast_id'), 'CastLikes2.created'
                     ])
                     ->join([
                         'CastLikes2' => [
                             'table' => 'cast_likes',
                             'type' => 'INNER',
-                            'conditions' => ['AND' => ['CastLikes2.cast_id = CastLikes.cast_id'],
-                                ['CastLikes2.user_id = ' . $this->viewVars['userInfo']['id']]]
-                        ]])
+                            'conditions' => [
+                                'AND' => ['CastLikes2.cast_id = CastLikes.cast_id'],
+                                ['CastLikes2.user_id = ' . $this->viewVars['userInfo']['id']]
+                            ]
+                        ]
+                    ])
                     ->group(['CastLikes2.cast_id', 'CastLikes2.created'])
                     ->where(['CastLikes.cast_id'])
                     ->order(['CastLikes2.created' => 'DESC']);

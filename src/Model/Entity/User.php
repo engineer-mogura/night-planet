@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -27,8 +28,7 @@ use Cake\Auth\DefaultPasswordHasher;
  * @property \App\Model\Entity\ShopInfoLike[] $shop_info_likes
  * @property \App\Model\Entity\ShopLike[] $shop_likes
  */
-class User extends Entity
-{
+class User extends Entity {
     use TokenTrait;
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -66,7 +66,7 @@ class User extends Entity
     protected $_hidden = [
         'password',
         //'remember_token',  // 自動ログイン用トークン TODO: リリース前にコメントインする
-        ];
+    ];
 
     /**
      * テーブル名を返却する
@@ -74,9 +74,7 @@ class User extends Entity
      *
      * @return void
      */
-    protected function _getRegistryAlias()
-    {
+    protected function _getRegistryAlias() {
         return $this->_registryAlias;
     }
-
 }

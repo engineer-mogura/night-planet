@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -12,6 +13,7 @@
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Event\Event;
@@ -30,14 +32,12 @@ use Cake\View\Exception\MissingTemplateException;
  *
  * @link https://book.cakephp.org/3.0/en/controllers/pages-controller.html
  */
-class EntryController extends AppController
-{
+class EntryController extends AppController {
     use MailerAwareTrait;
 
     public $components = array('Security');
 
-    public function beforeFilter(Event $event)
-    {
+    public function beforeFilter(Event $event) {
         $this->viewBuilder()->layout('simpleDefault');
         $this->Security->setConfig('blackHoleCallback', 'blackhole');
         // $this->Auth->allow(['signup','verify','logout']);
@@ -54,8 +54,7 @@ class EntryController extends AppController
      * @throws \Cake\Http\Exception\NotFoundException When the view file could not
      *   be found or \Cake\View\Exception\MissingTemplateException in debug mode.
      */
-    public function display(...$path)
-    {
+    public function display(...$path) {
         $count = count($path);
         if (!$count) {
             return $this->redirect('/entry');
@@ -76,7 +75,7 @@ class EntryController extends AppController
                 $this->setAction('signup');
             }
             $owner = $this->Owners->newEntity();
-            $masterCodesFind = array('area','genre');
+            $masterCodesFind = array('area', 'genre');
             $selectList = $this->Util->getSelectList($masterCodesFind, $this->MasterCodes, false);
             $this->set(compact('selectList', 'owner'));
         }
@@ -97,14 +96,12 @@ class EntryController extends AppController
      *
      * @return void
      */
-    public function index()
-    {
+    public function index() {
         $this->layout = false;
         $this->render();
     }
 
-    public function signup()
-    {
+    public function signup() {
         // レイアウト上書き
         $this->viewBuilder()->layout('simpleDefault');
 
@@ -119,7 +116,7 @@ class EntryController extends AppController
 
                     $email = new Email('default');
                     $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
-                        ->setSubject($owner->name."様、メールアドレスの認証を完了してください。")
+                        ->setSubject($owner->name . "様、メールアドレスの認証を完了してください。")
                         ->setTo($owner->email)
                         ->setBcc(MAIL['SUPPORT_MAIL'])
                         ->setTemplate("auth_send")
@@ -127,11 +124,10 @@ class EntryController extends AppController
                         ->emailFormat("html")
                         ->viewVars(['owner' => $owner])
                         ->send();
-                    $this->log($email,'debug');
+                    $this->log($email, 'debug');
                     $this->Flash->success('ご指定のメールアドレスに認証メールを送りました。認証を完了してください。しばらくしてもメールが届かない場合は、迷惑メールフォルダもご確認ください。');
                     return $this->render('send_auth_email');
                 }
-
             }
             // 入力エラーがあれば、メッセージをセットして返す
             $this->Flash->error(__('入力内容に誤りがあります。'));
@@ -143,16 +139,15 @@ class EntryController extends AppController
         $this->render();
     }
 
-    public function blackhole($type)
-    {
+    public function blackhole($type) {
         switch ($type) {
-          case 'csrf':
-            $this->Flash->error(__('不正な送信が行われました'));
-            $this->redirect(array('controller' => 'entry', 'action' => $this->action));
-            break;
-          default:
-            $this->redirect(array('controller' => 'entry', 'action' => 'display'));
-            break;
+            case 'csrf':
+                $this->Flash->error(__('不正な送信が行われました'));
+                $this->redirect(array('controller' => 'entry', 'action' => $this->action));
+                break;
+            default:
+                $this->redirect(array('controller' => 'entry', 'action' => 'display'));
+                break;
         }
     }
 }

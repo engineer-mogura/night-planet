@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -34,8 +35,7 @@ use Cake\Auth\DefaultPasswordHasher;
  *
  * @property \App\Model\Entity\Shop $shop
  */
-class Tmp extends Entity
-{
+class Tmp extends Entity {
     use TokenTrait;
 
     /**
@@ -82,8 +82,7 @@ class Tmp extends Entity
         'password'
     ];
 
-    protected function _setPassword($value)
-    {
+    protected function _setPassword($value) {
         if (strlen($value)) {
             $hasher = new DefaultPasswordHasher();
 
@@ -97,8 +96,7 @@ class Tmp extends Entity
      *
      * @return void
      */
-    protected function _getRegistryAlias()
-    {
+    protected function _getRegistryAlias() {
         return $this->_registryAlias;
     }
 }

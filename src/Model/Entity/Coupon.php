@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -18,8 +19,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Shop $shop
  */
-class Coupon extends Entity
-{
+class Coupon extends Entity {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

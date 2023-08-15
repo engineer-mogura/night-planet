@@ -178,7 +178,6 @@ class SearchController extends AppController {
                     $value->set('top_image', PATH_ROOT['SHOP_TOP_IMAGE']);
                 }
             }
-
         } elseif ($requestData['search-choice'] == 'cast') {
             // スタッフ検索の場合
             $subquery = $this->Users->find()
@@ -198,8 +197,10 @@ class SearchController extends AppController {
                     'c' => [
                         'table' => 'casts',
                         'type' => 'INNER',
-                        'conditions' => ['c.id = cl.cast_id',
-                            'c.status = 1 AND c.delete_flag = 0'],
+                        'conditions' => [
+                            'c.id = cl.cast_id',
+                            'c.status = 1 AND c.delete_flag = 0'
+                        ],
                     ]
                 ])->where([
                     'users.id = ' . empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']
@@ -267,7 +268,6 @@ class SearchController extends AppController {
                     // 共通トップ画像をセット
                     $value->set('icon', PATH_ROOT['NO_IMAGE02']);
                 }
-
             }
         }
 

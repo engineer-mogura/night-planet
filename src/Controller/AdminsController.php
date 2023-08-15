@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use Cake\Event\Event;
@@ -7,19 +8,17 @@ use Cake\ORM\TableRegistry;
 use Cake\Mailer\MailerAwareTrait;
 
 /**
-* Users Controller
-*
-* @property \App\Model\Table\UsersTable $Users
-*
-* @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
-*/
-class AdminsController extends AppController
-{
+ * Users Controller
+ *
+ * @property \App\Model\Table\UsersTable $Users
+ *
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ */
+class AdminsController extends AppController {
     use MailerAwareTrait;
     public $components = array('Util');
 
-    public function initialize()
-    {
+    public function initialize() {
         parent::initialize();
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
@@ -35,8 +34,7 @@ class AdminsController extends AppController
         $this->MasterCodes = TableRegistry::get("master_codes");
     }
 
-    public function beforeFilter(Event $event)
-    {
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
         $this->viewBuilder()->layout('simpleDefault');
 
@@ -46,10 +44,7 @@ class AdminsController extends AppController
         $this->set(compact("title", "description"));
     }
     // ??????
-    public function top()
-    {
+    public function top() {
         $this->layout = false;
-
     }
-
 }

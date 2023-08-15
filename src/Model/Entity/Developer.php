@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -20,8 +21,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\News[] $news
  */
-class Developer extends Entity
-{
+class Developer extends Entity {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -61,8 +61,7 @@ class Developer extends Entity
      *
      * @return void
      */
-    protected function _getRegistryAlias()
-    {
+    protected function _getRegistryAlias() {
         return $this->_registryAlias;
     }
 }

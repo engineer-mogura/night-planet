@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use Cake\Event\Event;
@@ -7,23 +8,20 @@ use Cake\Filesystem\Folder;
 use Cake\Mailer\MailerAwareTrait;
 
 /**
-* Users Controller
-*
-* @property \App\Model\Table\UsersTable $Users
-*
-* @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
-*/
-class MainController extends AppController
-{
+ * Users Controller
+ *
+ * @property \App\Model\Table\UsersTable $Users
+ *
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ */
+class MainController extends AppController {
     use MailerAwareTrait;
 
-    public function initialize()
-    {
+    public function initialize() {
         parent::initialize();
     }
 
-    public function beforeFilter(Event $event)
-    {
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
 
         // ユーザ認証後の初回のみ自動でモーダルを表示するパラメタをセットする
@@ -42,27 +40,26 @@ class MainController extends AppController
         // SEO対策
         $title = str_replace("_service_name_", LT['000'], TITLE['TOP_TITLE']);
         $description = str_replace("_service_name_", LT['000'], META['TOP_DESCRIPTION']);
-        $this->set(compact("title", "description","is_area","is_login_modal_show"));
+        $this->set(compact("title", "description", "is_area", "is_login_modal_show"));
     }
 
-    public function top()
-    {
+    public function top() {
         //$this->redirect("http://localhost:8080/api-googles/oauth2-callback");
 
         $shops_query = $this->Shops->find();
         $casts_query = $this->Casts->find();
         $shops = $shops_query->select($this->Shops);
-        $shops = $shops_query->select(['area','count'=> $shops_query->func()->count('area'),'area'])
-                    ->where(['status = 1 AND delete_flag = 0'])
-                    ->group('area')->toArray();
+        $shops = $shops_query->select(['area', 'count' => $shops_query->func()->count('area'), 'area'])
+            ->where(['status = 1 AND delete_flag = 0'])
+            ->group('area')->toArray();
         // 店舗情報をセット
-        foreach($shops as $key => $shop) {
+        foreach ($shops as $key => $shop) {
             $shop->set('shopInfo', $this->Util->getShopInfo($shop));
             // アイコンを設定する
             $files = $this->S3Client->getList($this->s3Backet, $shop->shopInfo['top_image_path'], 1);
             // ファイルが存在したら、画像をセット
             if (is_countable($files) ? count($files) > 0 : 0) {
-                $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
+                $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
             } else {
                 // 共通トップ画像をセット
                 $shop->set('top_image', PATH_ROOT['SHOP_TOP_IMAGE']);
@@ -108,7 +105,6 @@ class MainController extends AppController
                 if ($value2['region'] == $value1['path']) {
                     $region_cnt += $value2['count'];
                 }
-
             }
             $region[$value1['path']] = $region_cnt;
             $region['color'] = $value1['color'];
@@ -121,22 +117,41 @@ class MainController extends AppController
 
         $all_cnt = ['shops' => $shops_cnt, 'casts' => $casts_cnt];
         $new_photos = $this->NewPhotosRank->find("all")
-                        ->order(['id'=>'ASC'])
-                        ->toArray();
+            ->order(['id' => 'ASC'])
+            ->toArray();
 
         $shop_ranking = $this->Util->getRanking($range, $limit, 'shop', null);
         $cast_ranking = $this->Util->getRanking($range, $limit, 'cast', null);
-        $diarys = $this->Util->getNewDiarys(PROPERTY['NEW_INFO_MAX'], null, null
-            , empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']);
-        $notices = $this->Util->getNewNotices(PROPERTY['NEW_INFO_MAX'], null
-            , empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']);
+        $diarys = $this->Util->getNewDiarys(
+            PROPERTY['NEW_INFO_MAX'],
+            null,
+            null,
+            empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']
+        );
+        $notices = $this->Util->getNewNotices(
+            PROPERTY['NEW_INFO_MAX'],
+            null,
+            empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']
+        );
         $news = $this->Util->getNewss(null, 5);
         $main_adsenses = $this->Util->getAdsense(PROPERTY['TOP_SLIDER_GALLERY_MAX'], 'main', null);
         $sub_adsenses = $this->Util->getAdsense(PROPERTY['SUB_SLIDER_GALLERY_MAX'], 'sub', null);
         //広告を配列にセット
         $adsenses = array('main_adsenses' => $main_adsenses, 'sub_adsenses' => $sub_adsenses);
-        $this->set(compact('area', 'region', 'all_cnt', 'diarys'
-            , 'notices', 'news', 'new_photos', 'ig_data','is_naipura', 'adsenses', 'shop_ranking', 'cast_ranking'));
+        $this->set(compact(
+            'area',
+            'region',
+            'all_cnt',
+            'diarys',
+            'notices',
+            'news',
+            'new_photos',
+            'ig_data',
+            'is_naipura',
+            'adsenses',
+            'shop_ranking',
+            'cast_ranking'
+        ));
     }
 
     /**
@@ -145,8 +160,7 @@ class MainController extends AppController
      * @param array $validate
      * @return void
      */
-    public function confReturnJson()
-    {
+    public function confReturnJson() {
         $this->viewBuilder()->autoLayout(false);
         $this->autoRender = false;
         $this->response->charset('UTF-8');

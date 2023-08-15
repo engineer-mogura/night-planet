@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller\Owner;
 
 use Cake\I18n\Time;
@@ -12,8 +13,7 @@ use Cake\Mailer\MailerAwareTrait;
 /**
  * Controls the data flow into shops object and updates the view whenever data changes.
  */
-class ShopsController extends AppController
-{
+class ShopsController extends AppController {
     use MailerAwareTrait;
 
     public function beforeFilter(Event $event) {
@@ -22,10 +22,10 @@ class ShopsController extends AppController
         // 店舗編集用テンプレート
         $this->viewBuilder()->layout('shopDefault');
         // 店舗に関する情報をセット
-        if(!is_null($user = $this->Auth->user())){
+        if (!is_null($user = $this->Auth->user())) {
 
             // URLに店舗IDが存在する場合、セッションに店舗IDをセットする
-            if($this->request->getQuery('shop_id')) {
+            if ($this->request->getQuery('shop_id')) {
                 $this->request->session()->write('shop_id', $this->request->getQuery('shop_id'));
             }
             // セッションに店舗IDをセットする
@@ -35,14 +35,14 @@ class ShopsController extends AppController
 
             // オーナーに関する情報をセット
             $owner = $this->Owners->find("all")
-                ->where(['owners.id'=>$user['id']])
+                ->where(['owners.id' => $user['id']])
                 ->contain(['ServecePlans'])
                 ->first();
             $ownerInfo = $this->Util->getOwnerInfo($owner);
 
             // 店舗情報取得
             $shop = $this->Shops->find('all')
-                ->where(['id' => $shopId , 'owner_id' => $user['id']])
+                ->where(['id' => $shopId, 'owner_id' => $user['id']])
                 ->first();
             $shopInfo = $this->Util->getShopInfo($shop);
 
@@ -66,8 +66,7 @@ class ShopsController extends AppController
      * @param [type] $id
      * @return void
      */
-    public function index()
-    {
+    public function index() {
 
         // アクティブタブ
         $selected_tab = "";
@@ -80,12 +79,12 @@ class ShopsController extends AppController
             $selectedTab = $this->request->session()->consume('selected_tab');
         }
 
-        if(!is_null($user = $this->Auth->user())){
+        if (!is_null($user = $this->Auth->user())) {
             $shop = $this->Shops->find()
-                ->where(['shops.id'=> $this->viewVars["shopInfo"]["id"] , 'owner_id' => $user['id']])
-                ->contain(['Coupons','Jobs','Snss','Casts' => function(Query $q) {
-                return $q->where(['Casts.delete_flag'=>'0']);
-            }])->first();
+                ->where(['shops.id' => $this->viewVars["shopInfo"]["id"], 'owner_id' => $user['id']])
+                ->contain(['Coupons', 'Jobs', 'Snss', 'Casts' => function (Query $q) {
+                    return $q->where(['Casts.delete_flag' => '0']);
+                }])->first();
 
             // 現在日付
             $date = Time::now();
@@ -99,11 +98,11 @@ class ShopsController extends AppController
             $access_weeks = array();
 
             $access_years = $this->AccessYears->find()
-                                ->where(['shop_id' => $shop->id, 'owner_id' => $shop->owner_id])
-                                ->order(['y' => 'DESC'])->toArray();
+                ->where(['shop_id' => $shop->id, 'owner_id' => $shop->owner_id])
+                ->order(['y' => 'DESC'])->toArray();
             $access_months = $this->AccessMonths->find()
-                                ->where(['shop_id' => $shop->id, 'owner_id' => $shop->owner_id])
-                                ->order(['ym' => 'DESC'])->toArray();
+                ->where(['shop_id' => $shop->id, 'owner_id' => $shop->owner_id])
+                ->order(['ym' => 'DESC'])->toArray();
             foreach ($access_years as $key => $value) {
                 array_push($range_years, $value->y);
             }
@@ -111,13 +110,12 @@ class ShopsController extends AppController
                 array_push($range_months, $value->ym);
             }
             $access_weeks = $this->AccessWeeks->find()
-                                ->where(['shop_id' => $shop->id, 'owner_id' => $shop->owner_id])
-                                ->toArray();
+                ->where(['shop_id' => $shop->id, 'owner_id' => $shop->owner_id])
+                ->toArray();
 
-            $reports = array('access_years' => json_encode($access_years)
-                            , 'access_months' => json_encode($access_months)
-                            , 'access_weeks' => json_encode($access_weeks)
-                            , 'ranges' => [$range_years, $range_months]);
+            $reports = array(
+                'access_years' => json_encode($access_years), 'access_months' => json_encode($access_months), 'access_weeks' => json_encode($access_weeks), 'ranges' => [$range_years, $range_months]
+            );
         }
 
         $this->set(compact('shop', 'reports'/*, 'ranges' */));
@@ -129,8 +127,7 @@ class ShopsController extends AppController
      * @param [type] $id
      * @return void
      */
-    public function shopEdit()
-    {
+    public function shopEdit() {
         // アクティブタブ
         $selected_tab = "";
         // サイドバーメニューのパラメータがあればセッションにセットする
@@ -142,10 +139,10 @@ class ShopsController extends AppController
             $select_tab = $this->request->session()->consume('select_tab');
         }
 
-        if(!is_null($user = $this->Auth->user())){
+        if (!is_null($user = $this->Auth->user())) {
             $shop = $this->Shops->find()
-                    ->where(['shops.id'=> $this->viewVars["shopInfo"]["id"] , 'owner_id' => $user['id']])
-                    ->contain(['Coupons','Jobs','Snss','Casts'])
+                ->where(['shops.id' => $this->viewVars["shopInfo"]["id"], 'owner_id' => $user['id']])
+                ->contain(['Coupons', 'Jobs', 'Snss', 'Casts'])
                 ->first();
             $tmps  = $this->Tmps->find()
                 ->where(['shop_id' => $this->viewVars["shopInfo"]["id"]])
@@ -158,11 +155,14 @@ class ShopsController extends AppController
         }
 
         // トップ画像を設定する
-        $files = $this->S3Client->getList($this->s3Backet,
-             $this->viewVars['shopInfo']['top_image_path'], 1);
+        $files = $this->S3Client->getList(
+            $this->s3Backet,
+            $this->viewVars['shopInfo']['top_image_path'],
+            1
+        );
         // ファイルが存在したら、画像をセット
         if (is_countable($files) ? count($files) > 0 : 0) {
-            $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
+            $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
         } else {
             // 共通トップ画像をセット
             $shop->set('top_image', PATH_ROOT['SHOP_TOP_IMAGE']);
@@ -176,8 +176,7 @@ class ShopsController extends AppController
         foreach ($files as $file) {
             $timestamp = date('Y/m/d H:i', filemtime($file));
             array_push($gallery, array(
-                "file_path" => PATH_ROOT['URL_S3_BUCKET'] . DS . $file, "date" => $timestamp
-                , "simple_path" => $file
+                "file_path" => PATH_ROOT['URL_S3_BUCKET'] . DS . $file, "date" => $timestamp, "simple_path" => $file
 
             ));
         }
@@ -201,7 +200,7 @@ class ShopsController extends AppController
 
             // ファイルが存在したら、画像をセット
             if (is_countable($files) ? count($files) > 0 : 0) {
-                $cast->set('icon', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
+                $cast->set('icon', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
             } else {
                 // 共通トップ画像をセット
                 $cast->set('icon', PATH_ROOT['NO_IMAGE02']);
@@ -209,9 +208,9 @@ class ShopsController extends AppController
         }
 
         // 作成するセレクトボックスを指定する
-        $masCodeFind = array('industry','job_type','treatment','day');
+        $masCodeFind = array('industry', 'job_type', 'treatment', 'day');
         // セレクトボックスを作成する
-        $selectList = $this->Util->getSelectList($masCodeFind,$this->MasterCodes,true);
+        $selectList = $this->Util->getSelectList($masCodeFind, $this->MasterCodes, true);
         // マスタコードのクレジットリスト取得
         $masCredit = $this->MasterCodes->find()->where(['code_group' => 'credit'])->toArray();
         // 店舗情報のクレジットリストを作成する
@@ -221,19 +220,18 @@ class ShopsController extends AppController
         // 求人情報の待遇リストを作成する
         $jobTreatments = $this->Util->getTreatment(reset($shop->jobs)['treatment'], $masTreatment);
         // クレジット、待遇リストをセット
-        $masData = array('credit'=>json_encode($shopCredits),'treatment'=>json_encode($jobTreatments));
+        $masData = array('credit' => json_encode($shopCredits), 'treatment' => json_encode($jobTreatments));
 
-        $this->set(compact('shop','gallery','masCredit','masData','selectList','select_tab'));
+        $this->set(compact('shop', 'gallery', 'masCredit', 'masData', 'selectList', 'select_tab'));
         $this->render();
     }
 
-   /**
+    /**
      * トップ画像 編集押下処理
      *
      * @return void
      */
-    public function saveTopImage()
-    {
+    public function saveTopImage() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -248,8 +246,11 @@ class ShopsController extends AppController
         $shop = $this->Shops->get($this->viewVars['shopInfo']['id']);
 
         // トップ画像を設定する
-        $fileBefor = $this->S3Client->getList($this->s3Backet,
-             $this->viewVars['shopInfo']['top_image_path'], 1);
+        $fileBefor = $this->S3Client->getList(
+            $this->s3Backet,
+            $this->viewVars['shopInfo']['top_image_path'],
+            1
+        );
 
         // 新しいファイルを取得
         $file = $this->request->getData('top_image_file');
@@ -259,12 +260,18 @@ class ShopsController extends AppController
             $limitFileSize = CAPACITY['MAX_NUM_BYTES_FILE'];
 
             try {
-                $convertFile = $this->Util->file_upload($file, null, $chkDuplicate
-                                , $this->viewVars['shopInfo']['top_image_path']
-                                , $limitFileSize);
+                $convertFile = $this->Util->file_upload(
+                    $file,
+                    null,
+                    $chkDuplicate,
+                    $this->viewVars['shopInfo']['top_image_path'],
+                    $limitFileSize
+                );
                 // 画像ファイルアップロード
                 $upResult = $this->S3Rapper->upload(
-                    $this->viewVars['shopInfo']['top_image_path'] . DS . $convertFile, $file["tmp_name"]);
+                    $this->viewVars['shopInfo']['top_image_path'] . DS . $convertFile,
+                    $file["tmp_name"]
+                );
                 // 同じファイル名でない場合は前の画像を削除
                 if (($this->viewVars['shopInfo']['top_image_path'] . DS . $convertFile !== $fileBefor[0]) && !empty($fileBefor)) {
                     $delResult = $this->S3Rapper->delete($fileBefor[0]);
@@ -272,19 +279,17 @@ class ShopsController extends AppController
 
                 // 更新情報を追加する
                 $updates = $this->Updates->newEntity();
-                $updates->set('content','トップ画像を更新しました。');
+                $updates->set('content', 'トップ画像を更新しました。');
                 $updates->set('shop_id', $this->viewVars['shopInfo']['id']);
                 $updates->set('type', SHOP_MENU_NAME['SHOP_TOP_IMAGE']);
                 // レコード更新実行
                 if (!$this->Updates->save($updates)) {
                     throw new RuntimeException('レコードの登録ができませんでした。');
                 }
-
             } catch (RuntimeException $e) {
                 $this->log($this->Util->setLog($auth, $e));
                 $flg = false;
             }
-
         }
         // 例外が発生している場合にメッセージをセットして返却する
         if (!$flg) {
@@ -300,11 +305,14 @@ class ShopsController extends AppController
         $shop = $this->viewVars['shop'];
 
         // トップ画像を設定する
-        $files = $this->S3Client->getList($this->s3Backet,
-            $this->viewVars['shopInfo']['top_image_path'], 1);
+        $files = $this->S3Client->getList(
+            $this->s3Backet,
+            $this->viewVars['shopInfo']['top_image_path'],
+            1
+        );
         // ファイルが存在したら、画像をセット
         if (is_countable($files) ? count($files) > 0 : 0) {
-            $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
+            $shop->set('top_image', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
         } else {
             // 共通トップ画像をセット
             $shop->set('top_image', PATH_ROOT['SHOP_TOP_IMAGE']);
@@ -327,8 +335,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function deleteCatch()
-    {
+    public function deleteCatch() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -367,8 +374,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function saveCatch()
-    {
+    public function saveCatch() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -386,7 +392,7 @@ class ShopsController extends AppController
         if ($shop->errors()) {
             // 入力エラーがあれば、メッセージをセットして返す
             $errors = $this->Util->setErrMessage($shop); // エラーメッセージをセット
-            $response = array('success'=>false,'message'=>$errors);
+            $response = array('success' => false, 'message' => $errors);
             $this->response->body(json_encode($response));
             return;
         }
@@ -425,8 +431,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function switchCoupon()
-    {
+    public function switchCoupon() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -440,14 +445,14 @@ class ShopsController extends AppController
         // ステータスをセット
         $coupon->status = $this->request->getData('status');
         // メッセージをセット
-        $coupon->status == 1 ? 
-            $message = RESULT_M['DISPLAY_SUCCESS']: $message = RESULT_M['HIDDEN_SUCCESS'];
+        $coupon->status == 1 ?
+            $message = RESULT_M['DISPLAY_SUCCESS'] : $message = RESULT_M['HIDDEN_SUCCESS'];
         try {
             // レコード更新実行
             if (!$this->Coupons->save($coupon)) {
                 throw new RuntimeException('レコードの更新ができませんでした。');
             }
-        } catch(RuntimeException $e) {
+        } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $message = RESULT_M['CHANGE_FAILED'];
             $flg = false;
@@ -466,8 +471,7 @@ class ShopsController extends AppController
      * @param [type] $id
      * @return void
      */
-    public function deleteCoupon()
-    {
+    public function deleteCoupon() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -507,8 +511,7 @@ class ShopsController extends AppController
      * @param [type] $id
      * @return void
      */
-    public function saveCoupon()
-    {
+    public function saveCoupon() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -519,13 +522,14 @@ class ShopsController extends AppController
         $auth = $this->request->session()->read('Auth.Owner');
 
         // 新規登録 店舗IDとステータスもセットする
-        if($this->request->getData('crud_type') == 'insert') {
+        if ($this->request->getData('crud_type') == 'insert') {
             $coupon = $this->Coupons->newEntity(array_merge(
-                ['shop_id' => $this->viewVars['shopInfo']['id'], 'status'=>0]
-                    ,$this->request->getData()));
+                ['shop_id' => $this->viewVars['shopInfo']['id'], 'status' => 0],
+                $this->request->getData()
+            ));
             $message = RESULT_M['SIGNUP_SUCCESS']; // 返却メッセージ
-        } else if($this->request->getData('crud_type') == 'update') {
-        // 更新
+        } else if ($this->request->getData('crud_type') == 'update') {
+            // 更新
             $coupon = $this->Coupons->patchEntity($this->Coupons
                 ->get($this->request->getData('id')), $this->request->getData());
             $message = RESULT_M['UPDATE_SUCCESS']; // 返却メッセージ
@@ -535,14 +539,14 @@ class ShopsController extends AppController
         if ($coupon->errors()) {
             // 入力エラーがあれば、メッセージをセットして返す
             $errors = $this->Util->setErrMessage($coupon); // エラーメッセージをセット
-            $response = array('success'=>false,'message'=>$errors);
+            $response = array('success' => false, 'message' => $errors);
             $this->response->body(json_encode($response));
             return;
         }
         try {
             // レコード登録、更新実行
             if (!$this->Coupons->save($coupon)) {
-                if($this->request->getData('crud_type') == 'insert') {
+                if ($this->request->getData('crud_type') == 'insert') {
                     throw new RuntimeException('レコードの登録ができませんでした。');
                 } else {
                     throw new RuntimeException('レコードの更新ができませんでした。');
@@ -550,7 +554,7 @@ class ShopsController extends AppController
             }
             // 更新情報を追加する
             $updates = $this->Updates->newEntity();
-            $updates->set('content','クーポン情報を更新しました。');
+            $updates->set('content', 'クーポン情報を更新しました。');
             $updates->set('shop_id', $this->viewVars['shopInfo']['id']);
             $updates->set('type', SHOP_MENU_NAME['COUPON']);
             // レコード更新実行
@@ -561,7 +565,7 @@ class ShopsController extends AppController
             $this->log($this->Util->setLog($auth, $e));
             $flg = false;
             $message = RESULT_M['UPDATE_FAILED'];
-            if($this->request->getData('crud_type') == 'insert') {
+            if ($this->request->getData('crud_type') == 'insert') {
                 $message = RESULT_M['SIGNUP_FAILED'];
             }
             $response = array(
@@ -592,8 +596,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function switchCast()
-    {
+    public function switchCast() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -608,14 +611,14 @@ class ShopsController extends AppController
         // ステータスをセット
         $cast->status = $this->request->getData('status');
         // メッセージをセット
-        $cast->status == 1 ? 
-            $message = RESULT_M['DISPLAY_SUCCESS']: $message = RESULT_M['HIDDEN_SUCCESS'];
+        $cast->status == 1 ?
+            $message = RESULT_M['DISPLAY_SUCCESS'] : $message = RESULT_M['HIDDEN_SUCCESS'];
         try {
             // レコード更新実行
             if (!$this->Casts->save($cast)) {
                 throw new RuntimeException('レコードの更新ができませんでした。');
             }
-        } catch(RuntimeException $e) {
+        } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $message = RESULT_M['CHANGE_FAILED'];
             $flg = false;
@@ -632,8 +635,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function deleteCast()
-    {
+    public function deleteCast() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -646,7 +648,7 @@ class ShopsController extends AppController
 
         try {
 
-            $del_path =$this->viewVars['shopInfo']['cast_path'] . DS . $this->request->getData('dir');
+            $del_path = $this->viewVars['shopInfo']['cast_path'] . DS . $this->request->getData('dir');
             // 削除対象レコード取得
             $cast = $this->Casts->get($this->request->getData('id'));
             // レコード削除実行
@@ -670,9 +672,9 @@ class ShopsController extends AppController
 
         $shop = $this->Shops->find()
             ->where(['id' => $this->viewVars['shopInfo']['id']])
-            ->contain(['Casts' => function(Query $q) {
-                    return $q->where(['casts.delete_flag'=>'0']);
-                }])->first();
+            ->contain(['Casts' => function (Query $q) {
+                return $q->where(['casts.delete_flag' => '0']);
+            }])->first();
 
         // スタッフのアイコンを設定する
         foreach ($shop->casts as $key => $cast) {
@@ -692,7 +694,7 @@ class ShopsController extends AppController
 
             // ファイルが存在したら、画像をセット
             if (is_countable($files) ? count($files) > 0 : 0) {
-                $cast->set('icon', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
+                $cast->set('icon', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
             } else {
                 // 共通トップ画像をセット
                 $cast->set('icon', PATH_ROOT['NO_IMAGE02']);
@@ -716,8 +718,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function saveCast()
-    {
+    public function saveCast() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -727,14 +728,17 @@ class ShopsController extends AppController
         $this->confReturnJson(); // responceがjsonタイプの場合の共通設定
 
         // 新規登録(仮登録) 店舗IDとステータスも論理削除フラグセットする
-        if($this->request->getData('crud_type') == 'insert') {
-            $cast = $this->Tmps->newEntity(array_merge(
-                ['shop_id' => $this->viewVars['shopInfo']['id'], 'status' => 0 , 'delete_flag' => 1]
-                    , $this->request->getData())
-                    , ['validate' => 'castRegistration']);
+        if ($this->request->getData('crud_type') == 'insert') {
+            $cast = $this->Tmps->newEntity(
+                array_merge(
+                    ['shop_id' => $this->viewVars['shopInfo']['id'], 'status' => 0, 'delete_flag' => 1],
+                    $this->request->getData()
+                ),
+                ['validate' => 'castRegistration']
+            );
 
             $message = MAIL['CAST_AUTH_CONFIRMATION']; // 返却メッセージ
-        } else if($this->request->getData('crud_type') == 'update') {
+        } else if ($this->request->getData('crud_type') == 'update') {
             // 更新
             $cast = $this->Casts->patchEntity($this->Casts
                 ->get($this->request->getData('id')), $this->request->getData());
@@ -754,22 +758,20 @@ class ShopsController extends AppController
         }
         try {
 
-            if($this->request->getData('crud_type') == 'insert') {
+            if ($this->request->getData('crud_type') == 'insert') {
                 // レコード一時登録実行
                 if (!$this->Tmps->save($cast)) {
                     $message = RESULT_M['SIGNUP_FAILED'];
                     throw new RuntimeException('レコードの一時登録ができませんでした。');
                 }
-
             } else {
                 // レコード更新実行
                 if (!$this->Casts->save($cast)) {
                     $message = RESULT_M['SIGNUP_FAILED'];
                     throw new RuntimeException('レコードの更新ができませんでした。');
                 }
-
             }
-        } catch(RuntimeException $e) {
+        } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $flg = false;
             $response = array(
@@ -785,25 +787,26 @@ class ShopsController extends AppController
 
             $email = new Email('default');
             $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
-                ->setSubject($cast->name."様、【".$this->viewVars['shopInfo']['name']."】様よりスタッフ登録のご案内があります。")
+                ->setSubject($cast->name . "様、【" . $this->viewVars['shopInfo']['name'] . "】様よりスタッフ登録のご案内があります。")
                 ->setTo($cast->email)
                 ->setBcc(MAIL['SUPPORT_MAIL'])
                 ->setTemplate("auth_send")
                 ->setLayout("simple_layout")
                 ->emailFormat("html")
-                ->viewVars(['cast' => $cast
-                    ,'shop_name' => $this->viewVars['shopInfo']['name']])
+                ->viewVars([
+                    'cast' => $cast, 'shop_name' => $this->viewVars['shopInfo']['name']
+                ])
                 ->send();
-            $this->log($email,'debug');
+            $this->log($email, 'debug');
             $this->Flash->success($message);
         }
         $shop = $this->Shops->find()
-                ->where(['id' => $this->viewVars['shopInfo']['id']])
-                ->contain(['Casts'])
+            ->where(['id' => $this->viewVars['shopInfo']['id']])
+            ->contain(['Casts'])
             ->first();
         $shop = $this->Shops->find()
-                ->where(['shops.id'=> $this->viewVars["shopInfo"]["id"]])
-                ->contain(['Coupons','Jobs','Snss','Casts'])
+            ->where(['shops.id' => $this->viewVars["shopInfo"]["id"]])
+            ->contain(['Coupons', 'Jobs', 'Snss', 'Casts'])
             ->first();
         $tmps  = $this->Tmps->find()
             ->where(['shop_id' => $this->viewVars["shopInfo"]["id"]])
@@ -831,7 +834,7 @@ class ShopsController extends AppController
 
             // ファイルが存在したら、画像をセット
             if (is_countable($files) ? count($files) > 0 : 0) {
-                $cast->set('icon', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
+                $cast->set('icon', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
             } else {
                 // 共通トップ画像をセット
                 $cast->set('icon', PATH_ROOT['NO_IMAGE02']);
@@ -855,8 +858,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function saveTenpo()
-    {
+    public function saveTenpo() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -874,7 +876,7 @@ class ShopsController extends AppController
         if ($shop->errors()) {
             // 入力エラーがあれば、メッセージをセットして返す
             $errors = $this->Util->setErrMessage($shop); // エラーメッセージをセット
-            $response = array('success'=>false,'message'=>$errors);
+            $response = array('success' => false, 'message' => $errors);
             $this->response->body(json_encode($response));
             return;
         }
@@ -885,14 +887,13 @@ class ShopsController extends AppController
             }
             // 更新情報を追加する
             $updates = $this->Updates->newEntity();
-            $updates->set('content','店舗情報を更新しました。');
+            $updates->set('content', '店舗情報を更新しました。');
             $updates->set('shop_id', $this->viewVars['shopInfo']['id']);
             $updates->set('type', SHOP_MENU_NAME['SYSTEM']);
             // レコード更新実行
             if (!$this->Updates->save($updates)) {
                 throw new RuntimeException('レコードの登録ができませんでした。');
             }
-
         } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $flg = false;
@@ -907,8 +908,8 @@ class ShopsController extends AppController
 
         $shop = $this->Shops->find()
             ->where(['id' => $this->viewVars['shopInfo']['id']])
-            ->contain(['Casts' => function(Query $q) {
-                return $q->where(['Casts.delete_flag'=>'0']);
+            ->contain(['Casts' => function (Query $q) {
+                return $q->where(['Casts.delete_flag' => '0']);
             }])->first();
 
         // マスタコードのクレジットリスト取得
@@ -916,8 +917,8 @@ class ShopsController extends AppController
         // 店舗のクレジットリストを作成する
         $shopCredits = $this->Util->getCredit($shop->credit, $masCredit);
         // クレジットリストをセット
-        $masData = array('credit'=>json_encode($shopCredits));
-        $this->set(compact('shop','masData','masCredit'));
+        $masData = array('credit' => json_encode($shopCredits));
+        $this->set(compact('shop', 'masData', 'masCredit'));
         $this->render('/Element/shopEdit/tenpo');
         $response = array(
             'html' => $this->response->body(),
@@ -934,8 +935,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function saveJob()
-    {
+    public function saveJob() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -953,7 +953,7 @@ class ShopsController extends AppController
         if ($job->errors()) {
             // 入力エラーがあれば、メッセージをセットして返す
             $errors = $this->Util->setErrMessage($job); // エラーメッセージをセット
-            $response = array('success'=>false,'message'=>$errors);
+            $response = array('success' => false, 'message' => $errors);
             $this->response->body(json_encode($response));
             return;
         }
@@ -979,17 +979,17 @@ class ShopsController extends AppController
             ->contain(['Jobs'])->first();
 
         // 作成するセレクトボックスを指定する
-        $masCodeFind = array('industry','job_type','treatment','day');
+        $masCodeFind = array('industry', 'job_type', 'treatment', 'day');
         // セレクトボックスを作成する
-        $selectList = $this->Util->getSelectList($masCodeFind,$this->MasterCodes,true);
+        $selectList = $this->Util->getSelectList($masCodeFind, $this->MasterCodes, true);
         // マスタコードの待遇リスト取得
         $masTreatment = $this->MasterCodes->find()->where(['code_group' => 'treatment'])->toArray();
         // 求人情報の待遇リストを作成する
         $jobTreatments = $this->Util->getTreatment(reset($shop->jobs)['treatment'], $masTreatment);
         // 待遇リストをセット
-        $masData = array('treatment'=>json_encode($jobTreatments));
+        $masData = array('treatment' => json_encode($jobTreatments));
 
-        $this->set(compact('shop','masData','selectList'));
+        $this->set(compact('shop', 'masData', 'selectList'));
         $this->render('/Element/shopEdit/job');
         $response = array(
             'html' => $this->response->body(),
@@ -1006,8 +1006,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function saveSns()
-    {
+    public function saveSns() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -1022,31 +1021,31 @@ class ShopsController extends AppController
         try {
             // フリープラン かつ Instagramが入力されていた場合 不正なパターンでエラー
             if ($plan == SERVECE_PLAN['free']['label'] && !empty($this->request->getData('instagram'))) {
-                throw new RuntimeException(RESULT_M['INSTA_ADD_FAILED'].' 不正アクセスがあります。');
+                throw new RuntimeException(RESULT_M['INSTA_ADD_FAILED'] . ' 不正アクセスがあります。');
             }
         } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             // エラーメッセージをセット
-            $response = array('success'=>false,'message'=>RESULT_M['INSTA_ADD_FAILED']);
+            $response = array('success' => false, 'message' => RESULT_M['INSTA_ADD_FAILED']);
             $this->response->body(json_encode($response));
             return;
         }
 
         // レコードが存在するか
         // レコードがない場合は、新規で登録を行う。
-        if(!$this->Snss->exists(['shop_id' =>$this->viewVars['shopInfo']['id']])) {
+        if (!$this->Snss->exists(['shop_id' => $this->viewVars['shopInfo']['id']])) {
             $sns = $this->Snss->newEntity($this->request->getData());
             $sns->shop_id = $this->viewVars['shopInfo']['id'];
         } else {
             $sns = $this->Snss->patchEntity($this->Snss
-            ->get($this->request->getData('id')), $this->request->getData());
+                ->get($this->request->getData('id')), $this->request->getData());
         }
 
         // バリデーションチェック
         if ($sns->errors()) {
             // 入力エラーがあれば、メッセージをセットして返す
             $errors = $this->Util->setErrMessage($sns); // エラーメッセージをセット
-            $response = array('success'=>false,'message'=>$errors);
+            $response = array('success' => false, 'message' => $errors);
             $this->response->body(json_encode($response));
             return;
         }
@@ -1088,8 +1087,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function saveGallery()
-    {
+    public function saveGallery() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -1104,10 +1102,12 @@ class ShopsController extends AppController
         $files = array();
 
         // 既に登録された画像があればデコードし格納、無ければ空の配列を格納する
-        ($files_befor = json_decode($this->request->getData("gallery_befor")
-            , true)) > 0 ? : $files_befor = array();
+        ($files_befor = json_decode(
+            $this->request->getData("gallery_befor"),
+            true
+        )) > 0 ?: $files_befor = array();
 
-        try{
+        try {
 
             // 追加画像がある場合
             if (isset($this->request->data["image"])) {
@@ -1120,8 +1120,13 @@ class ShopsController extends AppController
                     $limitFileSize = CAPACITY['MAX_NUM_BYTES_FILE'];
 
                     // ファイル名を取得する
-                    $convertFile = $this->Util->file_upload($file, $files_befor, $chkDuplicate
-                        , $this->viewVars['shopInfo']['image_path'], $limitFileSize);
+                    $convertFile = $this->Util->file_upload(
+                        $file,
+                        $files_befor,
+                        $chkDuplicate,
+                        $this->viewVars['shopInfo']['image_path'],
+                        $limitFileSize
+                    );
 
                     // ファイル名が同じ場合は重複フラグをセットする
                     if ($convertFile === false) {
@@ -1130,20 +1135,21 @@ class ShopsController extends AppController
                     }
 
                     $result = $this->S3Rapper->upload(
-                        $this->viewVars['shopInfo']['image_path'] . DS . $convertFile, $file["tmp_name"]);
+                        $this->viewVars['shopInfo']['image_path'] . DS . $convertFile,
+                        $file["tmp_name"]
+                    );
                 }
             }
 
             // 更新情報を追加する
             $updates = $this->Updates->newEntity();
-            $updates->set('content','店内ギャラリーを更新しました。');
+            $updates->set('content', '店内ギャラリーを更新しました。');
             $updates->set('shop_id', $this->viewVars['shopInfo']['id']);
             $updates->set('type', SHOP_MENU_NAME['SHOP_GALLERY']);
             // レコード更新実行
             if (!$this->Updates->save($updates)) {
                 throw new RuntimeException('レコードの登録ができませんでした。');
             }
-
         } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $flg = false;
@@ -1169,8 +1175,7 @@ class ShopsController extends AppController
         foreach ($files as $file) {
             $timestamp = date('Y/m/d H:i', filemtime($file));
             array_push($gallery, array(
-                "file_path" => PATH_ROOT['URL_S3_BUCKET'] . DS . $file, "date" => $timestamp
-                , "simple_path" => $file
+                "file_path" => PATH_ROOT['URL_S3_BUCKET'] . DS . $file, "date" => $timestamp, "simple_path" => $file
 
             ));
         }
@@ -1192,8 +1197,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function deleteGallery()
-    {
+    public function deleteGallery() {
 
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
@@ -1238,8 +1242,7 @@ class ShopsController extends AppController
         foreach ($files as $file) {
             $timestamp = date('Y/m/d H:i', filemtime($file));
             array_push($gallery, array(
-                "file_path" => PATH_ROOT['URL_S3_BUCKET'] . DS . $file, "date" => $timestamp
-                , "simple_path" => $file
+                "file_path" => PATH_ROOT['URL_S3_BUCKET'] . DS . $file, "date" => $timestamp, "simple_path" => $file
 
             ));
         }
@@ -1261,10 +1264,12 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function notice()
-    {
-        $allNotice = $this->getAllNotice($this->viewVars['shopInfo']['id']
-            , $this->viewVars['shopInfo']['notice_path'], null);
+    public function notice() {
+        $allNotice = $this->getAllNotice(
+            $this->viewVars['shopInfo']['id'],
+            $this->viewVars['shopInfo']['notice_path'],
+            null
+        );
         $top_notice = $allNotice[0];
         $arcive_notice = $allNotice[1];
         $this->set(compact('top_notice', 'arcive_notice'));
@@ -1275,8 +1280,7 @@ class ShopsController extends AppController
      * お知らせ 登録処理
      * @return void
      */
-    public function saveNotice()
-    {
+    public function saveNotice() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -1298,7 +1302,7 @@ class ShopsController extends AppController
         if ($notice->errors()) {
             // 入力エラーがあれば、メッセージをセットして返す
             $errors = $this->Util->setErrMessage($notice); // エラーメッセージをセット
-            $response = array('success'=>false,'message'=>$errors);
+            $response = array('success' => false, 'message' => $errors);
             $this->response->body(json_encode($response));
             return;
         }
@@ -1321,8 +1325,13 @@ class ShopsController extends AppController
                     $limitFileSize = CAPACITY['MAX_NUM_BYTES_FILE'];
 
                     // ファイル名を取得する
-                    $convertFile = $this->Util->file_upload($file, $files_befor, $chkDuplicate
-                        , $this->viewVars['shopInfo']['notice_path'] . $notice->dir, $limitFileSize);
+                    $convertFile = $this->Util->file_upload(
+                        $file,
+                        $files_befor,
+                        $chkDuplicate,
+                        $this->viewVars['shopInfo']['notice_path'] . $notice->dir,
+                        $limitFileSize
+                    );
 
                     // ファイル名が同じ場合は重複フラグをセットする
                     if ($convertFile === false) {
@@ -1331,7 +1340,9 @@ class ShopsController extends AppController
                     }
 
                     $result = $this->S3Rapper->upload(
-                        $this->viewVars['shopInfo']['notice_path'] . $notice->dir . DS . $convertFile, $file["tmp_name"]);
+                        $this->viewVars['shopInfo']['notice_path'] . $notice->dir . DS . $convertFile,
+                        $file["tmp_name"]
+                    );
                 }
             }
 
@@ -1341,14 +1352,13 @@ class ShopsController extends AppController
             }
             // 更新情報を追加する
             $updates = $this->Updates->newEntity();
-            $updates->set('content','店舗からのお知らせを追加しました。');
+            $updates->set('content', '店舗からのお知らせを追加しました。');
             $updates->set('shop_id', $this->viewVars['shopInfo']['id']);
             $updates->set('type', SHOP_MENU_NAME['EVENT']);
             // レコード更新実行
             if (!$this->Updates->save($updates)) {
                 throw new RuntimeException('レコードの登録ができませんでした。');
             }
-
         } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $flg = false;
@@ -1366,8 +1376,11 @@ class ShopsController extends AppController
             return;
         }
         // お知らせ取得
-        $allNotice = $this->getAllNotice($this->viewVars['shopInfo']['id']
-            , $this->viewVars['shopInfo']['notice_path'], null);
+        $allNotice = $this->getAllNotice(
+            $this->viewVars['shopInfo']['id'],
+            $this->viewVars['shopInfo']['notice_path'],
+            null
+        );
         $top_notice = $allNotice[0];
         $arcive_notice = $allNotice[1];
 
@@ -1388,16 +1401,17 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function viewNotice()
-    {
+    public function viewNotice() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
         }
         $this->confReturnJson(); // json返却用の設定
 
-        $notice = $this->Util->getNotice($this->request->query["id"]
-            , $this->viewVars['shopInfo']['notice_path']);
+        $notice = $this->Util->getNotice(
+            $this->request->query["id"],
+            $this->viewVars['shopInfo']['notice_path']
+        );
 
         $this->response->body(json_encode($notice));
         return;
@@ -1408,8 +1422,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function updateNotice()
-    {
+    public function updateNotice() {
 
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
@@ -1431,7 +1444,7 @@ class ShopsController extends AppController
         if ($notice->errors()) {
             // 入力エラーがあれば、メッセージをセットして返す
             $errors = $this->Util->setErrMessage($notice); // エラーメッセージをセット
-            $response = array('result'=>false,'errors'=>$errors);
+            $response = array('result' => false, 'errors' => $errors);
             $this->response->body(json_encode($response));
             return;
         }
@@ -1439,12 +1452,12 @@ class ShopsController extends AppController
         $delFiles = json_decode($this->request->data["del_list"], true);
         // 既に登録された画像があればデコードし格納、無ければ空の配列を格納する
         ($files_befor = json_decode($this->request->data["json_data"], true)) > 0
-            ? : $files_befor = array();
+            ?: $files_befor = array();
         try {
 
             // 削除する画像分処理する
             foreach ($delFiles as $key => $file) {
-                $file['path'] = str_replace(env('AWS_URL_HOST').DS.env('AWS_BUCKET'), '', $file['path']);
+                $file['path'] = str_replace(env('AWS_URL_HOST') . DS . env('AWS_BUCKET'), '', $file['path']);
                 $result = $this->S3Rapper->delete($file['path']);
             }
             // 追加画像がある場合
@@ -1457,8 +1470,13 @@ class ShopsController extends AppController
                 if (!empty($file["name"]) && $file["name"] == 'blob') {
                     $limitFileSize = CAPACITY['MAX_NUM_BYTES_FILE'];
                     // ファイル名を取得する
-                    $convertFile = $this->Util->file_upload($file, $files_befor, $chkDuplicate
-                        , $this->request->data["dir_path"], $limitFileSize);
+                    $convertFile = $this->Util->file_upload(
+                        $file,
+                        $files_befor,
+                        $chkDuplicate,
+                        $this->request->data["dir_path"],
+                        $limitFileSize
+                    );
 
                     // ファイル名が同じ場合は処理をスキップする
                     if ($convertFile === false) {
@@ -1466,7 +1484,9 @@ class ShopsController extends AppController
                         continue;
                     }
                     $result = $this->S3Rapper->upload(
-                        $this->request->data["dir_path"] . DS . $convertFile, $file["tmp_name"]);
+                        $this->request->data["dir_path"] . DS . $convertFile,
+                        $file["tmp_name"]
+                    );
                 }
             }
 
@@ -1474,7 +1494,6 @@ class ShopsController extends AppController
             if (!$this->ShopInfos->save($notice)) {
                 throw new RuntimeException('レコードの登録ができませんでした。');
             }
-
         } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $flg = false;
@@ -1493,8 +1512,11 @@ class ShopsController extends AppController
         }
 
         // お知らせ取得
-        $allNotice = $this->getAllNotice($this->viewVars['shopInfo']['id']
-            , $this->viewVars['shopInfo']['notice_path'], null);
+        $allNotice = $this->getAllNotice(
+            $this->viewVars['shopInfo']['id'],
+            $this->viewVars['shopInfo']['notice_path'],
+            null
+        );
         $top_notice = $allNotice[0];
         $arcive_notice = $allNotice[1];
 
@@ -1515,8 +1537,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function deleteNotice()
-    {
+    public function deleteNotice() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -1558,8 +1579,11 @@ class ShopsController extends AppController
         }
 
         // お知らせ取得
-        $allNotice = $this->getAllNotice($this->viewVars['shopInfo']['id']
-            , $this->viewVars['shopInfo']['notice_path'], null);
+        $allNotice = $this->getAllNotice(
+            $this->viewVars['shopInfo']['id'],
+            $this->viewVars['shopInfo']['notice_path'],
+            null
+        );
         $top_notice = $allNotice[0];
         $arcive_notice = $allNotice[1];
 
@@ -1580,26 +1604,28 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function workSchedule()
-    {
+    public function workSchedule() {
         $start_date = new Time(date('Y-m-d 00:00:00')); // システム日時を取得
         $start_date->day(1); // システム月の月初を取得
         $end_date = new Time(date('Y-m-d 00:00:00')); // システム日時を取得
         $last_month = $end_date->modify('last day of next month'); // 翌日の月末を取得
-        $end_date = new Time($last_month->format('Y-m-d') .' 23:59:59'); // 翌日の月末の日付変わる直前を取得
+        $end_date = new Time($last_month->format('Y-m-d') . ' 23:59:59'); // 翌日の月末の日付変わる直前を取得
 
         // 店舗に所属するスタッフの
         // 当月の月初から翌日の月末の日付変わる直前までのスタッフのスケジュールを取得する
         $casts = $this->Casts->find('all')
-            ->where(['shop_id' => $this->viewVars['shopInfo']['id']
-                    , 'casts.status' => 1 , 'casts.delete_flag' => 0])
-            ->contain(['Shops'
-                , 'CastSchedules' => function (Query $q) use ($start_date, $end_date)  {
+            ->where([
+                'shop_id' => $this->viewVars['shopInfo']['id'], 'casts.status' => 1, 'casts.delete_flag' => 0
+            ])
+            ->contain([
+                'Shops', 'CastSchedules' => function (Query $q) use ($start_date, $end_date) {
                     return $q
-                    ->where(['CastSchedules.start >='=> $start_date
-                            , 'CastSchedules.start <='=> $end_date])
-                    ->order(['CastSchedules.start'=>'ASC']);
-            }])->order(['casts.created'=>'DESC'])->toArray();
+                        ->where([
+                            'CastSchedules.start >=' => $start_date, 'CastSchedules.start <=' => $end_date
+                        ])
+                        ->order(['CastSchedules.start' => 'ASC']);
+                }
+            ])->order(['casts.created' => 'DESC'])->toArray();
 
         $workSchedule = $this->WorkSchedules->find('all')
             ->where(['work_schedules.shop_id' => $this->viewVars['shopInfo']['id']])
@@ -1613,7 +1639,7 @@ class ShopsController extends AppController
         $dateList = $this->Util->getPeriodDate();
         $workPlanBase = array();
         // 未入力値で初期化する
-        for ($i=0; $i < count($dateList); $i++) {
+        for ($i = 0; $i < count($dateList); $i++) {
             $workPlanBase[] = 'ー';
         }
 
@@ -1630,11 +1656,11 @@ class ShopsController extends AppController
                 foreach ($dateList as $key3 => $date) {
                     $array = explode(' ', $date); // 比較用に配列化
                     // 日付が一致した場合
-                    if(str_replace('/','-', $array[0]) == $sDate) {
+                    if (str_replace('/', '-', $array[0]) == $sDate) {
                         // 仕事なら予定リストに〇をセット
-                        if($castSchedule->title == '仕事') {
+                        if ($castSchedule->title == '仕事') {
                             $workPlan[$key3] = '〇';
-                        } else if($castSchedule->title == '休み') {
+                        } else if ($castSchedule->title == '休み') {
                             // 休みなら予定リストに✕をセット
                             $workPlan[$key3] = '✕';
                         }
@@ -1648,12 +1674,12 @@ class ShopsController extends AppController
             $files = $this->S3Client->getList($this->s3Backet, $castInfo['icon_path'], 1);
             // ファイルが存在したら、画像をセット
             if (is_countable($files) ? count($files) > 0 : 0) {
-                $cast->set('icon', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
+                $cast->set('icon', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
             } else {
                 // 共通トップ画像をセット
                 $cast->set('icon', PATH_ROOT['NO_IMAGE02']);
             }
-            $cast->set('scheduleInfo', array_merge(['castInfo'=>$castInfo],['workPlan'=>$workPlan]));
+            $cast->set('scheduleInfo', array_merge(['castInfo' => $castInfo], ['workPlan' => $workPlan]));
             // 出勤の選択状況を設定
             $cast->selected = in_array(strval($cast['id']), $castIds, true) ? true : false;
         }
@@ -1666,8 +1692,7 @@ class ShopsController extends AppController
      * 出勤スケジュール 登録処理
      * @return void
      */
-    public function saveWorkSchedule()
-    {
+    public function saveWorkSchedule() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -1680,7 +1705,7 @@ class ShopsController extends AppController
 
         // レコードが存在するか
         // レコードがない場合は、新規で登録を行う。
-        if (!$this->WorkSchedules->exists(['shop_id' =>$this->viewVars['shopInfo']['id']])) {
+        if (!$this->WorkSchedules->exists(['shop_id' => $this->viewVars['shopInfo']['id']])) {
 
             $newWorkSchedule = $this->WorkSchedules->newEntity($this->request->getData());
             $newWorkSchedule->shop_id = $this->viewVars['shopInfo']['id'];
@@ -1706,14 +1731,13 @@ class ShopsController extends AppController
             }
             // 更新情報を追加する
             $updates = $this->Updates->newEntity();
-            $updates->set('content','本日のメンバーを更新しました。');
+            $updates->set('content', '本日のメンバーを更新しました。');
             $updates->set('shop_id', $this->viewVars['shopInfo']['id']);
             $updates->set('type', SHOP_MENU_NAME['WORK_SCHEDULE']);
             // レコード更新実行
             if (!$this->Updates->save($updates)) {
                 throw new RuntimeException('レコードの登録ができませんでした。');
             }
-
         } catch (RuntimeException $e) {
             $this->log($this->Util->setLog($auth, $e));
             $flg = false;
@@ -1735,19 +1759,22 @@ class ShopsController extends AppController
         $start_date->day(1);
         $end_date = new Time(date('Y-m-d 00:00:00'));
         $last_month = $end_date->modify('last day of next month');
-        $end_date = new Time($last_month->format('Y-m-d') .' 23:59:59');
+        $end_date = new Time($last_month->format('Y-m-d') . ' 23:59:59');
 
         // 店舗に所属する全てのスタッフを取得する
         $casts = $this->Casts->find('all')
-            ->where(['shop_id' => $this->viewVars['shopInfo']['id']
-                    , 'casts.status' => 1 , 'casts.delete_flag' => 0])
-            ->contain(['Shops'
-                , 'CastSchedules' => function (Query $q) use ($start_date, $end_date)  {
+            ->where([
+                'shop_id' => $this->viewVars['shopInfo']['id'], 'casts.status' => 1, 'casts.delete_flag' => 0
+            ])
+            ->contain([
+                'Shops', 'CastSchedules' => function (Query $q) use ($start_date, $end_date) {
                     return $q
-                    ->where(['CastSchedules.start >='=> $start_date
-                            , 'CastSchedules.start <='=> $end_date])
-                    ->order(['CastSchedules.start'=>'ASC']);
-            }])->order(['casts.created'=>'DESC']);
+                        ->where([
+                            'CastSchedules.start >=' => $start_date, 'CastSchedules.start <=' => $end_date
+                        ])
+                        ->order(['CastSchedules.start' => 'ASC']);
+                }
+            ])->order(['casts.created' => 'DESC']);
 
         $workSchedule = $this->WorkSchedules->find('all')
             ->where(['shop_id' => $this->viewVars['shopInfo']['id']])
@@ -1760,14 +1787,14 @@ class ShopsController extends AppController
         $dateList = $this->Util->getPeriodDate();
         $workPlanList = array();
         // 未入力値で初期化する
-        for ($i=0; $i < count($dateList); $i++) {
+        for ($i = 0; $i < count($dateList); $i++) {
             $workPlanList[] = 'ー';
         }
 
         // スタッフ情報を配列にセット
         foreach ($casts as $key1 => $cast) {
 
-            $tempList = array('castInfo'=>$this->Util->getCastInfo($cast, $cast->shop));
+            $tempList = array('castInfo' => $this->Util->getCastInfo($cast, $cast->shop));
             $cloneList = $workPlanList;
 
             // 予定期間２ヵ月分をループする
@@ -1777,11 +1804,11 @@ class ShopsController extends AppController
                 foreach ($dateList as $key3 => $date) {
                     $array = explode(' ', $date); // 比較用に配列化
                     // 日付が一致した場合
-                    if(str_replace('/','-', $array[0]) == $sDate) {
+                    if (str_replace('/', '-', $array[0]) == $sDate) {
                         // 仕事なら予定リストに〇をセット
-                        if($schedule->title == '仕事') {
+                        if ($schedule->title == '仕事') {
                             $cloneList[$key3] = '〇';
-                        } else if($schedule->title == '休み') {
+                        } else if ($schedule->title == '休み') {
                             // 休みなら予定リストに✕をセット
                             $cloneList[$key3] = '✕';
                         }
@@ -1791,14 +1818,14 @@ class ShopsController extends AppController
                 }
             }
 
-            $tempList = array_merge($tempList, array('workPlan'=>$cloneList));
+            $tempList = array_merge($tempList, array('workPlan' => $cloneList));
             $cast->set('scheduleInfo', $tempList);
 
             // アイコン画像を設定する
             $files = $this->S3Client->getList($this->s3Backet, $cast['scheduleInfo']['castInfo']['icon_path'], 1);
             // ファイルが存在したら、画像をセット
             if (is_countable($files) ? count($files) > 0 : 0) {
-                $cast->set('icon', PATH_ROOT['URL_S3_BUCKET'].DS.$files[0]);
+                $cast->set('icon', PATH_ROOT['URL_S3_BUCKET'] . DS . $files[0]);
             } else {
                 // 共通トップ画像をセット
                 $cast->set('icon', PATH_ROOT['NO_IMAGE02']);
@@ -1826,13 +1853,12 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function option()
-    {
+    public function option() {
         $option = $this->ShopOptions->get($this->viewVars['shopInfo']['id']);
         // マスタコード取得
         $masCodeFind = array('option_menu_color');
         // セレクトボックスを作成する
-        $mast_data = $this->Util->getSelectList($masCodeFind,$this->MasterCodes,false);
+        $mast_data = $this->Util->getSelectList($masCodeFind, $this->MasterCodes, false);
 
         // 登録ボタン押下時
         if ($this->request->is('ajax')) {
@@ -1844,10 +1870,10 @@ class ShopsController extends AppController
             $auth = $this->request->session()->read('Auth.Owner');
 
             // パラメタセット
-            $option->set(['menu_color'=>$this->request->getData('menu_color')[0]]);
+            $option->set(['menu_color' => $this->request->getData('menu_color')[0]]);
 
-            try{
-                if(!$option->errors()) {
+            try {
+                if (!$option->errors()) {
                     if (!$this->ShopOptions->save($option)) {
                         throw new RuntimeException('レコードの更新ができませんでした。');
                     }
@@ -1864,19 +1890,19 @@ class ShopsController extends AppController
                 $flg = false;
             }
 
-                // 例外が発生している場合にメッセージをセットして返却する
-                if (!$flg) {
+            // 例外が発生している場合にメッセージをセットして返却する
+            if (!$flg) {
 
-                    $message = RESULT_M['SIGNUP_FAILED'];
-                    $response = array(
-                        'success' => $flg,
-                        'message' => $message
-                    );
-                    $this->response->body(json_encode($response));
-                    return;
-                }
+                $message = RESULT_M['SIGNUP_FAILED'];
+                $response = array(
+                    'success' => $flg,
+                    'message' => $message
+                );
+                $this->response->body(json_encode($response));
+                return;
+            }
 
-            $this->set(compact('option','mast_data'));
+            $this->set(compact('option', 'mast_data'));
 
             $this->render('/Owner/Shops/option');
             $response = array(
@@ -1887,10 +1913,9 @@ class ShopsController extends AppController
             );
             $this->response->body(json_encode($response));
             return;
-
         }
 
-        $this->set(compact('option','mast_data'));
+        $this->set(compact('option', 'mast_data'));
         $this->render();
     }
 
@@ -1899,11 +1924,12 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function getAllNotice($shop_id, $notice_path, $user_id = null)
-    {
-        $notice = $this->Util->getNotices($this->viewVars['shopInfo']['id']
-            , $notice_path
-            , empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']);
+    public function getAllNotice($shop_id, $notice_path, $user_id = null) {
+        $notice = $this->Util->getNotices(
+            $this->viewVars['shopInfo']['id'],
+            $notice_path,
+            empty($this->viewVars['userInfo']) ? 0 : $this->viewVars['userInfo']['id']
+        );
         $top_notice = array();
         $arcive_notice = array();
         $count = 0;
@@ -1938,8 +1964,7 @@ class ShopsController extends AppController
      *
      * @return void
      */
-    public function viewCalendar()
-    {
+    public function viewCalendar() {
         // AJAXのアクセス以外は不正とみなす。
         if (!$this->request->is('ajax')) {
             throw new MethodNotAllowedException('AJAX以外でのアクセスがあります。');
@@ -1949,6 +1974,4 @@ class ShopsController extends AppController
         $this->response->body(json_encode($notice));
         return;
     }
-
-
 }
