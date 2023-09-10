@@ -68,3 +68,6 @@ nbproject/*
 #.vscode
 # Sass preprocessor
 .sass-cache/
+# conoha #
+##########################
+conoha*.txt
