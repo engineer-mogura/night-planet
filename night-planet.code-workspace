@@ -8,12 +8,6 @@
         },
         {
             "path": "../engineer-mogura-proxy"
-        },
-        {
-            "path": "../../CentOS7/night_planet/night-planet/admin"
-        },
-        {
-            "path": "../../CentOS7/night_planet/night-planet/public"
         }
     ],
     "settings": {
