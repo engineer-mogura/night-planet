@@ -1513,10 +1513,10 @@ class CastsController extends AppController {
         } catch (RuntimeException $e) {
             // ロールバック
             $connection->rollback();
-            $this->log($this->Util->setLog($cast, $e));
+            $this->log($this->Util->setLog($cast, $e->__toString()));
             // 仮登録してるレコードを削除する
             $this->Tmps->delete($tmp);
-            $this->Flash->error(RESULT_M['AUTH_FAILED']);
+            $this->Flash->error(RESULT_M['AUTH_FAILED'] . $e->getMessage());
             return $this->redirect(['action' => 'login']);
         }
         // 認証完了でログインページへ

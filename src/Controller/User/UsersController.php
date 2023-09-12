@@ -865,11 +865,10 @@ class UsersController extends AppController {
             // 一時テーブル削除
             $this->Tmps->delete($tmp);
         } catch (RuntimeException $e) {
-
-            $this->log($this->Util->setLog($user, $e));
+            $this->log($this->Util->setLog($user, $e->__toString()));
             // 仮登録してるレコードを削除する
             $this->Tmps->delete($tmp);
-            $this->Flash->error(RESULT_M['AUTH_FAILED']);
+            $this->Flash->error(RESULT_M['AUTH_FAILED'] . $e->getMessage());
             return $this->render('/common/error');
         }
         // 認証完了セッションをセット※モーダルを自動表示するためのパラメタ

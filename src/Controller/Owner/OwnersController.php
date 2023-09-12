@@ -232,10 +232,10 @@ class OwnersController extends AppController {
         } catch (RuntimeException $e) {
             // ロールバック
             $connection->rollback();
-            $this->log($this->Util->setLog($owner, $e));
+            $this->log($this->Util->setLog($owner, $e->__toString()));
             // 仮登録してるレコードを削除する
             $this->Tmps->delete($tmp);
-            $this->Flash->error(RESULT_M['AUTH_FAILED']);
+            $this->Flash->error(RESULT_M['AUTH_FAILED'] . $e->getMessage());
             return $this->redirect(['action' => 'verifyError']);
         }
 
