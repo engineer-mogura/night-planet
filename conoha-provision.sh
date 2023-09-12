@@ -26,7 +26,7 @@ createToken () {
 		sed -i 's/TOKEN.*$/'TOKEN=$(echo $RES | jq ".access.token.id" -r)'/g' $ENV_FILE
 	fi
 	source $ENV_FILE
-	echo new token: $TOKEN
+	echo -e "\nnew token: ${TOKEN}"
 }
 # 参照するイメージIDを取得し、ENV_FILE に書き込む
 getRefImageId () {
@@ -44,7 +44,7 @@ getRefImageId () {
 		sed -i 's/IMAGE_REF_ID.*$/'IMAGE_REF_ID=${IMAGE_ID}'/g' $ENV_FILE
 	fi
 	source $ENV_FILE
-	echo ref image id: $IMAGE_REF_ID
+	echo -e "\nref image id: ${IMAGE_REF_ID}"
 }
 
 getVmPlans () {
@@ -55,7 +55,7 @@ getVmPlans () {
 		https://compute.tyo3.conoha.io/v2/"$TENANT_ID"/flavors \
 	| jq '.flavors[]| [.name, .id]'
 	)
-	echo vm plans: "$RES"
+	echo -e "\nvm plans: ${RES}"
 }
 # 開発環境 vm id を取得し、ENV_FILE に書き込む
 getVmId () {
@@ -67,7 +67,7 @@ getVmId () {
 		https://compute.tyo3.conoha.io/v2/"$TENANT_ID"/servers/detail \
 		| jq '.servers[] | select(.metadata.instance_name_tag | test("^vps.*work$")) | .id' -r
 	)
-	echo current vm id: "$CURRENT_VM_ID"
+	echo -e "\ncurrent vm id: ${CURRENT_VM_ID}"
 	# env に書き込みファイルを再読み込みする
 	if [ ! "$(cat $ENV_FILE | grep VM_ID= )" ] ;then
 		echo VM_ID=${CURRENT_VM_ID} >> $ENV_FILE
@@ -75,7 +75,7 @@ getVmId () {
 		sed -i 's/VM_ID.*$/'VM_ID=${CURRENT_VM_ID}'/g' $ENV_FILE
 	fi
 	source $ENV_FILE
-	echo current vm id: ${VM_ID}
+	echo -e "\ncurrent vm id: ${VM_ID}"
 }
 
 ################## VM アクション一覧 ######################
@@ -83,7 +83,7 @@ vmActoin () {
 
 	createToken
 
-	echo vps-$(echo $DATE)-work
+	echo -e "\nvps-$(echo $DATE)-work"
 	# createToken
 	# 起動 or シャットダウン
 	if [ $VM_ACTION_TYPE = start ] || [ $VM_ACTION_TYPE = stop ];then
@@ -105,13 +105,14 @@ vmActoin () {
 
 	# 削除
 	elif [ $VM_ACTION_TYPE = delete ];then
+
+		echo delete vm id: ${VM_ID}
+
     read -n1 -p "VMサーバー開発環境を削除しようとしています。実行しますか? (y/N): " yn
     if [[ $yn != [yY] ]]; then
-      echo "\n"
-      echo "キャンセルしました。"
+      echo -e "\nキャンセルしました。"
       exit 1
     fi
-		echo delete vm id: ${VM_ID}
 		curl -i -X DELETE \
 		-H "Accept: application/json" \
 		-H "X-Auth-Token: "$TOKEN"" \
@@ -121,8 +122,7 @@ vmActoin () {
 	elif [ $VM_ACTION_TYPE = add ];then
     read -n1 -p "VMサーバー開発環境を追加しようとしています。実行しますか? (y/N): " yn
     if [[ $yn != [yY] ]]; then
-      echo "\n"
-      echo "キャンセルしました。"
+      echo -e "\nキャンセルしました。"
       exit 1
     fi
 
@@ -157,8 +157,9 @@ vmActoin () {
 		source $ENV_FILE
 		echo new vm id: ${VM_ID}
 
-		# VM が起動されるまで待つ
-		sleep 15
+		echo VM が起動されるまで ${WAIT_TIME} 秒待ちます...
+		sleep ${WAIT_TIME}
+		echo 処理再開します
 		setDmainIpAddr
 
 	else
@@ -184,7 +185,7 @@ getVmIpAddr () {
 		sed -i 's/VM_IP_ADDR.*$/'VM_IP_ADDR=$(echo $NEW_VM_IP_ADDR)'/g' $ENV_FILE
 	fi
 	source $ENV_FILE
-	echo use vm ip address: ${VM_IP_ADDR}
+	echo -e "\nuse vm ip address: ${VM_IP_ADDR}"
 }
 
 setDmainIpAddr () {
@@ -198,7 +199,7 @@ setDmainIpAddr () {
 		https://dns-service.tyo3.conoha.io/v1/domains \
 		| jq '.domains[] | select(.name | contains("'$TARGET_DOMAIN'")) | .id' -r
 	)
-	echo target domain id: ${domainId}
+	echo -e "\ntarget domain id: ${domainId}"
 
 	domainrecordIds=$(
 		curl -s GET \
@@ -208,7 +209,7 @@ setDmainIpAddr () {
 		| jq -r '.records[] | select(.ttl != null) | select (.ttl | contains(60))
 		| [.id] | @csv' --raw-output
 	)
-	echo target domain record id: "$domainrecordIds"
+	echo -e "\ntarget domain record id:\n${domainrecordIds}"
 	domainrecordIds=(${domainrecordIds//,/ })
 	for v in "${domainrecordIds[@]}"
 	do
@@ -245,6 +246,7 @@ exit 0
 }
 
 DATE=`date +'%Y-%m-%d-%H-%M'`
+WAIT_TIME=20
 
 #サーバー性能タイプ("g-c2m1d100","ab7b9b6d-108c-4487-90a4-2da604ad6a92") 1GB 1,064 円/月 CPU 2Core SSD 100GB
 FLAVOR_REF='ab7b9b6d-108c-4487-90a4-2da604ad6a92'

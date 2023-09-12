@@ -176,7 +176,7 @@ class OwnersController extends AppController {
             ];
 
             // 新規エンティティ
-            $owner = $this->Owners->patchEntity($this->Owners->newEntity(), $data, ['validate' => false]);
+            $owner = $this->Owners->patchEntity($this->Owners->newEntity(), $data);
 
             // バリデーションチェック
             if ($owner->errors()) {

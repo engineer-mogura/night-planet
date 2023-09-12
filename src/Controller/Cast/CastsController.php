@@ -1469,7 +1469,13 @@ class CastsController extends AppController {
             ];
 
             // 新規エンティティ
-            $cast = $this->Casts->patchEntity($this->Casts->newEntity(), $data, ['validate' => false]);
+            $cast = $this->Casts->patchEntity($this->Casts->newEntity(), $data);
+
+            // バリデーションチェック
+            if ($cast->errors()) {
+                $errors = $this->Util->setErrMessage($cast); // エラーメッセージをセット
+                throw new RuntimeException($errors);
+            }
 
             // スタッフ登録
             if (!$this->Casts->save($cast)) {

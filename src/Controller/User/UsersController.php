@@ -836,12 +836,16 @@ class UsersController extends AppController {
             ];
 
             // 新規エンティティ
-            $newUser = $this->Users->newEntity();
-            $user = $this->Users->patchEntity($newUser, $data);
+            $user = $this->Users->patchEntity($this->Users->newEntity(), $data);
+
+            // バリデーションチェック
+            if ($user->errors()) {
+                $errors = $this->Util->setErrMessage($user); // エラーメッセージをセット
+                throw new RuntimeException($errors);
+            }
 
             // ユーザ登録
             if (!$this->Users->save($user)) {
-
                 throw new RuntimeException('レコードの更新に失敗しました。');
             }
 
