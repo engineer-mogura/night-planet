@@ -22,7 +22,8 @@ class BatchComponent extends Component {
 
     use MailerAwareTrait; // メールクラス
     public function initialize(array $config) {
-        // Utilコンポーネント
+        // コンポーネント
+        $this->Instagram = new InstagramComponent(new ComponentRegistry());
         $this->Util = new UtilComponent(new ComponentRegistry());
         $this->S3Client = new S3ClientComponent(new ComponentRegistry());
     }
@@ -261,7 +262,7 @@ class BatchComponent extends Component {
             $cache_path = PATH_ROOT['TMP'] . DS . PATH_ROOT['CACHE'];
             $datFile = $insta_user_name . '-instagram_graph_api.dat';
             // インスタ情報を取得
-            $tmp_ig_data = $this->Util->getInstagram(
+            $tmp_ig_data = $this->Instagram->getInstagram(
                 $insta_user_name,
                 null,
                 $shop->shopInfo['current_plan'],

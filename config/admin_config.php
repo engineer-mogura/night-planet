@@ -43,7 +43,7 @@ return [
         'INSTAGRAM_USER_NAME'=> env('INSTAGRAM_USER_NAME'), // INSTAGRAMビジネスアカウントネーム
         'INSTAGRAM_BUSINESS_ID'=> env('INSTAGRAM_BUSINESS_ID'), // INSTAGRAMビジネスアカウントID
         'INSTAGRAM_GRAPH_API_ACCESS_TOKEN'=> env('INSTAGRAM_GRAPH_API_ACCESS_TOKEN'), // #3INSTAGRAMアクセストークン
-        'INSTAGRAM_GRAPH_API'=> 'https://graph.facebook.com/v4.0/', // インスタグラムのAPIパス
+        'INSTAGRAM_GRAPH_API'=> 'https://graph.facebook.com/v18.0/', // インスタグラムのAPIパス
         'INSTAGRAM_MAX_POSTS'=> 9, // インスタグラムの最大投稿取得数
         'INSTAGRAM_SHOW_MODE'=> 'grid', // インスタグラム表示モード
         'INSTAGRAM_CACHE_TIME'=> 360, // インスタグラムキャッシュタイム

@@ -676,7 +676,7 @@ class AreaController extends AppController {
             $cache_path = PATH_ROOT['TMP'] . DS . PATH_ROOT['CACHE'];
             $datFile = $insta_user_name . '-instagram_graph_api.dat';
             // インスタ情報を取得
-            $tmp_ig_data = $this->Util->getInstagram($insta_user_name, null, $shopInfo['current_plan'], $cache_path, $datFile);
+            $tmp_ig_data = $this->Instagram->getInstagram($insta_user_name, null, $shopInfo['current_plan'], $cache_path, $datFile);
             // データ取得に失敗した場合
             if (!$tmp_ig_data) {
                 $this->log('【' . AREA[$shop->area]['label']
@@ -884,7 +884,7 @@ class AreaController extends AppController {
             $cache_path = PATH_ROOT['TMP'] . DS . PATH_ROOT['CACHE'];
             $datFile = $insta_user_name . '-instagram_graph_api.dat';
             // インスタ情報を取得
-            $tmp_ig_data = $this->Util->getInstagram($insta_user_name, null, $shopInfo['current_plan'], $cache_path, $datFile);
+            $tmp_ig_data = $this->Instagram->getInstagram($insta_user_name, null, $shopInfo['current_plan'], $cache_path, $datFile);
             // データ取得に失敗した場合
             if (!$tmp_ig_data) {
                 $this->log('【' . AREA[$shop->area]['label']
