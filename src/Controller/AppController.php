@@ -18,8 +18,7 @@ use App\Controller\Component\OutSideSqlComponent;
  * @link https://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-    public $components = array('Util', 'OutSideSql');
-
+    public $components = array('Util', 'OutSideSql', 'Instagram');
     public function initialize() {
         parent::initialize();
         $this->loadComponent('S3Client');
