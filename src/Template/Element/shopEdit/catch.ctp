@@ -34,7 +34,7 @@
     </div>
     <div class="row">
       <div class="input-field col s12 m6 l6">
-        <textarea id="catch-copy" class="validate materialize-textarea" name="catch" data-length="120"></textarea>
+        <textarea id="catch-copy" class="validate materialize-textarea" name="catch" maxlength="200" data-length="200" placeholder="お店のキャッチコピーを書いてみよう！"></textarea>
         <label for="cast-copy">キャッチコピー</label>
       </div>
     </div>

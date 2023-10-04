@@ -149,7 +149,7 @@ class ShopsTable extends Table
         $validator
             ->scalar('catch')
             ->minLength('catch', 5, helper::encode('キャッチコピーが短すぎます。'))
-            ->maxLength('catch', 100, helper::encode('キャッチコピーは100文字以内にしてください。'))
+            ->maxLength('catch', 400, helper::encode('キャッチコピーは200文字以内にしてください。'))
             ->allowEmptyString('catch');
 
         $validator
