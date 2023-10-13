@@ -38,6 +38,15 @@ delete () {
   fi
 }
 
+stop () {
+  IMAGES=$(docker ps -q | wc -l)
+  if [ "${IMAGES}" -ge 1 ]; then
+    echo "現在起動しているコンテナを停止します..."
+    docker stop $(docker ps --filter name=${SERVICE_NAME}-${EXE_ENV} --format "{{.Names}}")
+  fi
+  echo "コンテナを停止しました"
+}
+
 up () {
   IMAGES=$(docker ps -q | wc -l)
   if [ "${IMAGES}" -ge 1 ]; then
@@ -284,10 +293,11 @@ WORK_DIR="./work_dir/NightPlanet/env"
 #サービスネーム
 SERVICE_NAME="night-planet"
 
-while getopts :ubcdrhpwl OPT
+while getopts :usbcdrhpwl OPT
 do
 case $OPT in
 u ) up;;
+s ) stop;;
 b ) build;;
 c ) clean;;
 d ) delete;;
