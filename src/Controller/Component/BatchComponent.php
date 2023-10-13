@@ -330,7 +330,7 @@ class BatchComponent extends Component {
                         $newPhotosRankEntity->set('genre', $shop->shopInfo['genre']['label']);
                         $newPhotosRankEntity->set('is_insta', 1);
                         $newPhotosRankEntity->set('media_type', $value['media_type']);
-                        $newPhotosRankEntity->set('like_count', $value['like_count']);
+                        $newPhotosRankEntity->set('like_count', is_null($value['like_count']) ? '-' : $value['like_count']);
                         $newPhotosRankEntity->set('comments_count', $value['comments_count']);
                         $newPhotosRankEntity->set('photo_path', $value['media_url']);
                         // ナイプラ自身のインスタの場合
@@ -400,7 +400,7 @@ class BatchComponent extends Component {
                         $newPhotosRankEntity->set('genre', $cast->castInfo['genre']['label']);
                         $newPhotosRankEntity->set('is_insta', 1);
                         $newPhotosRankEntity->set('media_type', $value['media_type']);
-                        $newPhotosRankEntity->set('like_count', $value['like_count']);
+                        $newPhotosRankEntity->set('like_count', is_null($value['like_count']) ? '-' : $value['like_count']);
                         $newPhotosRankEntity->set('comments_count', $value['comments_count']);
                         $newPhotosRankEntity->set('photo_path', $value['media_url']);
                         // ナイプラ自身のインスタの場合
