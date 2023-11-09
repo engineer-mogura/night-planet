@@ -8,6 +8,12 @@
         },
         {
             "path": "../engineer-mogura-proxy"
+        },
+        {
+            "path": "../cloud-works"
+        },
+        {
+            "path": "../project-discription"
         }
     ],
     "settings": {

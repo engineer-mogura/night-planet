@@ -234,7 +234,7 @@ Description:
 
 Options:
 -s setDmainIpAddr を実行します。VM追加時にタイミングによっては、domain にIPアドレスが更新されない場合がある。更新されない場合はこちら。
--v vmActoin を実行します。引数によって VM の start, stop, reboot, add を実行します。
+-v vmActoin を実行します。引数によって VM の start, stop, reboot, add deleteを実行します。
 -h ヘルプを表示します。
 -pb build 時に実行環境(本番環境)を指定します。
 -wb build 時に実行環境(開発環境)を指定します。
