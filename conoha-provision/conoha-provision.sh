@@ -7,7 +7,7 @@
 # https://jqlang.github.io/jq/
 # https://zenn.dev/easy_easy/articles/e47b37b04dd1153d5b29
 
-ENV_FILE=./conoha-api-env.txt
+ENV_FILE=./conoha-provision/conoha-api-env.txt
 
 source $ENV_FILE
 
@@ -59,7 +59,7 @@ getVmPlans () {
 }
 # 開発環境 vm id を取得し、ENV_FILE に書き込む
 getVmId () {
-	createToken
+	# createToken
 	CURRENT_VM_ID=$(
 		curl -s GET \
 		-H "Accept: application/json" \
@@ -82,6 +82,8 @@ getVmId () {
 vmActoin () {
 
 	createToken
+	getRefImageId
+	getVmId
 
 	echo -e "\nvps-$(echo $DATE)-work"
 	# createToken
@@ -234,7 +236,7 @@ Description:
 
 Options:
 -s setDmainIpAddr を実行します。VM追加時にタイミングによっては、domain にIPアドレスが更新されない場合がある。更新されない場合はこちら。
--v vmActoin を実行します。引数によって VM の start, stop, reboot, add deleteを実行します。
+-v vmActoin を実行します。引数によって VM の start, stop, reboot, add deleteを実行します。※実行例：sh ./conoha-provision/conoha-provision.sh -v add
 -h ヘルプを表示します。
 -pb build 時に実行環境(本番環境)を指定します。
 -wb build 時に実行環境(開発環境)を指定します。
