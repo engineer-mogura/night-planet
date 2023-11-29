@@ -11,6 +11,38 @@ ENV_FILE=./conoha-provision/conoha-api-env.txt
 
 source $ENV_FILE
 
+# 定義ファイルのチェック
+checkEnv () {
+	isEmpty=false
+	# USER_NAME
+	if [ "$(cat $ENV_FILE | grep -E 'USER_NAME=.+' )" ] ;then
+		echo USER_NAME=${USER_NAME}
+	else
+		isEmpty=true
+		echo USER_NAME が定義されていません。
+	fi
+	# PASSWORD
+	if [ "$(cat $ENV_FILE | grep -E 'PASSWORD=.+' )" ] ;then
+		echo PASSWORD=${PASSWORD}
+	else
+		isEmpty=true
+		echo PASSWORD が定義されていません。
+	fi
+	# TENANT_ID
+	if [ "$(cat $ENV_FILE | grep -E 'TENANT_ID=.+' )" ] ;then
+		echo TENANT_ID=${TENANT_ID}
+	else
+		isEmpty=true
+		echo TENANT_ID が定義されていません。
+	fi
+	if "$isEmpty" ;then
+		echo -e "\n定義ファイル内容"
+		cat $ENV_FILE
+		echo -e "\n処理を中断しました。"
+		exit 1
+	fi
+}
+
 # $TOKENを取得し、ENV_FILE に書き込む
 createToken () {
 	RES=$(
@@ -81,12 +113,13 @@ getVmId () {
 ################## VM アクション一覧 ######################
 vmActoin () {
 
+	checkEnv
 	createToken
 	getRefImageId
 	getVmId
 
 	echo -e "\nvps-$(echo $DATE)-work"
-	# createToken
+
 	# 起動 or シャットダウン
 	if [ $VM_ACTION_TYPE = start ] || [ $VM_ACTION_TYPE = stop ];then
 		echo start or stop vm id: ${VM_ID}

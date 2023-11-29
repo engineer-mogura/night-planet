@@ -1,58 +1,50 @@
-# CakePHP Application Skeleton
+# Night Planet (ナイトプラネット)
 
-[![Build Status](https://img.shields.io/travis/cakephp/app/master.svg?style=flat-square)](https://travis-ci.org/cakephp/app)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
+## 概要
+- ナイト情報提供ポータルサイト
+[本番サイトはこちら](https://night-planet.com/)
+- ナイトプラネットは、沖縄県の飲み屋街の活性化を目的とポータルサイトです。
 
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 3.x.
+## 事前準備
+### Composer インストール
+[Composer 公式サイト](https://getcomposer.org/)
+- インストール確認
+```
+composer -V
+```
+### Docker インストール
+[Docker 公式サイト](https://www.docker.com/products/docker-desktop/)
+- インストール確認
+```
+docker --version
+```
+## インストール手順
+ターミナルにて操作
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
-
-## Installation
-
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
-
-If Composer is installed globally, run
-
-```bash
-composer create-project --prefer-dist "cakephp/app:^3.8"
+- クローンするディクレトリ作成
+```
+mkdir apps
+```
+- GitHub からプロジェクトをクローン
+```
+git clone https://github.com/engineer-mogura/night-planet.git night-planet
 ```
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
-
-```bash
-composer create-project --prefer-dist "cakephp/app:^3.8" myapp
+- コンポーサーをインストール ※composer.json の動階層で実行
+```
+composer install
 ```
 
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
-
-```bash
-bin/cake server -p 8765
+注) ビルド前に必要な設定ファイル、各初期データをプロジェクトマネージャーから連携してください。<br>
+- Docker コンテナビルド ※シェル内部で自動実行します
 ```
-
-Then visit `http://localhost:8765` to see the welcome page.
-
-## Update
-
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
-
-## Configuration
-
-Read and edit `config/app.php` and setup the `'Datasources'` and any other
-configuration relevant for your application.
-
-## Layout
-
-The app skeleton uses a subset of [Foundation](http://foundation.zurb.com/) (v5) CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+sh dockerops.sh -lb
+```
+- ローカル環境アクセス
+[http://night-planet.local/](http://night-planet.local/)
 
 
-## 起動方法
-
-アプリ直下のdockerops.sh を叩く
-以上。
-https://wiki.kazuma.tokyo/docker-compose%E3%81%AE%E3%82%AA%E3%83%9A%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AB%E4%BD%BF%E3%81%88%E3%82%8B%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88/
+## デバッグ環境
+- VS Code 拡張プラグイン Xdebugで構築済です
+- apps 直下に night-planet.code-workspace がありますので、ローカルにPHPをインストールし実行環境を整えてください。
+- バージョンはPHP 7.4 系を推奨します。
