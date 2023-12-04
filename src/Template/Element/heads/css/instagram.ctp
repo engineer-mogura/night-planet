@@ -1,1 +1,1 @@
-<?= $this->Html->css('instagram.css?ver=1.0.1') ?>
+<?= $this->Html->css('instagram.css?ver=1.0.2') ?>
