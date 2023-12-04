@@ -272,11 +272,25 @@ article#SNS_Instagram input#show_list:checked + input + main > div{
   border-radius       : 5px;
   border              : 1px solid #999;
 }
-article#SNS_Instagram input#show_list:checked + input + main > div > a > div,
-article#SNS_Instagram input#show_list:checked + input + main > div > a > div > video{
+article#SNS_Instagram input#show_list:checked + input + main > div > a > div.instagram-image{
   display             : block;
   position            : relative;
   padding-top         : 50%;
+  background-position : center;
+  background-size     : cover;
+  overflow            : hidden;
+}
+article#SNS_Instagram input#show_list:checked + input + main > div > a > div.instagram-video {
+  display: block;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+article#SNS_Instagram input#show_list:checked + input + main > div > a > div > video{
+  display             : block;
+  width               : 100%;
+  position            : relative;
   background-position : center;
   background-size     : cover;
   overflow            : hidden;

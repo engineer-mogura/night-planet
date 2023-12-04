@@ -67,7 +67,7 @@
 		// 動画の場合は$post->media_urlが取得されないので$post->thumbnail_urlを使う (2019/08/27追記)
 			if($post->media_type == 'VIDEO'):
 ?>
-		<div>
+		<div class="instagram-video">
 			<video muted loop playsinline autoplay>
 				<source src="<?php echo $media; ?>" type="video/mp4">
 				<p>動画を再生するには  HTML5 video に対応したブラウザが必要です。</p>
@@ -76,7 +76,7 @@
 <?php
 			else:
 ?>
-		<div style="background-image: url('<?php echo $media; ?>');"></div>
+		<div class="instagram-image" style="background-image: url('<?php echo $media; ?>');"></div>
 <?php
 			endif;
 ?>
