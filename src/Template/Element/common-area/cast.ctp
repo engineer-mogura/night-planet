@@ -66,7 +66,7 @@
 			<!-- 更新情報 END -->
 			<!-- スタッフメニュー START -->
 			<div id="menu-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel col s12 center-align">
 					<p class="staff-menu-section section-label"><span> STAFF MENU </span></p>
 				</div>
 				<div class="col s4 m3 l3">
@@ -132,7 +132,7 @@
 			<!-- スタッフメニュー END -->
 			<!-- プロフィール START -->
 			<div id="cast-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel col s12 center-align">
 					<p class="cast-profile-label section-label"><span> PROFILE </span></p>
 				</div>
 				<div class="col s12 m12 l12">
@@ -161,7 +161,7 @@
 			<!-- プロフィール END -->
 			<!-- スタッフギャラリー START -->
 			<div id="cast-gallery-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel col s12 center-align">
 					<p class="cast-gallery-label section-label"><span> GALLERY </span></p>
 				</div>
 				<?= count($shop->casts[0]->gallery) == 0 ? '<p class="col">まだ投稿がありません。</p>' : ""; ?>
@@ -194,7 +194,7 @@
 			<!-- スタッフギャラリー END -->
 			<!-- 日記 START -->
 			<div id="diary-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel col s12 center-align">
 					<p class="diary-label section-label"><span> DIARY </span></p>
 				</div>
 				<?php if (count($shop->casts[0]->diarys) > 0) : ?>
@@ -228,7 +228,7 @@
 			<!-- instagram START -->
 			<?php if (!empty($cast->snss[0]['instagram'])) : ?>
 				<div id="instagram-section" class="row shop-menu section scrollspy">
-					<div class="light-blue accent-2 card-panel col s12 center-align">
+					<div class="accent-2 card-panel col s12 center-align">
 						<p class="instagram-label section-label"><span> INSTAGRAM </span></p>
 					</div>
 					<?php if (!empty($ig_error)) :
@@ -247,7 +247,7 @@
 			<!-- facebook START -->
 			<?php if (!empty($shop->casts[0]->snss[0]['facebook'])) : ?>
 				<div id="facebook-section" class="row shop-menu section scrollspy">
-					<div class="light-blue accent-2 card-panel col s12 center-align">
+					<div class="accent-2 card-panel col s12 center-align">
 						<p class="facebook-label section-label"><span> FACEBOOK </span></p>
 					</div>
 					<div id="fb-root"></div>
@@ -261,7 +261,7 @@
 			<!-- twitter START -->
 			<?php if (!empty($shop->casts[0]->snss[0]['twitter'])) : ?>
 				<div id="twitter-section" class="row shop-menu section scrollspy">
-					<div class="light-blue accent-2 card-panel col s12 center-align">
+					<div class="accent-2 card-panel col s12 center-align">
 						<p class="twitter-label section-label"><span> TWITTER </span></p>
 					</div>
 					<div class="twitter-box col">
@@ -274,7 +274,7 @@
 			<!-- スタッフリスト START -->
 
 			<div id="p-casts-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel col s12 center-align">
 					<p class="casts-label section-label"><span> STAFF </span></p>
 				</div>
 				<?php if (count($shop->casts) > 1) : ?>

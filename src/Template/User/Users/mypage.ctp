@@ -60,7 +60,7 @@
 			<!-- 更新情報 END -->
 			<!-- ユーザーメニュー START -->
 			<div id="menu-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel col s12 center-align">
 					<p class="user-menu-section section-label"><span> MY MENU </span></p>
 				</div>
 				<div class="col s4 m4 l2">
@@ -75,7 +75,7 @@
 						<a class="waves-effect waves-light" href="#comment-section"></a>
 					</div>
 				</div>
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel col s12 center-align">
 					<p class="favorite-label section-label"><span> MY FAVO </span></p>
 				</div>
 				<div class="col s4 m4 l2">

@@ -30,7 +30,7 @@
                         </a>
                     </div>
                     <div class="row section other-review-section">
-                        <div class="light-blue accent-2 card-panel col s12 center-align">
+                        <div class="accent-2 card-panel col s12 center-align">
                             <p class="event-label section-label"><span> 口コミ一覧 </span></p>
                         </div>
                         <div class="col s12 m12 l12">

@@ -31,23 +31,36 @@
 		?>
 			<div style="display: inline-table;">
 				<a onclick="click_figure(this)" id="<?= 'call-figure' . h($key) ?>" class="instagram" title="likes:<?php echo $post->like_count; ?>">
-					<div style="background-image: url('<?php echo $media; ?>');">
+<?php
+// 動画の場合
+if ($post->media_type == 'VIDEO') :
+?>
+				<div class="instagram-video bg-lazyload">
+					<video muted loop playsinline autoplay>
+						<source src="<?php echo $media; ?>" type="video/mp4">
+						<p>動画を再生するには  HTML5 video に対応したブラウザが必要です。</p>
+					</video>
+					<div class="footer-box">
+						<span class="badge area-badge truncate"><span class="footer-message"><?= $post->area . " " . $post->genre; ?>
+								<br><?= $post->name ?></span></span>
+					</div>
+				</div>
+				<span class="ig-video"></span><!-- 追加要素 -->
+<?php
+			else:
+?>
+					<div class="instagram-image bg-lazyload" style="background-image: url('<?php echo $media; ?>');">
 						<div class="footer-box">
 							<span class="badge area-badge truncate"><span class="footer-message"><?= $post->area . " " . $post->genre; ?>
 									<br><?= $post->name ?></span></span>
 						</div>
 					</div>
-					<?php
-					// 動画の場合
-					if ($post->media_type == 'VIDEO') :
-					?>
-						<span class="ig-video"></span><!-- 追加要素 -->
-					<?php
-					endif;
-					?>
+<?php
+			endif;
+?>
 					<span class="ig-comment icon-vertical-align"><i class="material-icons">comment</i><?= $post->comments_count; ?></span>
 					<span class="ig-like icon-vertical-align"><i class="material-icons">favorite</i><?= $post->like_count; ?></span>
-					<?= $post->media_type == 'VIDEO' ? '<span class="ig-video icon-vertical-align"><i class="small material-icons">play_arrow</i></span>' : "" ?></br>
+					<?= $post->media_type == 'VIDEO' ? '<span class="icon-vertical-align"><i class="small material-icons">play_arrow</i></span>' : "" ?></br>
 				</a>
 				<time datetime="<?php echo $post->date; ?>"><?php echo '投稿日時：', date('Y年 n月 j日', strtotime($post->date)), ' (', $days[date('w', strtotime($post->date))], ')'; ?></time>
 				<p>

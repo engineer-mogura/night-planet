@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col s12 m12 l12">
                     <div class="row section favo-list-section">
-                        <div class="light-blue accent-2 card-panel col s12 center-align">
+                        <div class="accent-2 card-panel col s12 center-align">
                             <p class="event-label section-label"><span> お気に入り一覧 </span></p>
                         </div>
                         <div class="col s12 m12 l12">

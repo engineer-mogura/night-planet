@@ -13,7 +13,7 @@
       <?php if(!$shop->catch == "") { ?>
         <div class="row">
           <div class="catch-box center-align col s12 m6 l6">
-            <div class="card-panel light-blue accent-1"><?=$this->Text->autoParagraph($shop->catch); ?></div>
+            <div class="card-panel accent-1"><?=$this->Text->autoParagraph($shop->catch); ?></div>
           </div>
         </div>
         <div class="card-content center-align">

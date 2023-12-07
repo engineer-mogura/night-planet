@@ -5,7 +5,7 @@
 		<div id="shop-main" class="col s12 m12 l8">
 			<!-- 店舗ヘッダ START -->
 			<div class="row shop-head-section">
-				<img class="responsive-img" width="100%" src=<?= $shop->top_image ?> />
+				<img class="responsive-img" width="100%" src=<?= $shop->top_image ?> loading="lazy"/>
 				<div class="shop-head">
 					<div class="shop-head-line1 col s12">
 						<ul class="shop-head-line1__ul">
@@ -39,7 +39,7 @@
 			<!-- 店舗ヘッダ END -->
 			<!-- キャッチコピー START -->
 			<div class="row section header-discription-message">
-				<div class="card-panel light-blue">
+				<div class="card-panel bg-lazyload">
 					<?php if ($shop->catch != '') :
 						echo ($this->Text->autoParagraph($shop->catch));
 					else :
@@ -54,7 +54,7 @@
 			<!-- 更新情報 END -->
 			<!-- 店舗メニュー START -->
 			<div id="menu-section" class="option-menu-color-<?= $shop->shop_options[0]['menu_color'] ?> row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 					<p class="shop-menu-section section-label"><span> SHOP MENU </span></p>
 				</div>
 				<div class="col s4 m4 l4">
@@ -157,7 +157,7 @@
 			<!-- 店舗メニュー END -->
 			<!-- スタッフリスト START -->
 			<div id="p-casts-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 					<p class="casts-label section-label"><span> STAFF </span></p>
 				</div>
 				<?php if (count($shop->casts) > 0) : ?>
@@ -165,7 +165,7 @@
 						<div class="p-casts-section__list center-align col s3 m3 l3 favorite">
 							<?= $this->User->get_favo_html('staff_list', $cast) ?>
 							<a href="<?= DS . $shop['area'] . DS . PATH_ROOT['CAST'] . DS . $cast['id'] ?>">
-								<img src="<?= $cast->icon ?>" alt="<?= $cast->nickname ?>" class="p-casts-section__list_img_circle circle">
+								<img src="<?= $cast->icon ?>" alt="<?= $cast->nickname ?>" class="p-casts-section__list_img_circle circle" loading="lazy">
 							</a>
 							<div class="p-casts-section__p-casts-section__list__icons">
 								<?= isset($cast->new_cast) ? '<i class="material-icons icons__new-icon puyon">fiber_new</i>' : '' ?>
@@ -181,7 +181,7 @@
 			<!-- スタッフリスト END -->
 			<!-- 日記 START -->
 			<div id="diary-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 					<p class="diary-label section-label"><span> DIARY </span></p>
 				</div>
 				<?php if (count($diarys) > 0) : ?>
@@ -191,7 +191,7 @@
 								<div class="archiveLink">
 									<input type="hidden" name="diary_id" value=<?= $value->id ?>>
 									<?php !empty($value['gallery'][0]['file_path']) ? $imgPath = $value['gallery'][0]['file_path'] : $imgPath = PATH_ROOT['NO_IMAGE01']; ?>
-									<img src="<?= $value->icon ?>" alt="" class="circle">
+									<img src="<?= $value->icon ?>" alt="" class="circle" loading="lazy">
 									<h6 class="li-linkbox__a__h6"><?= $value->created->nice() ?>
 										<a class="li-linkbox__a-image btn-floating btn red darken-3 lighten-1"><i class="material-icons">camera_alt</i></a>
 										<span class="li-linkbox__a-image__count"><?= $value->gallery_count ?></span>
@@ -211,7 +211,7 @@
 			<!-- 日記 END -->
 			<!-- 店舗情報 START -->
 			<div id="shop-info-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 					<p class="shop-info-label section-label"><span> SYSTEM </span></p>
 				</div>
 				<div class="col s12 m12 l12">
@@ -282,7 +282,7 @@
 										<?php $array = explode(',', $shop->credit); ?>
 										<?php for ($i = 0; $i < count($array); $i++) : ?>
 											<div class="chip" name="" value="">
-												<img src="<?= PATH_ROOT['CREDIT'] . $array[$i] ?>.png" id="<?= $array[$i] ?>" alt="<?= $array[$i] ?>">
+												<img loading="lazy" decoding="async" src="<?= PATH_ROOT['CREDIT'] . $array[$i] ?>.png" id="<?= $array[$i] ?>" alt="<?= $array[$i] ?>">
 												<?= $array[$i] ?>
 											</div>
 										<?php endfor; ?>
@@ -298,7 +298,7 @@
 			<!-- instagram START -->
 			<?php if (!empty($shop->snss[0]['instagram'])) : ?>
 				<div id="instagram-section" class="row shop-menu section scrollspy">
-					<div class="light-blue accent-2 card-panel col s12 center-align">
+					<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 						<p class="instagram-label section-label"><span> INSTAGRAM </span></p>
 					</div>
 					<?php if (!empty($ig_error)) :
@@ -318,7 +318,7 @@
 			<!-- <?php if ($isShow_fb) : ?>
 				<?php if (!empty($shop->snss[0]['facebook'])) : ?>
 					<div id="facebook-section" class="row shop-menu section scrollspy">
-						<div class="light-blue accent-2 card-panel col s12 center-align">
+						<div class="accent-2 card-panel col s12 center-align">
 							<p class="facebook-label section-label"><span> facebook </span></p>
 						</div>
 						<div id="fb-root"></div>
@@ -340,7 +340,7 @@
 			<!-- twitter START -->
 			<?php if (!empty($shop->snss[0]['twitter'])) : ?>
 				<div id="twitter-section" class="row shop-menu section scrollspy">
-					<div class="light-blue accent-2 card-panel col s12 center-align">
+					<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 						<p class="twitter-label section-label"><span> TWITTER </span></p>
 					</div>
 					<div class="twitter-box col">
@@ -352,7 +352,7 @@
 			<!-- twitter END -->
 			<!-- お知らせ START -->
 			<div id="event-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 					<p class="event-label section-label"><span> NEWS </span></p>
 				</div>
 				<?php if (count($shop->shop_infos) > 0) : ?>
@@ -360,7 +360,7 @@
 						<?php foreach ($shop->shop_infos[0]->gallery as $key => $value) : ?>
 							<figure>
 								<a href="<?= $value['file_path'] ?>" data-size="800x1000">
-									<img width="100%" src="<?= $value['file_path'] ?>" alt="<?= $value['date'] ?>" />
+									<img width="100%" src="<?= $value['file_path'] ?>" alt="<?= $value['date'] ?>" loading="lazy"/>
 								</a>
 								<figcaption style="display:none;">
 									<?= $value['date'] ?>
@@ -388,7 +388,7 @@
 			<!-- お知らせ END -->
 			<!-- 店舗ギャラリー START -->
 			<div id="shop-gallery-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 					<p class="shop-gallery-label section-label"><span> GALLERY </span></p>
 				</div>
 				<?= count($shop->gallery) == 0 ? '<p class="col">まだ投稿がありません。</p>' : ""; ?>
@@ -396,7 +396,7 @@
 					<?php foreach ($shop->gallery as $key => $value) : ?>
 						<figure>
 							<a href="<?= $value['file_path'] ?>" data-size="800x1000">
-								<img width="100%" src="<?= $value['file_path'] ?>" alt="<?= $value['date'] ?>" />
+								<img width="100%" loading="lazy" decoding="async" src="<?= $value['file_path'] ?>" alt="<?= $value['date'] ?>" />
 							</a>
 							<figcaption style="display:none;">
 								<?= $value['date'] ?>
@@ -408,7 +408,7 @@
 			<!-- 店舗ギャラリー END -->
 			<!-- 口コミ START -->
 			<div id="comment-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 					<p class="comment-label section-label"><span> VOICE </span></p>
 				</div>
 				<span style="float:right;">
@@ -419,7 +419,7 @@
 			<!-- 口コミ MAP END -->
 			<!-- GOOGLE MAP START -->
 			<div id="map-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 					<p class="map-label section-label"><span> MAP </span></p>
 				</div>
 				<div style="width:100%;height:300px;" id="google_map"></div>
@@ -427,7 +427,7 @@
 			<!-- GOOGLE MAP END -->
 			<!-- 求人情報 START -->
 			<div id="recruit-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel bg-lazyload col s12 center-align">
 					<p class="recruit-label section-label"><span> RECRUIT </span></p>
 				</div>
 				<div class="col s12 m12 l12">

@@ -26,7 +26,7 @@
 				<?php foreach ($genreCounts as $key => $value): ?>
 					<div class="area-section__list center-align col s4 m3 l3 avatar favorite">
 						<a href="<?= $value['genre_path'] ?>">
-							<img src="<?=$value['image'] ?>" alt="<?=$value['label']?>" class="area-section__list_img_circle circle">
+							<img src="<?=$value['image'] ?>" alt="<?=$value['label']?>" class="area-section__list_img_circle circle" loading="lazy">
 							<a class="area-section__list_img_circle__label_bottom btn-floating btn pink darken-1 lighten-1">
 								<i class="material-icons"><?=mb_convert_kana($value['count'], 'A')?></i>
 							</a>
@@ -46,7 +46,7 @@
 						<ul id="shop-new-notice" class="collection z-depth-3">
 							<?php foreach ($notices as $key => $value): ?>
 								<li class="linkbox collection-item avatar favorite">
-									<img src="<?= $value->icon ?>" alt="" class="circle">
+									<img src="<?= $value->icon ?>" alt="" class="circle" loading="lazy">
 									<h6 class="li-linkbox__a__h6"><?=$value->created->nice()?>
 										<a class="li-linkbox__a-image btn-floating btn red darken-3 lighten-1"><i class="material-icons">camera_alt</i></a>
 										<span class="li-linkbox__a-image__count"><?=$value->gallery_count?></span>
@@ -70,7 +70,7 @@
 						<ul id="cast-new-diary" class="collection z-depth-3">
 							<?php foreach ($diarys as $key => $value): ?>
 								<li class="linkbox collection-item avatar favorite">
-									<img src="<?= $value->icon ?>" alt="" class="circle">
+									<img src="<?= $value->icon ?>" alt="" class="circle" loading="lazy">
 									<h6 class="li-linkbox__a__h6"><?=$value->created->nice()?>
 										<a class="li-linkbox__a-image btn-floating btn red darken-3 lighten-1"><i class="material-icons">camera_alt</i></a>
 										<span class="li-linkbox__a-image__count"><?=$value->gallery_count?></span>
@@ -92,7 +92,7 @@
 				</div>
 			</div>
 			<div class="row section tabs-section2">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel col s12 center-align">
 					<p class="trending_up-label section-label"><span> ランキング </span></p>
 				</div>
 				<ul id="tabs-ranking" class="tabs tabs-fixed-width">
@@ -106,7 +106,7 @@
 							<figure>
 								<span class="rank rank-header">No <?=$key + 1?></span>
 								<a href="<?=$value->castInfo['cast_url']?>" data-size="800x1000">
-									<img width="100%" src="<?=$value['img_path']?>" alt="<?=$value->castInfo['area']['label'] . $value->name?>" />
+									<img width="100%" src="<?=$value['img_path']?>" alt="<?=$value->castInfo['area']['label'] . $value->name?>" loading="lazy"/>
 								</a>
 								<span class="rank rank-footer truncate"><?=$value->castInfo['area']['label'].' '.$value->castInfo['genre']['label']?>
 									<br><?=$value->name?></span>
@@ -122,7 +122,7 @@
 							<figure>
 								<span class="rank rank-header">No <?=$key + 1?></span>
 								<a href="<?=$value->shopInfo['shop_url']?>" data-size="800x1000">
-									<img width="100%" src="<?=$value['img_path']?>" alt="<?=$value->shopInfo['area']['label'] . $value->name?>" />
+									<img width="100%" src="<?=$value['img_path']?>" alt="<?=$value->shopInfo['area']['label'] . $value->name?>" loading="lazy"/>
 								</a>
 								<span class="rank rank-footer truncate"><?=$value->shopInfo['area']['label'].' '.$value->shopInfo['genre']['label']?>
 									<br><?=$value->name?></span>
@@ -134,7 +134,7 @@
 			</div>
 			<!-- Photos START -->
 			<div id="instagram-section" class="row shop-menu section scrollspy">
-				<div class="light-blue accent-2 card-panel col s12 center-align">
+				<div class="accent-2 card-panel col s12 center-align">
 					<p class="instagram-label section-label"><span> Photos </span></p>
 				</div>
 				<!-- photoSwipe START -->

@@ -1158,7 +1158,7 @@ nav ul a {
   height: 30px;
   border-radius: 32px;
 }
-div.row.section > .card-panel {
+div.row.section > .card-panel.bg-lazyloaded {
   background-image: url(http://night-planet.local:9090/night-planet/others/obi2.png);
   background-size: 102%;
 }
