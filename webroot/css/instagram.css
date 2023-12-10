@@ -359,9 +359,8 @@ article#SNS_Instagram input#show_list:checked + input + main > div > p > a{
 	font-size           : 16px;
 	line-height         : 26px;
   color               : white;
-  font-size           : smaller;color: goldenrod;
-  background-color    : darkslategray;
-  width               : 30%;
+  background-color    : #fb8c00;
+  height               : 30px;
 }
 .ig-details > a {
   color: khaki;

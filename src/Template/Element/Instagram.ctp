@@ -97,8 +97,7 @@
 				endif;
 ?>
 				<span class="ig-comment icon-vertical-align"><i class="material-icons">comment</i><?=$post->comments_count;?></span>
-				<span class="ig-like icon-vertical-align"><i class="material-icons">favorite</i><?=$post->like_count;?></span>
-				<?= $post->media_type == 'VIDEO' ? '<span class="icon-vertical-align"><i class="small material-icons">play_arrow</i></span>' : "" ?></br>
+				<span class="ig-like icon-vertical-align"><i class="material-icons">favorite</i><?=$post->like_count;?></span></br>
 			</a>
           <time datetime="<?php echo $post->timestamp; ?>"><?php echo '投稿日時：', date('Y年 n月 j日', strtotime($post->timestamp)), ' (', $days[date('w', strtotime($post->timestamp))], ')'; ?></time>
           <p>

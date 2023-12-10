@@ -282,7 +282,7 @@
 										<?php $array = explode(',', $shop->credit); ?>
 										<?php for ($i = 0; $i < count($array); $i++) : ?>
 											<div class="chip" name="" value="">
-												<img loading="lazy" decoding="async" src="<?= PATH_ROOT['CREDIT'] . $array[$i] ?>.png" id="<?= $array[$i] ?>" alt="<?= $array[$i] ?>">
+												<img loading="lazy" src="<?= PATH_ROOT['CREDIT'] . $array[$i] ?>.png" id="<?= $array[$i] ?>" alt="<?= $array[$i] ?>">
 												<?= $array[$i] ?>
 											</div>
 										<?php endfor; ?>
@@ -396,7 +396,7 @@
 					<?php foreach ($shop->gallery as $key => $value) : ?>
 						<figure>
 							<a href="<?= $value['file_path'] ?>" data-size="800x1000">
-								<img width="100%" loading="lazy" decoding="async" src="<?= $value['file_path'] ?>" alt="<?= $value['date'] ?>" />
+								<img width="100%" loading="lazy" src="<?= $value['file_path'] ?>" alt="<?= $value['date'] ?>" />
 							</a>
 							<figcaption style="display:none;">
 								<?= $value['date'] ?>

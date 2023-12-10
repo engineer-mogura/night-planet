@@ -562,6 +562,16 @@ form .warning-message {
   box-sizing: border-b;
   border: solid #fff 1px;
 }
+.my-gallery figure video {
+  display: list-item;
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-b;
+  border: solid #fff 1px;
+}
 /* PhotoSwipe END */
 
 /* ランキング START */
@@ -701,6 +711,79 @@ ul.tabs > li.tab-original.tab > .active {
 .area-section__list_img_circle.circle {
   height: 9em;
   width:  9em;
+}
+/* new photos */
+article#new__photos header > section{
+  display             : block;
+  margin              : 0px;
+  padding             : 10px;
+  background-color    : #f7fff8;
+  background          : linear-gradient(135deg,#ebff3709,#46ff4b09,#0affff09);
+  border-bottom       : 1px solid #969696;
+}
+article#new__photos header > section {
+  padding             : 2.5em;
+}
+article#new__photos header h1 {
+  margin              : 0px;
+  padding             : 0px;
+  height              : 60px;
+}
+
+/**  店舗カード、スタッフカードのインスタ表示 START ***/
+article#new__photos header h1 > a {
+  position            : relative;
+  display             : block;
+  margin              : 0px;
+  margin-left         : 40%;
+  padding-left        : 10px;
+  font-size           : 0;
+}
+article#new__photos header section a.night-planet-img {
+  position: relative;
+}
+article#new__photos header section a.img.night-planet-img:after {
+  border-radius: 100%;
+  position: absolute;
+  bottom: -3.5em;
+  content: "";
+  display: inline-block;
+  width: 4em;
+  height: 4em;
+  background-size: contain;
+  background-image: url(/favicons/icon-152x152.png);
+  background-repeat: no-repeat;
+}
+/* メイン表示部のスクロール設定 */
+article#new__photos main{
+  top                 : 140px; /* header : 90px + 44px = 134px / box-shadow : 6px */
+  bottom              : 2px;
+  left                : 0px;
+  right               : 2px;
+  height              : 450px;
+  display             : block;
+  overflow-x          : hidden;
+  overflow-y          : auto;
+}
+article#new__photos span.badge.area-badge {
+  display: block;
+  text-align: center;
+  position: static;
+  width: 100%;
+  margin-top: -35px;
+  bottom: 0;
+  left: -15px;
+  font-size: 10px;
+  color: #fff;
+  background-color: #ff7f00;
+  border-radius: 2px;
+  transform: scale(1);
+  opacity: 0.8;
+}
+article#new__photos span.badge {
+  text-align: center;
+  height: 35px;
+  line-height: 1.5;
 }
 /* トップページ画面 END */
 
@@ -2250,6 +2333,10 @@ form .message-label {
       height: 160px;
       object-fit: cover;
   }
+  .my-gallery figure video {
+    height: 160px;
+    object-fit: cover;
+  }
   .p-casts-section__list__favorite {
       width: 3em;
       height: 3em;
@@ -2471,7 +2558,10 @@ form .message-label {
       height: 120px;
       object-fit: cover;
   }
-
+  .my-gallery figure video {
+    height: 160px;
+    object-fit: cover;
+  }
   #p-casts-section .add-cast-icon {
       height: 20px;
       width: 20px;
