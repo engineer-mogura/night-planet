@@ -30,7 +30,7 @@
 					<a href="<?= $post->photo_path ?>" data-size="800x1000">
 						<?php if ($post->media_type == 'VIDEO') : ?>
 							<!-- 動画 -->
-							<img style="width: 0px;height: 0px;" loading="lazy" src="<?= $post->photo_path ?>" alt="<?= $post->content; ?>" />
+							<img style="width: 0px;height: 0px;position:fixed;" loading="lazy" src="<?= $post->photo_path ?>" alt="<?= $post->content; ?>" />
 							<video muted loop playsinline autoplay>
 								<source src="<?= $media; ?>" type="video/mp4">
 							</video>
