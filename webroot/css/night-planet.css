@@ -2559,7 +2559,7 @@ form .message-label {
       object-fit: cover;
   }
   .my-gallery figure video {
-    height: 160px;
+    height: 120px;
     object-fit: cover;
   }
   #p-casts-section .add-cast-icon {
