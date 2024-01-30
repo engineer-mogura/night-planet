@@ -32,6 +32,8 @@ class UsersController extends AppController {
 
         $this->Security->setConfig('blackHoleCallback', 'blackhole');
         $this->Security->setConfig('unlockedActions', ['login', 'saveProfile', 'shopFavo', 'castFavo', 'favoriteClick']);
+        // Google reCAPTCHA Enterprise API 対応フィールド
+        $this->Security->setConfig('unlockedFields', ['recaptcha_action', 'recaptcha_token']);
         // アクションのセキュリティ無効化 トークンが発行されていないため。
         //CakePHPでは $this->Form->create(); で作成したフォームにtokenが発行される。
         // そのtokenが有効期限以内に渡されているかどうかでセキュリティを担保している。
@@ -1098,32 +1100,37 @@ class UsersController extends AppController {
 
         // 登録ボタン押下時
         if ($this->request->is('post')) {
-            // バリデーションは新規登録用を使う。
-            $user = $this->Tmps->newEntity($this->request->getData(), ['validate' => 'userRegistration']);
 
-            if (!$user->errors()) {
+            if ($this->GoogleRecaptcha->create_assessment($this->request)) {
+                // バリデーションは新規登録用を使う。
+                $user = $this->Tmps->newEntity($this->request->getData(), ['validate' => 'userRegistration']);
 
-                $user = $this->Users->patchEntity($user, $this->request->getData());
+                if (!$user->errors()) {
 
-                if ($this->Tmps->save($user)) {
+                    $user = $this->Users->patchEntity($user, $this->request->getData());
 
-                    $email = new Email('default');
-                    $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
-                        ->setSubject($user->name . "様、メールアドレスの認証を完了してください。")
-                        ->setTo($user->email)
-                        ->setBcc(MAIL['SUPPORT_MAIL'])
-                        ->setTemplate("auth_send")
-                        ->setLayout("simple_layout")
-                        ->emailFormat("html")
-                        ->viewVars(['user' => $user])
-                        ->send();
-                    $this->log($email, 'debug');
-                    $this->Flash->success('ご指定のメールアドレスに認証メールを送りました。認証を完了してください。しばらくしてもメールが届かない場合は、迷惑メールフォルダもご確認ください。');
-                    return $this->render('send_auth_email');
+                    if ($this->Tmps->save($user)) {
+
+                        $email = new Email('default');
+                        $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
+                            ->setSubject($user->name . "様、メールアドレスの認証を完了してください。")
+                            ->setTo($user->email)
+                            ->setBcc(MAIL['SUPPORT_MAIL'])
+                            ->setTemplate("auth_send")
+                            ->setLayout("simple_layout")
+                            ->emailFormat("html")
+                            ->viewVars(['user' => $user])
+                            ->send();
+                        $this->log($email, 'debug');
+                        $this->Flash->success('ご指定のメールアドレスに認証メールを送りました。認証を完了してください。しばらくしてもメールが届かない場合は、迷惑メールフォルダもご確認ください。');
+                        return $this->render('send_auth_email');
+                    }
                 }
+                // 入力エラーがあれば、メッセージをセットして返す
+                $this->Flash->error(__('入力内容に誤りがあります。'));
+            } else {
+                $this->Flash->error(RESULT_M['RECAPTCHA_FAILED']);
             }
-            // 入力エラーがあれば、メッセージをセットして返す
-            $this->Flash->error(__('入力内容に誤りがあります。'));
         }
 
         $this->set(compact('user'));

@@ -1483,7 +1483,7 @@ background-color: red;
 }
 
 p.section-label {
-  font-family:;
+  /* font-family:; */
   right: 5%;
   content: ""; /*何も入れない*/
   display: inline-block; /*忘れずに！*/

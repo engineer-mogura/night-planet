@@ -40,6 +40,7 @@ return [
         'GOOGLE_ANALYTICS_VIEW_ID'=> env('GOOGLE_ANALYTICS_VIEW_ID'), // 本番環境用 Analytics Reporting API V4 view_id
         'GOOGLE_FORM_KEISAI_CONTACT'=>'https://forms.gle/' . env('GOOGLE_FORM_KEISAI_CONTACT', 'not defind!'), // Googleフォーム 掲載申し込みフォーム
         'GOOGLE_FORM_CONTACT'=>'https://forms.gle/' . env('GOOGLE_FORM_CONTACT', 'not defind!'), // Googleフォーム お問い合わせフォーム
+        'GOOGLE_RE_CAPTCHA'=> 'https://www.google.com/recaptcha/enterprise.js?render=' . env('GOOGLE_RE_CAPTCHA_KEY', 'not defind!'), // Googleフォーム スパム防止機能
         'INSTAGRAM_USER_NAME'=> env('INSTAGRAM_USER_NAME'), // INSTAGRAMビジネスアカウントネーム
         'INSTAGRAM_BUSINESS_ID'=> env('INSTAGRAM_BUSINESS_ID'), // INSTAGRAMビジネスアカウントID
         'INSTAGRAM_GRAPH_API_ACCESS_TOKEN'=> env('INSTAGRAM_GRAPH_API_ACCESS_TOKEN'), // #3INSTAGRAMアクセストークン

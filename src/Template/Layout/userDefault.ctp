@@ -53,6 +53,7 @@
   <?= $this->Html->script("swiper.min.js") ?><!-- swiper-master スライダープラグイン -->
   <?= $this->Html->script("infinite-scroll.pkgd.min.js") ?><!-- 無限スクロール プラグイン -->
   <?= $this->Html->script("bg-lazyload.js") ?>
+  <?= $this->Html->script('google.recaptcha.js') ?>
   <script src='/PhotoSwipe-master/dist/photoswipe.min.js'></script> <!-- PhotoSwipe 4.1.3 -->
   <script src='/PhotoSwipe-master/dist/photoswipe-ui-default.min.js'></script> <!-- PhotoSwipe 4.1.3 -->
   <link href='/PhotoSwipe-master/dist/default-skin/default-skin.css' rel='stylesheet' /> <!-- PhotoSwipe 4.1.3 -->
@@ -212,6 +213,7 @@
       <!-- END #return_top -->
     </footer>
   </div>
+
   <script>
 
     // プヨンアニメーション

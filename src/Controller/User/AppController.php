@@ -8,7 +8,7 @@ use App\Model\DirectSql\DirectSqlUsers;
 
 class AppController extends \App\Controller\AppController {
 
-    public $components = array('S3Client');
+    public $components = array('S3Client', 'GoogleRecaptcha');
 
     public function initialize() {
         parent::initialize();
