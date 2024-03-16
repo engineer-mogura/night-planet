@@ -656,6 +656,11 @@ class BatchComponent extends Component {
                     $shop = $this->Shops->find()
                         ->where(['id' => $shop_id])
                         ->first();
+                    if (empty($shop)) {
+                        Log::warning(__LINE__ . '::' . __METHOD__ . "::存在しないURLがあります。" . implode("/", $url_aplit), "batch_ar");
+                        continue;
+                    }
+
                     $patch_data = array(
                         'shop_id' => (int) $shop_id, 'owner_id' => $shop->owner_id, 'name' => $shop->name, 'area' => $shop->area, 'genre' => $shop->genre, 'pagePath' => $pagePath
                     );
@@ -682,6 +687,11 @@ class BatchComponent extends Component {
                         ->contain(['Shops'])
                         ->where(['casts.id' => $cast_id])
                         ->first();
+                    if (empty($cast)) {
+                        Log::warning(__LINE__ . '::' . __METHOD__ . "::存在しないURLがあります。" . implode("/", $url_aplit), "batch_ar");
+                        continue;
+                    }
+
                     $patch_data = array(
                         'cast_id' => (int) $cast_id, 'owner_id' => $cast->shop->owner_id, 'name' => $cast->name, 'area' => $cast->shop->area, 'genre' => $cast->shop->genre, 'pagePath' => $pagePath
                     );
@@ -792,28 +802,37 @@ class BatchComponent extends Component {
                         $week['en'] . '_users'
                     ), (int) $newUsers));
 
-                // データが存在しない場合は先にインサートする
-                if (!$isFirstYearData) {
-                    if (!$this->AccessYears->save($entityYear)) {
-                        throw new RuntimeException($action_name . 'レコードの登録に失敗しました。');
+                try {
+                    // データが存在しない場合は先にインサートする
+                    if (!$isFirstYearData) {
+                        if (!$this->AccessYears->save($entityYear)) {
+                            throw new RuntimeException($action_name . 'レコードの登録に失敗しました。' . $entityYear
+                             . "\n" . json_encode($entityYear->errors()));
+                        }
+                    } else {
+                        array_push($entities_year,  $entityYear);
                     }
-                } else {
-                    array_push($entities_year,  $entityYear);
-                }
-                if (!$isFirstWeekData) {
-                    if (!$this->AccessWeeks->save($entityWeek)) {
-                        throw new RuntimeException($action_name . 'レコードの登録に失敗しました。');
+                    if (!$isFirstWeekData) {
+                        if (!$this->AccessWeeks->save($entityWeek)) {
+                            throw new RuntimeException($action_name . 'レコードの登録に失敗しました。' . $entityWeek
+                             . "\n" . json_encode($entityWeek->errors()));
+                        }
+                    } else {
+                        array_push($entities_week,  $entityWeek);
                     }
-                } else {
-                    array_push($entities_week,  $entityWeek);
-                }
-                if (!$isFirstMonthData) {
-                    if (!$this->AccessMonths->save($entityMonth)) {
-                        throw new RuntimeException($action_name . 'レコードの登録に失敗しました。');
+                    if (!$isFirstMonthData) {
+                        if (!$this->AccessMonths->save($entityMonth)) {
+                            throw new RuntimeException($action_name . 'レコードの登録に失敗しました。' . $entityMonth
+                             . "\n" . json_encode($entityMonth->errors()));
+                        }
+                    } else {
+                        array_push($entities_month, $entityMonth);
                     }
-                } else {
-                    array_push($entities_month, $entityMonth);
+                } catch (RuntimeException $e) {
+                    Log::error(__LINE__ . '::' . __METHOD__ . "::" . $e, "batch_ar");
+                    continue;
                 }
+
             } else {
                 // それ以外のURLの場合
                 continue;

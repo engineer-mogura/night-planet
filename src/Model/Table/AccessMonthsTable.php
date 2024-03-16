@@ -481,9 +481,9 @@ class AccessMonthsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['shop_id'], 'Shops'));
-        $rules->add($rules->existsIn(['cast_id'], 'Casts'));
-        $rules->add($rules->existsIn(['owner_id'], 'Owners'));
+        // $rules->add($rules->existsIn(['shop_id'], 'Shops'));
+        // $rules->add($rules->existsIn(['cast_id'], 'Casts'));
+        // $rules->add($rules->existsIn(['owner_id'], 'Owners'));
 
         return $rules;
     }
