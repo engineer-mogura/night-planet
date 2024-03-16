@@ -116,6 +116,8 @@ class BatchComponent extends Component {
     public function changeServicePlan() {
 
         $result = true; // 正常終了フラグ
+        $action_name = "changeServicePlan,";
+
         $servece_plans = TableRegistry::get('servece_plans');
         $owners        = TableRegistry::get('owners');
         $plans = $servece_plans->find("all")
@@ -140,30 +142,38 @@ class BatchComponent extends Component {
             $update_entities,
             ['validate' => false]
         );
+        // プラン変更なし
+        if (empty($entities)) {
+            Log::info(__LINE__ . '::' . __METHOD__ . ":: プラン変更該当なし", 'batch_csp');
+            return $result;
+        }
+
         try {
             // レコード更新実行
-            // if (!$servece_plans->saveMany($entities)) {
-            //     throw new RuntimeException('レコードの更新ができませんでした。');
-            // }
+            if (!$servece_plans->saveMany($entities)) {
+                throw new RuntimeException('レコードの更新ができませんでした。,' . $entities);
+            }
+            // プラン変更通知メール送信
             foreach ($plans as $key => $plan) {
                 $email = new Email('default');
-                $email->setFrom([MAIL['SUBSCRIPTION_MAIL'] => MAIL['FROM_NAME']])
-                    ->setSubject(MAIL['EXPIRED_SERVICE_PLAN'])
-                    ->setTo($plan->owner->email)
-                    ->setBcc(MAIL['SUBSCRIPTION_MAIL'])
+                $email->setFrom([MAIL['SUPPORT_MAIL'] => MAIL['FROM_NAME']])
+                    ->setSubject(MAIL['AUTO_FREE_PLAN_CHANGE_SUCCESS'])
+                    ->setTo($plan->Owners['email'])
+                    ->setBcc(MAIL['SUPPORT_MAIL'])
                     ->setTemplate("expired_service_plan")
                     ->setLayout("simple_layout")
                     ->emailFormat("html")
                     ->viewVars(['plan' => $plan])
                     ->send();
-            }
 
-            // Log::info("ID：【".$owner[0]['id']."】アドレス：【".$owner[0]->email
-            //     ."】" . RESULT_M['CHANGE_PLAN_SUCCESS'] . ', pass_reset');
+                Log::info(__LINE__ . '::' . __METHOD__ . "::" . "ID：【" . $plan->Owners['id']
+                    . "】アドレス：【" . $plan->Owners['email'] . "】"
+                    . RESULT_M['AUTO_FREE_PLAN_CHANGE_SUCCESS'], 'batch_csp');
+            }
 
         } catch (RuntimeException $e) {
             $result = false; // 異常終了フラグ
-            $this->log($this->Util->setLog($auth, $e));
+            Log::error(__LINE__ . '::' . __METHOD__ . "::" . $e , 'batch_csp');
         }
         return $result;
     }

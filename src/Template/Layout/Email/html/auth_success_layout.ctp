@@ -1713,8 +1713,8 @@
                                                         <tr>
                                                             <th>
                                                                 <center data-parsed="">
-                                                                    <img src="<?=PATH_ROOT['NIGHT_PLANET_LOGO']?>" alt="<?=LT['004']?>
-                                                                        class="swu-logo" alt="Logo Image" style="width:7em;">
+                                                                    <img src="<?= PATH_ROOT['NIGHT_PLANET_LOGO'] ?>" alt="<?= LT['004'] ?>
+                                                                        class=" swu-logo" alt="Logo Image" style="width:30em;">
                                                                 </center>
                                                             </th>
                                                             <th class="expander"></th>
@@ -1741,9 +1741,7 @@
                                                             <th>
                                                                 <h1 class="text-center">これからお店を盛り上げていきましょう！</h1>
                                                                 <center data-parsed="">
-                                                                    <img src="https://drive.google.com/uc?id=1r8RWV-2Y2iHRJ1d3U2HeDurfGHkzn2Yy"
-                                                                        valign="bottom" alt="Masthead Image"
-                                                                        align="center" class="text-center">
+                                                                    <img src="https://drive.google.com/uc?id=1r8RWV-2Y2iHRJ1d3U2HeDurfGHkzn2Yy" valign="bottom" alt="Masthead Image" align="center" class="text-center">
                                                                 </center>
                                                             </th>
                                                             <th class="expander"></th>
@@ -1780,8 +1778,7 @@
                                                         <tr>
                                                             <th>
                                                                 <center data-parsed="">
-                                                                    <br align="center" class="text-center"><br
-                                                                        align="center" class="text-center">
+                                                                    <br align="center" class="text-center"><br align="center" class="text-center">
                                                                     <div class="button">
                                                                         <!--[if mso]>
                           <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#" style="height:40px;v-text-anchor:middle;width:150px;" arcsize="8%" strokecolor="#f7931d" fillcolor="#f7931d">
@@ -1789,10 +1786,8 @@
                             <center style="color:#ffffff;font-family:sans-serif;font-size:16px;font-weight:bold;">Centered CTA!</center>
                           </v:roundrect>
                       <![endif]-->
-                                                                        <a href="#"
-                                                                            style="background-color:#f7931d;border:0px solid #f7931d;border-radius:3px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:16px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;mso-hide:all;">
-                                                                            <a href="<?=API['GOOGLE_FORM_CONTACT']?>"
-                                                                                class="btn btn-fill btn-large btn-margin-right">お問い合わせ</a>
+                                                                        <a href="#" style="background-color:#f7931d;border:0px solid #f7931d;border-radius:3px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:16px;font-weight:bold;line-height:40px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;mso-hide:all;">
+                                                                            <a href="<?= API['GOOGLE_FORM_CONTACT'] ?>" class="btn btn-fill btn-large btn-margin-right">お問い合わせ</a>
                                                                         </a>
                                                                     </div>
                                                                     <br align="center" class="text-center">
@@ -1824,7 +1819,7 @@
                                                             <th>
                                                                 <p class="text-center footercopy">&#xA9;
                                                                     <?= LT['002']; ?>
-                                                                    <?=(2018-date('Y'))?' - '.date('Y'):'';?>
+                                                                    <?= (2018 - date('Y')) ? ' - ' . date('Y') : ''; ?>
                                                                     <?= LT['003'] ?></p>
                                                             </th>
                                                             <th class="expander"></th>

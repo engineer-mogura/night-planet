@@ -445,6 +445,17 @@ return [
             'scopes' => 'batch_ar',
             'levels' => ['info', 'warning', 'error', 'critical', 'alert', 'emergency'],
         ],
+        // サービスプラン期間適応外をフリープランに変更するバッチログ定義
+        'batch_csp' => [
+            'className' => 'Cake\Log\Engine\FileLog',
+            'path' => LOGS . 'batch_csp' . DS,
+            'file' => date('Ymd').'_batch_csp',
+            'url' => env('LOG_ERROR_URL', null),
+            'size' => '50MB',
+            'rotate' => 30,
+            'scopes' => 'batch_csp',
+            'levels' => ['info', 'warning', 'error', 'critical', 'alert', 'emergency'],
+        ],
     ],
 
     /**

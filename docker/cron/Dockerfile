@@ -36,7 +36,9 @@ RUN echo "30 06 * * * root /var/www/html/bin/cake backup >> /var/log/cron.log 2>
 RUN echo "0 * * * * root /var/www/html/bin/cake save_new_photos_rank >> /var/log/cron.log 2>&1" >> /etc/crontab
 # 毎時5分
 RUN echo "5 */1 * * * root /var/www/html/bin/cake analytics_report >> /var/log/cron.log 2>&1" >> /etc/crontab
-# RUN echo "*/1 * * * * root /var/www/html/bin/cake save_new_photos_rank >> /var/log/cron.log 2>&1" >> /etc/crontab
+# 毎時10分
+# TODO: 料金取れるようになってからサービスプラン変更バッチは開始する
+# RUN echo "10 */1 * * * root /var/www/html/bin/cake change_service_plan >> /var/log/cron.log 2>&1" >> /etc/crontab
 
 RUN touch /var/log/cron.log
 CMD ["cron", "-f"]

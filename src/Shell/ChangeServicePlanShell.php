@@ -2,13 +2,22 @@
 
 namespace App\Shell;
 
+use Cake\Log\Log;
 use Cake\Console\Shell;
+use Cake\Controller\Component;
+use Cake\Controller\ComponentRegistry;
+use App\Controller\Component\BatchComponent;
 
 /**
  * DatabaseBackup shell command.
  */
 class ChangeServicePlanShell extends Shell {
     public $tasks = ['ChangeServicePlan']; // ← タスクの読み込み
+
+    function initialize() {
+        // コンポーネントを参照(コンポーネントを利用する場合)
+        $this->Batch = new BatchComponent(new ComponentRegistry());
+    }
     /**
      * Manage the available sub-commands along with their arguments and help
      *
@@ -28,8 +37,12 @@ class ChangeServicePlanShell extends Shell {
      * @return bool|int|null Success or error code.
      */
     public function main() {
-        $this->out($this->OptionParser->help());
         // タスクの実行
-        $this->ChangeServicePlan->main();
+        $result = $this->Batch->ChangeServicePlan();
+        if ($result) {
+            Log::info(__LINE__ . '::' . __METHOD__ . "::バッチ処理が成功しました。", "batch_csp");
+        } else {
+            Log::error(__LINE__ . '::' . __METHOD__ . "::バッチ処理が失敗しました。", "batch_csp");
+        }
     }
 }
