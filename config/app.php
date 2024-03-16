@@ -412,6 +412,14 @@ return [
             'scopes' => 'pass_reset',
             'levels' => [],
         ],
+        // プラン変更ログ定義
+        'change_plan' => [
+            'className' => 'Cake\Log\Engine\FileLog',
+            'path' => LOGS . 'change_plan' . DS,
+            'file' => date('Ym').'_change_plan',
+            'scopes' => 'change_plan',
+            'levels' => [],
+        ],
         // イメージディレクトリ、DBバックアップするバッチログ定義
         'batch_bk' => [
             'className' => 'Cake\Log\Engine\FileLog',

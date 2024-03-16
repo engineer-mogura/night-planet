@@ -669,8 +669,7 @@ class OwnersController extends AppController {
                 ->where(['owners.id' => $auth['id']])
                 ->contain(['ServecePlans', 'Shops.Adsenses' => [
                     'sort' => ['type' => 'ASC', 'valid_start' => 'ASC']
-                ]])
-                ->toArray();
+                ]])->first();
             // 現在プランが適応中かチェックする
             // プランを強制的に変更した不正なアクセスの場合
             if ($this->viewVars['is_range_plan']) {
@@ -682,7 +681,7 @@ class OwnersController extends AppController {
             $message = RESULT_M['CHANGE_PLAN_SUCCESS']; // 返却メッセージ
 
             // プラン情報セット
-            $servecePlans                = $this->ServecePlans->get($auth['id']);
+            $servecePlans                = $this->ServecePlans->find()->where(['owner_id' => $auth['id']])->first();
             $servecePlans->previous_plan = $servecePlans->current_plan;
             $servecePlans->current_plan  = $this->request->getData('plan');
             $servecePlans->course        = $this->request->getData('course');
@@ -701,18 +700,18 @@ class OwnersController extends AppController {
                 $email = new Email('default');
                 $email->setFrom([MAIL['SUBSCRIPTION_MAIL'] => MAIL['FROM_NAME']])
                     ->setSubject(MAIL['FROM_NAME_CHANGE_PLAN'])
-                    ->setTo($owner[0]->email)
+                    ->setTo($owner->email)
                     ->setBcc(MAIL['SUBSCRIPTION_MAIL'])
                     ->setTemplate("change_plan_success")
                     ->setLayout("simple_layout")
                     ->emailFormat("html")
-                    ->viewVars(['owner' => $owner[0], 'servecePlans' => $servecePlans])
+                    ->viewVars(['owner' => $owner, 'servecePlans' => $servecePlans])
                     ->send();
-                $this->set('owner', $owner[0]);
+                $this->set('owner', $owner);
                 // 完了メッセージ
                 $this->Flash->success(RESULT_M['CHANGE_PLAN_SUCCESS']);
-                Log::info("ID：【" . $owner[0]['id'] . "】アドレス：【" . $owner[0]->email
-                    . "】" . RESULT_M['CHANGE_PLAN_SUCCESS'] . ', pass_reset');
+                Log::info("ID：【" . $owner->id . "】アドレス：【" . $owner->email
+                    . "】" . RESULT_M['CHANGE_PLAN_SUCCESS'], 'change_plan');
             } catch (RuntimeException $e) {
                 $this->log($this->Util->setLog($auth, $e));
                 $this->Flash->error(RESULT_M['CHANGE_PLAN_FAILED']);
