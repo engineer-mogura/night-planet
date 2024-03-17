@@ -182,7 +182,7 @@ class JobsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->isUnique(['email']));
+        // $rules->add($rules->isUnique(['email']));
         $rules->add($rules->existsIn(['shop_id'], 'Shops'));
 
         return $rules;
@@ -216,7 +216,7 @@ class JobsTable extends Table
         if (is_null($data['email'])) {
             return;
         }
-        $conditions = array('id' => $data['job_edit_id'],'email' => $data['email']);
+        $conditions = array('id' => $data['id'],'email' => $data['email']);
         $this->Jobs = TableRegistry::get('Jobs');
         // メールアドレスが登録している内容と一致した場合には、重複チェックエラーを解除する。
         if ($this->Jobs->find()->where($conditions)->count()) {
