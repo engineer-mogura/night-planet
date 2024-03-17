@@ -9,7 +9,7 @@
         <div id="option" class="row">
             <div class="col s12 m12 l12 xl8">
                 <div class="card-panel grey lighten-5">
-                    <form id="save-option" name="save_option" method="post" action="/owner/shops/option/">
+                    <form id="save-option" name="save_option" method="post" action="/owner/shops/option?shop_id=<?= $shop->id ?>">
                         <div style="display:none;">
                             <input type="hidden" name="_method" value="POST">
                         </div>

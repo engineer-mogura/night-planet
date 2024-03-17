@@ -3,7 +3,7 @@
   <p>キャッチコピー<span><a href="" data-target="modal-help" data-help="1" class="modal-trigger edit-help"><i class="material-icons">help</i></a></span></p>
   <div id="show-catch">
     <div class="row">
-      <form id="delete-catch" name="delete_catch" method="post" style="display:none;" action="/owner/shops/delete_catch">
+      <form id="delete-catch" name="delete_catch" method="post" style="display:none;" action="/owner/shops/delete_catch?shop_id=<?= $shop->id ?>">
         <input type="hidden" name="_method" value="POST">
         <input type="hidden" name="catch" value="">
       </form>

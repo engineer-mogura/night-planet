@@ -1,5 +1,5 @@
 <div id="modal-cast-list" class="modal">
-    <form id="save-work-schedule" name="save_work_schedule" method="post" action="/owner/shops/save_work_schedule/">
+    <form id="save-work-schedule" name="save_work_schedule" method="post" action="/owner/shops/save_work_schedule?shop_id=<?=$shop->id?>">
         <input type="hidden" name="_method" value="POST">
         <input type="hidden" name="id" value="<?=$workSchedule['id']?>">
         <input type="hidden" name="cast_ids" value="">

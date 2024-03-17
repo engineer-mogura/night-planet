@@ -2,7 +2,7 @@
     <?php echo $this->Flash->render();  ?>
     <p>ギャラリー<span><a href="" data-target="modal-help" data-help="5" class="modal-trigger edit-help"><i class="material-icons">help</i></a></span></p>
     <div class="row">
-        <form id="delete-gallery" name="delete_gallery" method="post" style="display:none;" action="/owner/shops/delete_gallery">
+        <form id="delete-gallery" name="delete_gallery" method="post" style="display:none;" action="/owner/shops/delete_gallery?shop_id=<?= $shop->id ?>">
             <input type="hidden" name="_method" value="POST">
             <input type="hidden" name="id" value="">
             <input type="hidden" name="file_path" value="">
@@ -19,7 +19,7 @@
             </div>
         <?php endforeach; ?>
     </div>
-    <form id="save-gallery" name="save_gallery" method="post" accept-charset="utf-8" enctype="multipart/form-data" action="/owner/shops/save_gallery">
+    <form id="save-gallery" name="save_gallery" method="post" accept-charset="utf-8" enctype="multipart/form-data" action="/owner/shops/save_gallery?shop_id=<?= $shop->id ?>">
         <div style="display:none;">
             <input type="hidden" name="gallery_befor" value='<?=json_encode($gallery); ?>'>
             <input type="hidden" name="_method" value="POST">

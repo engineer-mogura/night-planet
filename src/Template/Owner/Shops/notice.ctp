@@ -12,7 +12,7 @@
                 <input type="hidden" name="notice_dir" value=<?=$shopInfo['notice_path'] ?>>
                 <div class="col s12 m12 l12 xl8">
                     <div class="card-panel grey lighten-5">
-                        <form id="edit-notice" name="edit_notice" method="post" action="/owner/shops/save_notice/">
+                        <form id="edit-notice" name="edit_notice" method="post" action="/owner/shops/save_notice?shop_id=<?= $shopInfo['id'] ?>">
                             <div style="display:none;">
                                 <input type="hidden" name="_method" value="POST">
                                 <input type="hidden" name="shop_id" value=<?= $shopInfo['id'] ?>>

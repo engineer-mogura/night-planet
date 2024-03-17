@@ -5,7 +5,7 @@
     <img width="100%" height="300" src="<?= $shop->top_image ?>" />
     <button type="button" class="waves-effect waves-light btn-large top-image-changeBtn">変更</button>
   </div>
-  <form id="save-top-image" name="save_top_image" method="post" accept-charset="utf-8" enctype="multipart/form-data" action="/owner/shops/save_top_image" style="display:none;">
+  <form id="save-top-image" name="save_top_image" method="post" accept-charset="utf-8" enctype="multipart/form-data" action="/owner/shops/save_top_image?shop_id=<?= $shop->id ?>" style="display:none;">
     <div style="display:none;">
       <input type="hidden" name="_method" value="POST">
     </div>

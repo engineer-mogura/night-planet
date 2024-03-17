@@ -43,7 +43,7 @@
       </div>
     </div>
   </div>
-  <form id="save-sns" name="save_sns" method="post" action="/owner/shops/save_sns" style="display:none;">
+  <form id="save-sns" name="save_sns" method="post" action="/owner/shops/save_sns?shop_id=<?= $shop->id ?>" style="display:none;">
     <div style="display:none;">
       <input type="hidden" name="_method" value="POST">
       <input type="hidden" name="id" value="">

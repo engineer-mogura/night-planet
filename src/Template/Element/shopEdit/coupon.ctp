@@ -3,7 +3,7 @@
   <p>クーポン<span><a href="" data-target="modal-help" data-help="2" class="modal-trigger edit-help"><i class="material-icons">help</i></a></span></p>
   <div id="show-coupon">
     <div class="row">
-      <form id="delete-coupon" name="delete_coupon" method="post" style="display:none;" action="/owner/shops/delete_coupon">
+      <form id="delete-coupon" name="delete_coupon" method="post" style="display:none;" action="/owner/shops/delete_coupon?shop_id=<?= $shop->id ?>">
         <input type="hidden" name="_method" value="POST">
         <input type="hidden" name="id" value="">
       </form>
@@ -68,7 +68,7 @@
       </div>
     </div>
   </div>
-  <form id="save-coupon" name="save_coupon" method="post" action="/owner/shops/save_coupon" style="display:none;">
+  <form id="save-coupon" name="save_coupon" method="post" action="/owner/shops/save_coupon?shop_id=<?= $shop->id ?>" style="display:none;">
     <div style="display:none;">
       <input type="hidden" name="_method" value="POST">
       <input type="hidden" name="crud_type" value="">

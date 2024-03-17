@@ -87,7 +87,7 @@
             </div>
         </div>
     </div>
-    <form id="save-cast" name="save_cast" method="post" action="/owner/shops/save_cast" style="display:none;">
+    <form id="save-cast" name="save_cast" method="post" action="/owner/shops/save_cast?shop_id=<?= $shop->id ?>" style="display:none;">
         <div style="display:none;">
             <input type="hidden" name="_method" value="POST">
             <input type="hidden" name="crud_type" value="">
