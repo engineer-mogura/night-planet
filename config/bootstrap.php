@@ -71,7 +71,14 @@ if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
  */
 try {
     Configure::config('default', new PhpConfig());
-    Configure::load('app', 'default', false);
+    // 本番環境
+    if(strpos($_SERVER['HTTP_HOST'],'com') !== false){
+        Configure::load('app_prod', 'default', false);
+    } else {
+        // ローカル環境
+        Configure::load('app_local', 'default', false);
+    }
+
     // 一般定数ファイル読み込み
     Configure::load("general_config");
     if (env("APP_ADMIN_URL") == $_SERVER['HTTP_HOST']) {
