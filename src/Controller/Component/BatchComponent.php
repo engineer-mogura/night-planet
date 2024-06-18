@@ -321,9 +321,9 @@ class BatchComponent extends Component {
                     $shop = $sort_list;
                     $ig_data = json_decode(json_encode($shop->ig_data), true);
 
-                    // 最大５件までデータ取得
+                    // 最大２件までデータ取得
                     foreach ($ig_data['media']['data'] as $key => $value) {
-                        if ($key == 5) {
+                        if ($key == 2) {
                             break;
                         }
                         $newPhotosRankEntity = $this->NewPhotosRank->newEntity();
