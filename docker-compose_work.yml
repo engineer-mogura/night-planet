@@ -8,7 +8,7 @@ services:
       dockerfile: ./docker/web/Dockerfile
     ports:
       - '8090:80'
-      - '443:443'
+      - '1443:443'
     networks:
       - shared
     tty: true
@@ -27,7 +27,7 @@ services:
       dockerfile: ./docker/web/Dockerfile
     ports:
       - '8091:80'
-      - '1443:443'
+      - '2443:443'
     networks:
       - shared
     tty: true
