@@ -8,7 +8,8 @@ services:
       context: .
       dockerfile: ./docker/web/Dockerfile
     ports:
-      - '1443:443'
+      - '8080:80'
+      - '443:443'
     networks:
       - night-planet-network-prod
     tty: true
@@ -25,7 +26,8 @@ services:
       context: .
       dockerfile: ./docker/web/Dockerfile
     ports:
-      - '2443:443'
+      - '8081:80'
+      - '1443:443'
     networks:
       - night-planet-network-prod
     tty: true
