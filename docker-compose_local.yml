@@ -1,3 +1,4 @@
+version: "3.9"
 name: night-planet-local
 services:
 
@@ -7,9 +8,9 @@ services:
       context: .
       dockerfile: ./docker/web/Dockerfile
     ports:
-      - '8090:80'
+      - '8080:80'
     networks:
-      - shared
+      - night-planet-network-local
     tty: true
     depends_on:
       - app-public-night-planet-local
@@ -17,7 +18,6 @@ services:
       - .:/var/www/html
     environment:
       - VIRTUAL_HOST=${APP_URL}
-      - VIRTUAL_PORT=80
 
   web-admin-night-planet-local:
     container_name: web-admin-night-planet-local
@@ -25,9 +25,9 @@ services:
       context: .
       dockerfile: ./docker/web/Dockerfile
     ports:
-      - '8091:80'
+      - '8081:80'
     networks:
-      - shared
+      - night-planet-network-local
     tty: true
     depends_on:
       - app-admin-night-planet-local
@@ -35,24 +35,23 @@ services:
       - .:/var/www/html
     environment:
       - VIRTUAL_HOST=${APP_ADMIN_URL}
-      - VIRTUAL_PORT=80
 
-  # nginx-proxy:
-  #   container_name: nginx-night-planet-local
-  #   hostname: nginx-proxy
-  #   image: jwilder/nginx-proxy:latest
-  #   restart: always
-  #   ports:
-  #     - '80:80'
-  #     - '443:443'
-  #   networks:
-  #     - shared
-  #   tty: true
-  #   depends_on:
-  #     - web-public-night-planet-local
-  #     - web-admin-night-planet-local
-  #   volumes:
-  #     - /var/run/docker.sock:/tmp/docker.sock:ro
+  nginx-proxy:
+    container_name: nginx-night-planet-local
+    hostname: nginx-proxy
+    image: jwilder/nginx-proxy:latest
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - night-planet-network-local
+    tty: true
+    depends_on:
+      - web-public-night-planet-local
+      - web-admin-night-planet-local
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
 
   app-public-night-planet-local:
     container_name: app-public-night-planet-local
@@ -64,13 +63,12 @@ services:
     expose:
       - 9000
     networks:
-      - shared
+      - night-planet-network-local
     tty: true
     depends_on:
       - db-night-planet-local
     environment:
       - VIRTUAL_HOST=${APP_URL}
-      - VIRTUAL_PORT=80
 
   app-admin-night-planet-local:
     container_name: app-admin-night-planet-local
@@ -82,13 +80,12 @@ services:
     expose:
       - 9000
     networks:
-      - shared
+      - night-planet-network-local
     tty: true
     depends_on:
       - db-night-planet-local
     environment:
       - VIRTUAL_HOST=${APP_ADMIN_URL}
-      - VIRTUAL_PORT=80
 
   cron-night-planet-local:
     container_name: cron-night-planet-local
@@ -100,7 +97,7 @@ services:
     expose:
       - 9000
     networks:
-      - shared
+      - night-planet-network-local
     tty: true
     depends_on:
       - db-night-planet-local
@@ -111,10 +108,10 @@ services:
       context: .
       dockerfile: ./docker/db/Dockerfile
     ports:
-      - 23306:3306
-      - 23060:33060
+      - 13306:3306
+      - 13060:33060
     networks:
-      - shared
+      - night-planet-network-local
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
@@ -126,15 +123,14 @@ services:
       - mysql-volume:/var/lib/mysql
       - ./docker/db/initdb:/docker-entrypoint-initdb.d
 
-  # メールサーバー http://night-planet.local:8026
-  mail-hog-night-planet-local:  
+  # メールサーバー http://night-planet.local:8025
+  mail-hog-night-planet-local:
     container_name: mail-hog-night-planet-local
     image: mailhog/mailhog
     ports:
-      - "1026:1025"
-      - "8026:8025"
+      - "8025:8025"
     networks:
-      - shared
+      - night-planet-network-local
     environment:
       MH_STORAGE: maildir
       MH_MAILDIR_PATH: /tmp
@@ -146,9 +142,9 @@ services:
     container_name: minio-night-planet-local
     image: minio/minio:RELEASE.2021-06-17T00-10-46Z
     ports:
-      - "9091:9000"
+      - "9090:9000"
     networks:
-      - shared
+      - night-planet-network-local
     environment:
       - MINIO_ACCESS_KEY=${AWS_ACCESS_KEY_ID}
       - MINIO_SECRET_KEY=${AWS_SECRET_ACCESS_KEY}
@@ -166,7 +162,7 @@ services:
       # - ./docker/minio/certs:/root/.minio/certs
 
 networks:
-  shared:
+  night-planet-network-local:
     external: true
 
 volumes:

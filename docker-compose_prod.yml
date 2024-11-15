@@ -1,3 +1,4 @@
+version: "3.9"
 name: night-planet-prod
 services:
 
@@ -10,7 +11,7 @@ services:
       - '8090:80'
       - '443:443'
     networks:
-      - shared
+      - night-planet-network-prod
     tty: true
     depends_on:
       - app-public-night-planet-prod
@@ -18,7 +19,6 @@ services:
       - .:/var/www/html
     environment:
       - VIRTUAL_HOST=${APP_URL}
-      - VIRTUAL_PORT=80
 
   web-admin-night-planet-prod:
     container_name: web-admin-night-planet-prod
@@ -29,7 +29,7 @@ services:
       - '8091:80'
       - '1443:443'
     networks:
-      - shared
+      - night-planet-network-prod
     tty: true
     depends_on:
       - app-admin-night-planet-prod
@@ -37,7 +37,6 @@ services:
       - .:/var/www/html
     environment:
       - VIRTUAL_HOST=${APP_ADMIN_URL}
-      - VIRTUAL_PORT=80
 
   app-public-night-planet-prod:
     container_name: app-public-night-planet-prod
@@ -49,13 +48,12 @@ services:
     expose:
       - 9000
     networks:
-      - shared
+      - night-planet-network-prod
     tty: true
     depends_on:
       - db-night-planet-prod
     environment:
       - VIRTUAL_HOST=${APP_URL}
-      - VIRTUAL_PORT=80
 
   app-admin-night-planet-prod:
     container_name: app-admin-night-planet-prod
@@ -67,13 +65,12 @@ services:
     expose:
       - 9000
     networks:
-      - shared
+      - night-planet-network-prod
     tty: true
     depends_on:
       - db-night-planet-prod
     environment:
       - VIRTUAL_HOST=${APP_ADMIN_URL}
-      - VIRTUAL_PORT=80
 
   cron-night-planet-prod:
     container_name: cron-night-planet-prod
@@ -85,7 +82,7 @@ services:
     expose:
       - 9000
     networks:
-      - shared
+      - night-planet-network-prod
     tty: true
     depends_on:
       - db-night-planet-prod
@@ -99,7 +96,7 @@ services:
       - 23306:3306
       - 23060:33060
     networks:
-      - shared
+      - night-planet-network-prod
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
@@ -112,7 +109,7 @@ services:
       - ./docker/db/initdb:/docker-entrypoint-initdb.d
 
 networks:
-  shared:
+  night-planet-network-prod:
     external: true
 
 volumes:
